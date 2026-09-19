@@ -1,6 +1,6 @@
 ﻿# Early Locomotion - Technical Environment
 
-Last verified: 14 September 2026
+Last verified: 19 September 2026
 
 ## Verified Development Target
 
@@ -14,23 +14,30 @@ Satisfactory 1.2 <-> SML 3.12.x <-> Unreal Engine 5.6.1-CSS
 
 Older SML 3.11 / Unreal Engine 5.3 development information must be treated as potentially outdated.
 
-## Required Windows Software
+## Verified Installed Setup
 
-Current research indicates the development environment requires:
+The current setup checkpoint records:
 
-- Visual Studio 2022 Community
-- .NET Desktop Development workload
-- Desktop Development with C++
-- Game Development with C++
-- MSVC v143 VS 2022 C++ build tools
-- .NET 8 Runtime
-- .NET Framework 4.8.1 SDK
-- Git
-- GitHub account
-- Access to the Satisfactory Modding custom Unreal Engine
-- Wwise integration
+- Coffee Stain Unreal Engine 5.6.1-CSS installed.
+- `SatisfactoryModLoader` repository cloned successfully.
+- `FactoryGame.uproject` associated with 5.6.1-CSS.
+- Wwise Authoring and SDK (C++) 2023.1.14.8770 installed.
+- Required Wwise deployment targets installed.
+- Wwise Unreal integration 2023.1.14.8770.3555 completed.
+- Companion Wwise project created.
+- SoundBanks generated successfully.
+- Visual Studio Community 2022 17.14.x installed.
+- Required Visual Studio workloads/components selected during installation:
+  - .NET Desktop Development;
+  - Desktop Development with C++;
+  - Game Development with C++;
+  - MSVC v143 VS 2022 C++ build tools, including the recorded v14.38-17.8 selection;
+  - .NET 8 Runtime;
+  - .NET Framework 4.8.1 SDK.
+- Windows restarted after Visual Studio installation.
+- Git available and used successfully for the SML clone and project tracking; exact installed version not recorded.
 
-The exact required Wwise version is still unresolved and must be verified before installation.
+The exact Visual Studio patch/build and exact SML checkout commit are not recorded. The blank FactoryGame/SML environment has not yet been confirmed to generate, build, or open successfully.
 
 ## Important Compatibility Notes
 
@@ -61,7 +68,7 @@ AFGLocomotive is designed around vanilla electric / third-rail power and should 
 
 The final steam locomotive architecture is unresolved.
 
-## Headers / Systems To Inspect Once Development Environment Exists
+## Headers / Systems To Inspect After Project Generation and Build Setup
 
 Before deciding the locomotive architecture, inspect:
 
@@ -91,9 +98,8 @@ Any third-party MCP/editor integration must be tested separately before it becom
 
 The following still require verification:
 
-- exact required Wwise version
-- exact Coffee Stain engine release / branch to install
-- final installation method for the custom engine
+- exact SML checkout commit
+- exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
 - concrete railroad movement component classes
 - train composition / timetable class details
 - save/load behavior needed for custom steam state
@@ -104,14 +110,19 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Obtain access to the Satisfactory Modding custom Unreal Engine repository.
+Generate Visual Studio project files from:
+
+`C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject`
+
+Success at this step means generation completes without errors and `FactoryGame.sln` is created. It does **not** establish that the project builds successfully.
 
 Do not begin major gameplay implementation until:
 
-1. the correct engine is installed;
+1. Visual Studio project generation succeeds;
 2. the SML development environment builds successfully;
-3. the relevant railroad headers are available locally;
-4. locomotive architecture has been reviewed against the real APIs.
+3. Unreal Editor launches successfully;
+4. the relevant railroad headers are inspected locally;
+5. locomotive architecture has been reviewed against the real APIs.
 
 ## Sources Used During Reconnaissance
 
