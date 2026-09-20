@@ -4,7 +4,7 @@
 
 **Date:** 2026-09-19  
 **Phase:** Development environment setup  
-**Status:** Visual Studio Community 2022 17.14.x is installed and Windows has been restarted. The next step is to retry Visual Studio project generation.  
+**Status:** End-of-session checkpoint: Visual Studio Community 2022 is installed and Windows has been restarted. Documentation reconciliation, repository cleanup, and Project Operations (Local) bootstrap are complete. The next project-generation attempt has NOT been performed.
 **Current blocker:** No setup blocker is currently recorded; the result of the next project-generation attempt is pending.  
 **Implementation status:** No actual Early Locomotion mod implementation has started. The blank FactoryGame/SML environment has not yet been confirmed to build or open in Unreal Editor.
 
@@ -45,7 +45,7 @@ Keep the design/project repository separate from the SML development environment
 4. Record the result. Success means generation completes without errors and `FactoryGame.sln` is created in the same folder. Do not record a build success merely because the solution exists.
 5. If generation fails, capture the full error/output before changing anything. If the menu option is missing, record that and verify the custom engine installation path before choosing a command-line fallback.
 
-**If it fails:** Diagnose the new error against the recorded toolchain. Do not change engine, Wwise, Visual Studio, or dependency versions as a speculative fix.
+**If it fails:** Diagnose the new error against the recorded toolchain. Do not change engine, Wwise, Visual Studio, SML, or dependency versions as a speculative fix.
 
 ### Remaining Milestones
 
@@ -56,7 +56,11 @@ Keep the design/project repository separate from the SML development environment
 
 ### Documentation Reconciliation
 
-On 2026-09-19, `Development/TECHNICAL_ENVIRONMENT.md` and `INDEX.md` were reconciled with this verified checkpoint. A current `INDEX.md` artifact was prepared for restoration to the local project root. The available `README.md` and `PROJECT_NOTES.md` records were reviewed and left unchanged.
+Local documentation reconciliation and placement are complete, including restoration of INDEX.md to the project root. The Manager confirmed removal of the obsolete Git installer and empty encoded wrapper folder.
+
+Project Operations (Local) is established inside the ChatGPT Project and has verified local repository access. Project Operations (Cloud) remains available for cloud/project-source work.
+
+The local repository was confirmed clean after reconciliation/bootstrap and again before this end-of-session update. These checkpoint edits introduce uncommitted documentation changes; no commit has been made.
 
 ## Chronological History
 
@@ -139,6 +143,22 @@ Entries below are oldest first. Dates reflect conversation evidence; where indiv
 **Verification boundary:** A new project-generation attempt has not yet been recorded. `FactoryGame.sln` generation, the first FactoryGame build, and Unreal Editor launch remain pending.
 
 **Exact next action:** Generate Visual Studio project files from `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject`. Success means `FactoryGame.sln` is created without errors; it does not mean the project has built successfully.
+
+### 2026-09-19 - End-of-Session Documentation and Local Operations Checkpoint
+
+**Completed:** The Manager confirmed completion of local documentation reconciliation and repository cleanup: the obsolete Git installer and empty encoded wrapper folder were removed, INDEX.md was restored, and reconciled project documents were placed correctly. Project Operations (Local) completed its read-only bootstrap, read the seven core files, verified local access, and confirmed a clean project repository. It is established inside the ChatGPT Project; Project Operations (Cloud) remains available for cloud/project-source work.
+
+**Environment:** Satisfactory target 1.2; SML target 3.12.0 / 3.12.x pairing; Coffee Stain Unreal Engine 5.6.1-CSS installed; SML repository cloned successfully; FactoryGame.uproject associated with 5.6.1-CSS. Wwise 2023.1.14.8770 is installed, integration 2023.1.14.8770.3555 completed, the companion project created, and SoundBanks generated successfully. Visual Studio Community 2022 is installed with required workloads/components selected, and Windows restarted. These are The Manager's verified setup facts; no new exact patch or component inventory verification is claimed.
+
+**Files changed:** Development/PROGRESS_LOG.md records this checkpoint; INDEX.md records concise documentation/local operations status; CHANGELOG.md records the documentation/workflow milestone. Development/TECHNICAL_ENVIRONMENT.md already contains the verified technical facts and remains unchanged.
+
+**Verification:** Git status confirmed the local project repository was clean before these edits. Prior historical entries and maintenance rules are preserved. These end-of-session edits remain uncommitted. Cleanup completion is recorded from The Manager's report; cleanup was not repeated in this task.
+
+**Attempted / incomplete:** The next project-generation attempt has NOT been performed. Successful project generation, first FactoryGame build, and Unreal Editor launch remain pending. No Early Locomotion gameplay implementation has started.
+
+**Current blocker:** No setup blocker is recorded; project-generation results remain pending.
+
+**Exact next action:** Open C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader, right-click FactoryGame.uproject, and select **Generate Visual Studio project files**. Success requires generation without errors and FactoryGame.sln appearing in that folder. This proves project generation only, not a successful build. If generation fails, capture the full error; do not change engine, Wwise, Visual Studio, SML, or dependency versions as a speculative fix.
 
 ## Rules for Maintaining This Log
 

@@ -174,6 +174,75 @@ The earlier workflow discussion suggested AI assisted coding with independent re
 
 Locomotive geometry, rods and wheel motion require deliberate modelling. Servicing targets must match each model. Keep complex state logic separate from presentation and verify any Satisfactory or mod loader API against the actual chosen development version. The archived tool and engine version recommendations must be rechecked before implementation.
 
+## Railway Assistant & Animated Tutorial System
+
+Approved design addition recorded on 20 September 2026, following The Manager's review and the user's explicit approval of the requirements and status split. The groups below distinguish approved behaviour from proposed presentation and unresolved choices.
+
+### Confirmed / Agreed
+
+#### Scripted railway-assistant character
+
+Early Locomotion has its own scripted, voiced railway-assistant character, distinct from ADA in personality and presentation. She is bubbly, enthusiastic, expressive, noticeably more alive/emotive than ADA, and genuinely eager to help. She is whimsical without becoming random or obnoxiously hyperactive, and competent as an instructor.
+
+Her enthusiasm centres on railways, railway engineering, signalling, locomotives, and teaching, rather than generic “quirky AI” behaviour. She should feel like an enthusiastic new recruit delighted to finally have a job. The user currently intends to voice her personally, enabling bespoke Early Locomotion guidance without requiring ADA's voice actor. This is a scripted character, not generative/live AI behaviour.
+
+#### First appearance
+
+The assistant first appears when the player enters Early Locomotion progression: the first applicable Early Locomotion milestone/technology unlock triggers the introduction, whichever qualifying unlock occurs first. The introduction initially resembles the normal Satisfactory/FICSIT/ADA announcement presentation. When ADA would normally appear, the interface appears to glitch or be interrupted/taken over by the railway assistant.
+
+The sequence is humorous, surprising, and clearly different from ADA, never sinister or horror-themed. She need not claim to have “hacked FICSIT”; the preferred tone is that she takes over and behaves as though this is completely ordinary. Exact presentation details and implementation remain non-canonical until technically verified.
+
+#### Teaching purpose and scope
+
+Her major gameplay function is railway education and Early Locomotion-specific guidance. She may provide bespoke narration/dialogue for appropriate milestones and railway concepts. She teaches principles and leaves railway construction and problem-solving to the player; player agency remains intact.
+
+She is not a live railway-management system. Explicitly out of scope are inspecting the player's live railway network, analysing current network state, automatically diagnosing signal problems, calculating routes, managing trains, automatically fixing railway designs, automatically placing signals, live railway optimisation, and generative conversational AI.
+
+#### Animated tutorials and progressive availability
+
+Early Locomotion includes an integrated animated railway tutorial/library system. Minecraft Create's Ponder system is an inspiration for the interaction philosophy only, not an implementation dependency or a system to copy directly.
+
+Animated miniature demonstrations teach visually rather than relying primarily on written documentation. Each demonstration focuses on one railway principle, animates the relevant track/trains/infrastructure, pauses or emphasises important stages, and uses short explanatory captions. Demonstrations remain instructional and do not solve the player's real railway automatically. Scripted pauses/emphasis are distinct from the proposed player playback controls below.
+
+Tutorial material becomes available alongside the technology/mechanics needed to use it: signalling lessons should not appear before signalling technology exists, and advanced lessons should not precede their corresponding systems. The first railway remains approachable, with operational complexity, signalling, servicing, and advanced railway engineering introduced and taught progressively as they become relevant.
+
+This feature complements conventional steam infrastructure, progressive railway introduction, simple first routes, increasing signalling complexity, semaphore/block signalling, signal boxes, fuel/water logistics, station/service infrastructure, and operational railway problem-solving.
+
+#### Release audio requirement
+
+The brainstorming reference to the Windows XP startup sound is not an approved release asset. Release audio must use an original, legally distinct retro-computer-style startup jingle unless rights to any third-party copyrighted audio are separately established.
+
+### Proposed
+
+#### Tutorial presentation
+
+A clean white miniature model-railway demonstration table, with IKEA/display-table-like simplicity and miniature Early Locomotion track, locomotives, wagons, stations, signals, and service infrastructure, is a strong current direction rather than a final choice. The presentation would be intentionally clean and instructional.
+
+#### Tutorial controls and library UI
+
+Proposed controls, where practical, include pause, replay, and stepping forwards/backwards or staged progression. Their exact scheme and feasibility are not approved. A vertical subject/category list and logical subject grouping are proposed library layout choices. That layout would expose progressive availability based on unlock state; progressive tutorial availability itself is Agreed above.
+
+#### Visual language and possible lore implication
+
+The proposed UI is recognisably FICSIT-derived but appears older than current FICSIT UI: cleaner, more instructional, less aggressively corporate/efficiency-focused, and archival/prototype in character. It may imply that the assistant belongs to or originated from an earlier FICSIT era. That implication is not confirmed lore.
+
+#### Expanded content
+
+Later/proposed possibilities include specialised railway lessons, common-mistakes demonstrations, additional character flavour dialogue/animations, a larger tutorial catalogue, advanced junction/passing-loop/signalling demonstrations, and additional milestone narration structure. No launch tutorial roster is defined by this approval.
+
+### Open Questions
+
+- **OQ15 — Character and presentation:** What is the assistant's final name? What is the exact introductory dialogue? What avatar/visual character design, if any, and colour palette should be used? What is the final library/interface layout?
+- **OQ16 — Historical origin and lore:** Is her historical origin ever explicitly explained? Does the older-FICSIT presentation represent real project lore or remain visual implication only?
+- **OQ17 — Tutorial content and narration:** What is the exact launch tutorial roster? Which technology/unlock grants each tutorial? What is the exact milestone voice-line structure?
+- **OQ18 — Tutorial and assistant implementation:** What are the exact playback controls and first-unlock trigger implementation? How is the ADA-style takeover/presentation implemented? Should it imitate/intercept vanilla ADA presentation or recreate the effect independently? How are animated miniature demonstrations, progressive tutorial unlock tracking, and voice/audio integration implemented? Each implementation-related choice requires technical verification against the real Satisfactory/SML/Unreal environment.
+
+#### Technical verification required
+
+The following capabilities remain unverified: intercepting or recreating ADA-style announcement presentation; triggering the introduction exactly once; custom tutorial/library UI; animated miniature demonstrations; progressive tutorial unlock tracking; pause/replay/step functionality; and custom voice/audio integration.
+
+Investigate whether the desired “ADA takeover” illusion can be reproduced independently instead of modifying/intercepting ADA's actual presentation system. This may be safer for compatibility, but no implementation decision has been made. No APIs, class names, hooks, Blueprints, or implementation architecture are specified by this design approval.
+
 ## Open questions
 
 - OQ01 Progression: approve exact milestones, prerequisites and service point unlocks.
@@ -204,8 +273,12 @@ Locomotive geometry, rods and wheel motion require deliberate modelling. Servici
 
 - OQ14 Implementation: choose and verify game, mod loader and editor versions, then establish multiplayer, save and load, performance and build validation requirements.
 
+- OQ15–OQ18 Railway assistant and animated tutorials: see the dedicated section above for character/presentation, lore, tutorial content/narration, and technically unverified implementation questions.
+
 ## Revision record
 
 Version 0.1 created on 14 September 2026. Consolidates the initial concept, detailed balance discussion, user corrections on rail length and tenders, the regional chassis correction, animated servicing requirements and the final conventional rail versus monorail distinction.
+
+20 September 2026: added the approved Railway Assistant & Animated Tutorial System, preserving the Confirmed / Agreed, Proposed, and Open Questions split; added OQ15–OQ18 without resolving existing questions.
 
 Future revisions should update the relevant section, change its status where appropriate, record the reason and source in CHANGELOG.md, and resolve the corresponding open question. Preserve superseded decisions in the change history rather than leave conflicting instructions active.

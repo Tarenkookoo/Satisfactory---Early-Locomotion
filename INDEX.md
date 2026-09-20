@@ -1,7 +1,7 @@
 # Satisfactory - Early Locomotion
 ## Project Index
 
-**Last updated:** 19 September 2026  
+**Last updated:** 20 September 2026
 **Project phase:** Design finalisation + development environment setup  
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
@@ -25,6 +25,12 @@ Its identity is:
 - conventional steam rail eventually giving way to the superior vanilla electric monorail system.
 
 The player should gain powerful early long-distance bulk transport, but have to engineer around the operating limitations of steam.
+
+### Railway assistant and animated education — Agreed
+
+Early Locomotion includes a dedicated scripted, voiced railway-assistant character, distinct from ADA, with enthusiastic, expressive, competent railway teaching, plus a progressive animated railway tutorial/library system. Her first introduction accompanies the first qualifying Early Locomotion unlock; the apparent ADA-style takeover is humorous, not sinister. Tutorials teach principles as relevant technology unlocks and preserve player problem-solving. Live network inspection, diagnostics, route calculation, train management, automatic fixes/signal placement, optimisation, and generative AI are out of scope.
+
+White-table presentation, older-FICSIT aesthetics, library layout, player playback controls, and expanded content remain Proposed; lore, exact roster, character details, and implementation remain open. See Design/GAME_DESIGN.md, “Railway Assistant & Animated Tutorial System”, and OQ15–OQ18. Implementation capabilities are unverified.
 
 ---
 
@@ -697,6 +703,8 @@ Completed:
 - Visual Studio Community 2022 17.14.x installed with required selections;
 - Windows restarted after Visual Studio installation.
 
+Documentation reconciliation and repository cleanup are complete; INDEX.md is restored and reconciled files are in place. Project Operations (Local) is established inside the ChatGPT Project with local access verified; Project Operations (Cloud) remains available for cloud/project-source work.
+
 Not yet completed:
 
 - Visual Studio project generation;
@@ -806,6 +814,10 @@ Whether interchange buildings, specialist locomotives, advanced service equipmen
 
 ### OQ14 — Implementation
 Final toolchain validation, multiplayer/save architecture, performance, testing and packaging.
+
+### OQ15–OQ18 — Railway Assistant and Animated Tutorials
+
+Character/name/dialogue/avatar/palette/interface (OQ15); historical origin and older-FICSIT lore status (OQ16); launch roster, unlock mapping, and milestone narration (OQ17); controls, first-unlock trigger, ADA-style presentation, animated demonstrations, unlock tracking, and audio integration requiring technical verification (OQ18). Full questions remain in the dedicated GAME_DESIGN section.
 
 ---
 
