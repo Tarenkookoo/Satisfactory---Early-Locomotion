@@ -2,13 +2,13 @@
 
 ## Current Checkpoint
 
-**Date:** 2026-09-20
-**Phase:** Development environment setup  
-**Status:** Project generation and the first FactoryGame Development Editor / Win64 build succeeded on 2026-09-20. Build verification is complete; first successful Unreal Editor launch and project load are next.
-**Current blocker:** The previous generation blocker is cleared and build verification is complete. No new blocker is recorded; editor launch and project load remain unverified.
-**Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds successfully; Unreal Editor launch, project load, mod packaging, and runtime behaviour remain unverified.
+**Date:** 2026-09-26
+**Phase:** Local railway API/header inspection and architecture assessment
+**Status:** First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
+**Current blocker:** No blocker to railway API/header inspection is recorded. The Wwise Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
+**Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds and loads in the editor successfully; implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 
-This checkpoint records the 2026-09-20 build result verified by The Manager/user and documented on 2026-09-26. Earlier chronological entries remain historical records of what was known at the time.
+This checkpoint incorporates the Manager/user-confirmed usable editor UI, local startup-log/file/runtime evidence, and the later Manager/user-verified Wwise resolution on 2026-09-26. Earlier chronological entries remain historical records of what was known at the time.
 
 ### Current Environment
 
@@ -39,16 +39,15 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-1. Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
-2. Record editor launch and project-load results separately from the already successful build. Capture the full error/output if either fails.
+Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation.
 
-**If it fails:** Diagnose the new error against the recorded toolchain. Do not change engine, Wwise, Visual Studio, SML, or dependency versions as a speculative fix.
+Assess viable options for locomotive inheritance; railroad vehicle movement; steam power/fuel replacement versus vanilla third-rail behaviour; track integration; train composition/timetable handling; signalling; stations/platforms; save/load; replication/multiplayer; and compatibility with the vanilla railroad graph/subsystem. Report evidence, constraints, and options to The Manager; do not select an architecture in this documentation task.
 
 ### Remaining Milestones
 
-- First successful Unreal Editor launch and FactoryGame project load.
-- Inspect the real local railway headers and prepare an architecture assessment before gameplay implementation. Steam locomotive inheritance, movement, save/load, replication, and reuse of the vanilla railroad graph remain unresolved.
-- Early Locomotion implementation, mod packaging, and runtime verification remain pending.
+- Retain Turnkey assembly loading as unresolved/deferred; assess other log warnings/errors separately as needed. The Wwise metadata/platform issue is resolved.
+- Local railway API/header inspection and architecture assessment.
+- Early Locomotion implementation, packaging, and runtime/in-game verification.
 
 ### Documentation Reconciliation
 
@@ -56,7 +55,7 @@ Local documentation reconciliation and placement are complete, including restora
 
 Project Operations (Local) is established inside the ChatGPT Project and has verified local repository access. Project Operations (Cloud) remains available for cloud/project-source work.
 
-The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the 2026-09-26 documentation task includes an explicitly authorised Git checkpoint.
+The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the successful-build documentation was committed as `f5c0035`. The editor-launch and Wwise-resolution documentation updates are uncommitted.
 
 ## Chronological History
 
@@ -183,6 +182,45 @@ Entries below are oldest first. Dates reflect conversation evidence; where indiv
 **Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, and INDEX.md. Prior project-generation documentation and chronological history are preserved.
 
 **Exact next action:** Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
+
+### 2026-09-26 - First Unreal Editor Launch and Startup Inspection
+
+**Completed:** The Manager/user confirmed a usable Coffee Stain Unreal Engine 5.6.1-CSS editor UI and successful FactoryGame editor-environment loading. Local Saved/Logs/FactoryGame.log records engine 5.6.1-83+++5.6.1-CSS (line 357), SML 3.12.0+d2162c99 pre-initialization (line 917), SML “Initialization finished!” (line 1181), and “Engine is initialized” (line 1373).
+
+**Verification boundary:** Editor launch, environment loading, and SML 3.12.0 initialization are verified separately from the 2026-09-20 build. Early Locomotion implementation, packaging, runtime/in-game behaviour, and a completely warning/error-free environment are not verified.
+
+**Read-only findings:** Windows SoundBank output exists with Init.bnk, Init.txt, PlatformInfo.xml, PluginInfo.xml, and SoundbanksInfo.xml; Mac is the only other generated platform directory. No JSON metadata exists under GeneratedSoundBanks. Wwise SoundEngine initialized as SDK 2023.1.14 Build 8770, but the integration reported missing Windows platform/JSON metadata and failed Init Bank resource loading. Prior SoundBank-generation history is preserved; generated bank/XML files exist but startup metadata expectations are unmet.
+
+**Turnkey:** Automatic SDK detection failed with System.IO.FileNotFoundException for System.Windows.Forms, Version=6.0.2.0 and ExitCode=1. Bundled SDK 8.0.300 has NETCore/AspNetCore/WindowsDesktop 8.0.5; its Windows Forms assembly is version 8.0.0.0. No WindowsDesktop 6.x was listed by the inspected bundled or system host. The exact resolution cause and remedy remain unverified. Full inventories and log paths are recorded in Development/TECHNICAL_ENVIRONMENT.md, “Startup issue evidence — 2026-09-26”.
+
+**Actions not taken:** No component installation, Visual Studio repair, engine modification, SoundBank regeneration, Wwise update, dependency change, implementation, or architecture decision.
+
+**Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, INDEX.md. No commit made.
+
+**Exact next action:** The Manager reviews the evidence and scopes environment cleanup. After cleanup, proceed to local railway API/header inspection and architecture assessment before implementation.
+
+### 2026-09-26 - Wwise Windows Metadata/Platform Issue Resolved
+
+**Investigation and resolution:** The Manager/user verified on 2026-09-26 that JSON metadata existed under GeneratedSoundBanks and Unreal was reading the Windows metadata, but four required fields were missing. In **Wwise Project Settings > SoundBanks > Include in Metadata**, **Object GUID**, **Object Path**, **Max Attenuation**, and **Estimated Duration** were enabled. SoundBanks were regenerated for all platforms, then Unreal was restarted.
+
+**Verified result:** WwiseProjectDatabase then reported:
+
+```text
+Platform Windows: Using "Generate All Banks Metadata file" is less efficient than Per Bank.
+UpdateDataStructure: Done.
+```
+
+The previous Windows-platform, missing-metadata, "No data for Init bank", and Init bank resource-loading errors are resolved. The Generate All Banks Metadata efficiency message is advisory, not a blocker.
+
+**Historical clarification:** The earlier startup inspection recorded no JSON at that inspection time. Later local cache inspections found seven JSON files, including Windows/SoundbanksInfo.json. Cache invalidation alone did not establish resolution; the verified fix was enabling the four required metadata fields and regenerating SoundBanks. Earlier findings remain preserved above.
+
+**Remaining issue:** Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
+
+**Verification boundary:** The first successful Unreal Editor launch and FactoryGame environment load remain verified separately from the successful build. The resolution is recorded from The Manager/user's verified report; no editor restart or regeneration was performed in this documentation task. Implementation, packaging, runtime behaviour, and a completely warning/error-free environment remain unverified.
+
+**Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, INDEX.md. Existing uncommitted startup documentation is preserved; no commit made.
+
+**Exact next action:** Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation. Assess viable options for locomotive inheritance; railroad vehicle movement; steam power/fuel replacement versus vanilla third-rail behaviour; track integration; train composition/timetable handling; signalling; stations/platforms; save/load; replication/multiplayer; and compatibility with the vanilla railroad graph/subsystem. Report evidence, constraints, and options to The Manager; do not select an architecture in this documentation task.
 
 ## Rules for Maintaining This Log
 

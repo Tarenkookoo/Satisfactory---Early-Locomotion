@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 26 September 2026
-**Project phase:** Design finalisation + development environment setup  
+**Project phase:** Design finalisation + local railway API/header inspection and architecture assessment
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -524,11 +524,12 @@ Completed and verified:
 - Visual Studio Community 2022 17.14.x installed with the required workloads/components selected;
 - Windows restarted after Visual Studio installation;
 - Visual Studio project generation succeeded on 20 September 2026; `FactoryGame.sln` created in the SML repository;
-- first FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026 (12 succeeded, 0 failed).
+- first FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026 (12 succeeded, 0 failed);
+- first usable Unreal Editor launch and FactoryGame environment load succeeded on 26 September 2026 in 5.6.1-CSS; SML 3.12.0 initialization completed.
 
-Pending verification:
+Wwise Windows metadata/platform and Init resource-loading errors are resolved after enabling Object GUID, Object Path, Max Attenuation, and Estimated Duration metadata and regenerating SoundBanks. The all-banks metadata efficiency message is advisory.
 
-- successful Unreal Editor launch and FactoryGame project load.
+Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
 
 ### Important current traps
 
@@ -703,13 +704,13 @@ Completed:
 - Visual Studio Community 2022 17.14.x installed with required selections;
 - Windows restarted after Visual Studio installation;
 - Visual Studio project generation succeeded on 20 September 2026; `FactoryGame.sln` created in the SML repository;
-- first FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026 (12 succeeded, 0 failed).
+- first FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026 (12 succeeded, 0 failed);
+- first usable Unreal Editor launch and FactoryGame environment load succeeded on 26 September 2026 in 5.6.1-CSS; SML 3.12.0 initialization completed.
 
 Documentation reconciliation and repository cleanup are complete; INDEX.md is restored and reconciled files are in place. Project Operations (Local) is established inside the ChatGPT Project with local access verified; Project Operations (Cloud) remains available for cloud/project-source work.
 
 Not yet completed:
 
-- successful Unreal Editor launch and FactoryGame project load;
 - Early Locomotion Unreal plugin creation;
 - local header inspection;
 - first compilable mod build;
@@ -721,15 +722,11 @@ Not yet completed:
 
 ### Current next task
 
-Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
+Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation.
 
-Project generation and the first FactoryGame build are verified. Editor launch, project load, Early Locomotion implementation, mod packaging, and runtime behaviour remain unverified.
+Project generation, first build, usable editor launch, FactoryGame environment load, and SML 3.12.0 initialization are verified. Implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 
-Expected sequence:
-
-1. Launch the project in the custom editor and verify successful project load; record the result.
-2. Inspect local rail/train headers before deciding steam locomotive architecture.
-3. Commit a clean working development skeleton only after the working state is verified and the user explicitly requests a commit.
+Assessment scope and the verified Wwise fix are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no locomotive inheritance or architecture decision has been made.
 
 Do not begin major gameplay implementation before the local headers and working build environment exist.
 
