@@ -725,7 +725,7 @@ Not yet completed:
 
 ### Current next task
 
-Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
+Run only the first pass of Runtime Baseline Experiment 1 in vanilla/SML-only retail Satisfactory: powered acceleration from rest, then the same forward input from rest with station/rail power cut. The experiment has not yet been run. See Development/PROGRESS_LOG.md for the exact test sequence and observations; architecture remains unresolved.
 
 Project generation, first build, usable editor launch, FactoryGame environment load, and SML 3.12.0 initialization are verified. Implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 

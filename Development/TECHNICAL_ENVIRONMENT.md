@@ -110,6 +110,8 @@ The final steam locomotive architecture is unresolved.
 
 The Manager/user confirms that Claude Code completed read-only railway header/API reconnaissance. Local FactoryGame Private `.cpp` implementations are generated stubs, so runtime behaviour could not be verified from source.
 
+The Manager/user additionally reports that Claude verified headers exposing locomotive power state, tractive power factor, third-rail power connection, and related interfaces. These declarations do not prove runtime traction behaviour. Retail Satisfactory is installed at `D:\Steam\steamapps\common\Satisfactory`.
+
 The previous header/system checklist is retained as a reference, not a pending next task; no new exact API signatures or per-header findings are asserted here:
 
 - FGRailroadVehicle.h
@@ -149,7 +151,7 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
+Run only the first pass of Runtime Baseline Experiment 1 in vanilla/SML-only retail Satisfactory: powered acceleration from rest, then the same forward input from rest with station/rail power cut. The experiment has not yet been run. See Development/PROGRESS_LOG.md for the exact test sequence and observations; architecture remains unresolved. No expanded tests or logging mod are included in this first pass.
 
 Important runtime unknowns: unpowered locomotive behaviour; electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; and client prediction implications for steam traction. Header declarations alone do not establish these behaviours; no experiment results or architecture decisions are recorded yet.
 

@@ -3,8 +3,8 @@
 ## Current Checkpoint
 
 **Date:** 2026-09-26
-**Phase:** Runtime baseline experiments before architecture selection
-**Status:** Read-only railway header/API reconnaissance is complete; runtime behaviour remains unverified because local Private `.cpp` implementations are generated stubs. First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
+**Phase:** Runtime Baseline Experiment 1 preparation; first pass pending
+**Status:** Claude Code workflow/priming is complete and Experiment 1 is scoped but not run. Read-only railway header/API reconnaissance is complete; runtime behaviour remains unverified because local Private `.cpp` implementations are generated stubs. First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
 **Current blocker:** Runtime unknowns require baseline experiments before architecture selection. The Wwise Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
 **Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds and loads in the editor successfully; implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 
@@ -39,9 +39,16 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
+Runtime Baseline Experiment 1 is scoped but **not yet run**. Tomorrow's first technical action is a zero-code test in vanilla/SML-only retail Satisfactory, installed at `D:\Steam\steamapps\common\Satisfactory`.
 
-Experiments must investigate unpowered locomotive behaviour; electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; and client prediction implications for steam traction. No runtime result or architecture decision is claimed.
+**Question:** Can a vanilla `AFGLocomotive` generate traction from rest when railway electrical power is unavailable?
+
+1. **TEST 1 — POWERED CONTROL:** Use a Train Station to supply track power, one Electric Locomotive, and approximately 200 m of straight track. Confirm that the powered locomotive accelerates from rest.
+2. **TEST 2 — UNPOWERED FROM REST:** Stop the locomotive, cut station/rail power, re-enter the locomotive, and apply the same forward input. Record whether it moves, whether throttle/input visibly responds, whether a no-power indication appears, and whether the locomotive UI/menu still functions.
+
+**Do not yet run:** power-loss-while-moving, slope/gravity, timetable/autopilot, brownout/fuse, a temporary logging mod, or Experiment 2 track-connectivity testing.
+
+Return observations to The Manager before extending the experiment or selecting architecture. No runtime outcome is recorded yet.
 
 ### Remaining Milestones
 
@@ -55,7 +62,7 @@ Local documentation reconciliation and placement are complete, including restora
 
 Project Operations (Local) is established inside the ChatGPT Project and has verified local repository access. Project Operations (Cloud) remains available for cloud/project-source work.
 
-The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the successful-build documentation was committed as `f5c0035`. The editor-launch and Wwise-resolution documentation checkpoint was committed as `7102365`. This reconnaissance reconciliation is prepared for the Manager-authorised documentation checkpoint.
+The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the successful-build documentation was committed as `f5c0035`. The editor-launch and Wwise-resolution documentation checkpoint was committed as `7102365`. The reconnaissance reconciliation and CLAUDE.md state correction were committed as `42d878c` — Record railway reconnaissance and next experiments.
 
 ## Chronological History
 
@@ -233,6 +240,22 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 **Files changed:** INDEX.md, Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md; the existing CLAUDE.md state correction is preserved for inclusion in the authorised checkpoint.
 
 **Exact next action:** Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
+
+### 2026-09-26 - End-of-Day Workflow and Experiment 1 Preparation
+
+**Completed:** The Manager/user confirmed two persistent Claude Code chats: **EL — Architecture & Research** and **EL — Implementation**. Priming now distinguishes the canonical project/documentation root `C:\Users\a156b\Documents\Satisfactory - Early Locomotion` from the SML/implementation workspace `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader`. Claude Code Implementation was successfully primed against both roots.
+
+**Repository and documentation checkpoint:** The SML repository was verified clean after restoring the representation-only Config/DefaultGame.ini change (UTF-8 BOM / line-ending differences). Read-only railway architecture reconnaissance was completed; documentation was reconciled and committed as `42d878c` — Record railway reconnaissance and next experiments, including correction of stale CLAUDE.md environment wording.
+
+**Technical evidence:** Claude verified that locomotive implementation `.cpp` files are generated stubs, so they cannot prove runtime locomotive power behaviour. Relevant headers expose locomotive power state, tractive power factor, third-rail power connection, and related interfaces. Retail Satisfactory is installed at `D:\Steam\steamapps\common\Satisfactory`. These findings are recorded from The Manager/user's verified report; this documentation task did not rerun reconnaissance.
+
+**Experiment preparation:** Claude proposed a zero-code retail-game test. The Manager narrowed Runtime Baseline Experiment 1 to the powered-control and unpowered-from-rest tests recorded in Current Checkpoint. The experiment has not yet been run; no result is claimed. All six runtime unknowns from the preceding reconnaissance entry remain unresolved.
+
+**Decisions and limits:** No locomotive/track architecture or gameplay design decision was made. Open Questions remain unresolved. No gameplay plugin/prototype or temporary logging mod was created by this documentation task.
+
+**Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, INDEX.md. Documentation checkpoint commit authorised by The Manager; historical entries preserved.
+
+**Exact next action:** Run TEST 1 — POWERED CONTROL, then TEST 2 — UNPOWERED FROM REST, using the Current Checkpoint sequence. Record motion, visible input response, no-power indication, and UI/menu function; defer all expanded tests.
 
 ## Rules for Maintaining This Log
 
