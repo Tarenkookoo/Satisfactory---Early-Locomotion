@@ -57,11 +57,13 @@ Use this to understand how decisions changed over time.
 
 ## Current project state
 
-At the time this file is introduced:
+Current verified state (2026-09-26):
 
-- The design phase is active.
-- There is no production-ready Early Locomotion implementation yet.
-- There may not yet be a complete Unreal/SML source project under `Source/`.
+- The separate SML development environment is established at `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader`, outside this project/design repository's `Source/` folder.
+- The target is Satisfactory 1.2 / SML 3.12.0 (3.12.x pairing), with Coffee Stain Unreal Engine 5.6.1-CSS installed. `FactoryGame.sln` generation and the FactoryGame **Development Editor / Win64** build succeeded; Unreal Editor launches, the FactoryGame/SML environment loads, and SML 3.12.0 initializes successfully.
+- Wwise integration is functioning; the Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms remains unresolved and deferred.
+- No Early Locomotion gameplay plugin/prototype exists yet. Architecture remains unresolved.
+- The Manager/user confirms header-level railway reconnaissance is complete in Claude Architecture & Research. Runtime baseline experiments are the next technical step before architecture selection.
 - Do not assume project classes, APIs, build scripts, asset paths, module names, or editor assets exist unless verified directly.
 - Do not invent missing technical infrastructure merely to continue a task.
 

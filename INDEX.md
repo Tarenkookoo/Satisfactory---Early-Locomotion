@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 26 September 2026
-**Project phase:** Design finalisation + local railway API/header inspection and architecture assessment
+**Project phase:** Design finalisation + runtime baseline experiments before architecture selection
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -565,9 +565,9 @@ The project has **not yet decided** whether steam locomotives should:
 - extend a more generic railroad-vehicle layer;
 - or use another architecture.
 
-This must wait for local-header inspection after project generation and a working build environment are confirmed.
+Read-only local railway header/API reconnaissance is complete. Local FactoryGame Private `.cpp` implementations are generated stubs; runtime baseline experiments are required before choosing the locomotive/track architecture.
 
-Important next headers to inspect include:
+Railway header/system reference areas include:
 
 - railroad vehicle movement components;
 - locomotive movement components;
@@ -709,10 +709,13 @@ Completed:
 
 Documentation reconciliation and repository cleanup are complete; INDEX.md is restored and reconciled files are in place. Project Operations (Local) is established inside the ChatGPT Project with local access verified; Project Operations (Cloud) remains available for cloud/project-source work.
 
+Read-only railway header/API reconnaissance is complete (Manager/user confirmed 26 September 2026).
+
 Not yet completed:
 
+- runtime baseline experiments and architecture selection;
+
 - Early Locomotion Unreal plugin creation;
-- local header inspection;
 - first compilable mod build;
 - first railway prototype.
 
@@ -722,13 +725,13 @@ Not yet completed:
 
 ### Current next task
 
-Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation.
+Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
 
 Project generation, first build, usable editor launch, FactoryGame environment load, and SML 3.12.0 initialization are verified. Implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 
-Assessment scope and the verified Wwise fix are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no locomotive inheritance or architecture decision has been made.
+Runtime unknowns and the verified Wwise fix are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no locomotive inheritance or architecture decision has been made.
 
-Do not begin major gameplay implementation before the local headers and working build environment exist.
+Do not begin major gameplay implementation before the runtime evidence and architecture review establish a viable approach.
 
 ---
 

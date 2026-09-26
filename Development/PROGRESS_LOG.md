@@ -3,9 +3,9 @@
 ## Current Checkpoint
 
 **Date:** 2026-09-26
-**Phase:** Local railway API/header inspection and architecture assessment
-**Status:** First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
-**Current blocker:** No blocker to railway API/header inspection is recorded. The Wwise Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
+**Phase:** Runtime baseline experiments before architecture selection
+**Status:** Read-only railway header/API reconnaissance is complete; runtime behaviour remains unverified because local Private `.cpp` implementations are generated stubs. First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
+**Current blocker:** Runtime unknowns require baseline experiments before architecture selection. The Wwise Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
 **Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds and loads in the editor successfully; implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 
 This checkpoint incorporates the Manager/user-confirmed usable editor UI, local startup-log/file/runtime evidence, and the later Manager/user-verified Wwise resolution on 2026-09-26. Earlier chronological entries remain historical records of what was known at the time.
@@ -39,14 +39,14 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation.
+Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
 
-Assess viable options for locomotive inheritance; railroad vehicle movement; steam power/fuel replacement versus vanilla third-rail behaviour; track integration; train composition/timetable handling; signalling; stations/platforms; save/load; replication/multiplayer; and compatibility with the vanilla railroad graph/subsystem. Report evidence, constraints, and options to The Manager; do not select an architecture in this documentation task.
+Experiments must investigate unpowered locomotive behaviour; electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; and client prediction implications for steam traction. No runtime result or architecture decision is claimed.
 
 ### Remaining Milestones
 
 - Retain Turnkey assembly loading as unresolved/deferred; assess other log warnings/errors separately as needed. The Wwise metadata/platform issue is resolved.
-- Local railway API/header inspection and architecture assessment.
+- Runtime baseline experiments, followed by evidence-based locomotive/track architecture assessment and selection.
 - Early Locomotion implementation, packaging, and runtime/in-game verification.
 
 ### Documentation Reconciliation
@@ -55,7 +55,7 @@ Local documentation reconciliation and placement are complete, including restora
 
 Project Operations (Local) is established inside the ChatGPT Project and has verified local repository access. Project Operations (Cloud) remains available for cloud/project-source work.
 
-The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the successful-build documentation was committed as `f5c0035`. The editor-launch and Wwise-resolution documentation updates are uncommitted.
+The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the successful-build documentation was committed as `f5c0035`. The editor-launch and Wwise-resolution documentation checkpoint was committed as `7102365`. This reconnaissance reconciliation is prepared for the Manager-authorised documentation checkpoint.
 
 ## Chronological History
 
@@ -221,6 +221,18 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 **Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, INDEX.md. Existing uncommitted startup documentation is preserved; no commit made.
 
 **Exact next action:** Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation. Assess viable options for locomotive inheritance; railroad vehicle movement; steam power/fuel replacement versus vanilla third-rail behaviour; track integration; train composition/timetable handling; signalling; stations/platforms; save/load; replication/multiplayer; and compatibility with the vanilla railroad graph/subsystem. Report evidence, constraints, and options to The Manager; do not select an architecture in this documentation task.
+
+### 2026-09-26 - Railway Reconnaissance Completed; Runtime Experiments Next
+
+**Completed:** The Manager/user confirms that Claude Code completed read-only railway header/API reconnaissance. Local FactoryGame Private `.cpp` implementations are generated stubs, so runtime behaviour could not be verified from source.
+
+**Unresolved runtime questions:** unpowered locomotive behaviour; electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; and client prediction implications for steam traction.
+
+**Verification boundary:** Completion and findings are recorded from The Manager/user's verified report. This documentation task did not repeat reconnaissance or run experiments. No Early Locomotion gameplay plugin/prototype exists; locomotive/track architecture and Open Questions remain unresolved. No gameplay/design decision or toolchain change was made.
+
+**Files changed:** INDEX.md, Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md; the existing CLAUDE.md state correction is preserved for inclusion in the authorised checkpoint.
+
+**Exact next action:** Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
 
 ## Rules for Maintaining This Log
 

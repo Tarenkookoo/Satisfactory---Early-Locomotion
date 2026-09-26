@@ -106,9 +106,11 @@ AFGLocomotive is designed around vanilla electric / third-rail power and should 
 
 The final steam locomotive architecture is unresolved.
 
-## Headers / Systems To Inspect After Project Generation and Build Setup
+## Railway Reconnaissance Status — 2026-09-26
 
-Before deciding the locomotive architecture, inspect:
+The Manager/user confirms that Claude Code completed read-only railway header/API reconnaissance. Local FactoryGame Private `.cpp` implementations are generated stubs, so runtime behaviour could not be verified from source.
+
+The previous header/system checklist is retained as a reference, not a pending next task; no new exact API signatures or per-header findings are asserted here:
 
 - FGRailroadVehicle.h
 - FGLocomotive.h
@@ -138,8 +140,7 @@ The following still require verification:
 
 - exact SML checkout commit
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
-- concrete railroad movement component classes
-- train composition / timetable class details
+- runtime behaviour of railroad movement and train composition/timetable APIs
 - save/load behavior needed for custom steam state
 - multiplayer replication design for steam systems
 - best inheritance architecture for steam locomotives
@@ -148,17 +149,18 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Inspect the real local SML/FactoryGame railway APIs and headers in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` and prepare an architecture assessment before any Early Locomotion gameplay implementation.
+Run small runtime baseline experiments in the local SML/FactoryGame environment before selecting a locomotive/track architecture. Record observed behaviour and return the evidence to The Manager; architecture remains unresolved.
 
-Assess viable options for locomotive inheritance; railroad vehicle movement; steam power/fuel replacement versus vanilla third-rail behaviour; track integration; train composition/timetable handling; signalling; stations/platforms; save/load; replication/multiplayer; and compatibility with the vanilla railroad graph/subsystem. Report evidence, constraints, and options to The Manager; do not select an architecture in this documentation task.
+Important runtime unknowns: unpowered locomotive behaviour; electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; and client prediction implications for steam traction. Header declarations alone do not establish these behaviours; no experiment results or architecture decisions are recorded yet.
 
 Do not begin major gameplay implementation until:
 
 1. Visual Studio project generation succeeds (completed 20 September 2026);
 2. the SML development environment builds successfully (FactoryGame Development Editor / Win64 completed 20 September 2026);
 3. Unreal Editor launches and the FactoryGame project loads successfully (completed 26 September 2026; Wwise metadata issue resolved, Turnkey issue deferred);
-4. the relevant railroad headers are inspected locally;
-5. locomotive architecture has been reviewed against the real APIs.
+4. the relevant railroad headers are inspected locally (read-only reconnaissance completed, Manager/user confirmed 26 September 2026);
+5. runtime baseline experiments establish the behaviour needed for architecture selection;
+6. locomotive/track architecture has been reviewed against the real APIs and runtime evidence (unresolved).
 
 ## Sources Used During Reconnaissance
 
