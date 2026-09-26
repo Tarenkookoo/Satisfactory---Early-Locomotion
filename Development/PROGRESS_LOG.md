@@ -2,13 +2,13 @@
 
 ## Current Checkpoint
 
-**Date:** 2026-09-19  
+**Date:** 2026-09-20
 **Phase:** Development environment setup  
-**Status:** End-of-session checkpoint: Visual Studio Community 2022 is installed and Windows has been restarted. Documentation reconciliation, repository cleanup, and Project Operations (Local) bootstrap are complete. The next project-generation attempt has NOT been performed.
-**Current blocker:** No setup blocker is currently recorded; the result of the next project-generation attempt is pending.  
-**Implementation status:** No actual Early Locomotion mod implementation has started. The blank FactoryGame/SML environment has not yet been confirmed to build or open in Unreal Editor.
+**Status:** Project generation and the first FactoryGame Development Editor / Win64 build succeeded on 2026-09-20. Build verification is complete; first successful Unreal Editor launch and project load are next.
+**Current blocker:** The previous generation blocker is cleared and build verification is complete. No new blocker is recorded; editor launch and project load remain unverified.
+**Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds successfully; Unreal Editor launch, project load, mod packaging, and runtime behaviour remain unverified.
 
-This checkpoint incorporates the latest setup state verified by The Manager/user on 2026-09-19. Earlier chronological entries remain historical records of what was known at the time.
+This checkpoint records the 2026-09-20 build result verified by The Manager/user and documented on 2026-09-26. Earlier chronological entries remain historical records of what was known at the time.
 
 ### Current Environment
 
@@ -39,20 +39,16 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-1. Open `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` in File Explorer.
-2. Right-click `FactoryGame.uproject`. On Windows 11, use **Show more options** if needed.
-3. Select **Generate Visual Studio project files**.
-4. Record the result. Success means generation completes without errors and `FactoryGame.sln` is created in the same folder. Do not record a build success merely because the solution exists.
-5. If generation fails, capture the full error/output before changing anything. If the menu option is missing, record that and verify the custom engine installation path before choosing a command-line fallback.
+1. Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
+2. Record editor launch and project-load results separately from the already successful build. Capture the full error/output if either fails.
 
 **If it fails:** Diagnose the new error against the recorded toolchain. Do not change engine, Wwise, Visual Studio, SML, or dependency versions as a speculative fix.
 
 ### Remaining Milestones
 
-- Successful Visual Studio project generation.
-- Open `FactoryGame.sln` in Visual Studio 2022.
-- First successful build of the **FactoryGame** project with **Development Editor / Win64**, then successful Unreal Editor launch. These are pending steps from the conversation, not completed work.
+- First successful Unreal Editor launch and FactoryGame project load.
 - Inspect the real local railway headers and prepare an architecture assessment before gameplay implementation. Steam locomotive inheritance, movement, save/load, replication, and reuse of the vanilla railroad graph remain unresolved.
+- Early Locomotion implementation, mod packaging, and runtime verification remain pending.
 
 ### Documentation Reconciliation
 
@@ -60,7 +56,7 @@ Local documentation reconciliation and placement are complete, including restora
 
 Project Operations (Local) is established inside the ChatGPT Project and has verified local repository access. Project Operations (Cloud) remains available for cloud/project-source work.
 
-The local repository was confirmed clean after reconciliation/bootstrap and again before this end-of-session update. These checkpoint edits introduce uncommitted documentation changes; no commit has been made.
+The completed documentation/design batch was committed as `eda2873` (Canonicalize railway assistant design and sync project docs), and the repository was confirmed clean afterward. The project-generation checkpoint is preserved alongside the first-build record below; the 2026-09-26 documentation task includes an explicitly authorised Git checkpoint.
 
 ## Chronological History
 
@@ -159,6 +155,34 @@ Entries below are oldest first. Dates reflect conversation evidence; where indiv
 **Current blocker:** No setup blocker is recorded; project-generation results remain pending.
 
 **Exact next action:** Open C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader, right-click FactoryGame.uproject, and select **Generate Visual Studio project files**. Success requires generation without errors and FactoryGame.sln appearing in that folder. This proves project generation only, not a successful build. If generation fails, capture the full error; do not change engine, Wwise, Visual Studio, SML, or dependency versions as a speculative fix.
+
+### 2026-09-20 - Visual Studio Project Generation Succeeded
+
+**Completed:** The Manager/user confirmed successful Visual Studio project generation for `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject`. `FactoryGame.sln` appeared in `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader`.
+
+**Resolution:** The previous Visual Studio/project-generation blocker is cleared. The earlier failed attempt remains preserved in the history.
+
+**Verification boundary:** This confirms project generation only, based on The Manager/user's verified result. A successful FactoryGame build, Unreal Editor launch, and Early Locomotion implementation are not verified. No toolchain versions were changed or newly inventoried.
+
+**Files changed:** Development/PROGRESS_LOG.md, INDEX.md, and Development/TECHNICAL_ENVIRONMENT.md updated for the successful generation checkpoint. No commit made for this update.
+
+**Exact next action:** Open `FactoryGame.sln` in Visual Studio 2022 and perform the first **FactoryGame** build using the documented **Development Editor / Win64** configuration. Record the result; capture full errors before changing dependencies if it fails.
+
+### 2026-09-20 - First FactoryGame Build Succeeded
+
+**Completed:** The Manager/user verified that the first FactoryGame build completed successfully in Visual Studio 2022 using **Development Editor / Win64**.
+
+**Build result:** 12 succeeded; 0 failed; 0 up-to-date; 0 skipped.
+
+**Build duration:** `09:44.449`.
+
+**Verification:** FactoryGame.sln generation and the FactoryGame Development Editor / Win64 target build with the installed toolchain are verified. The build-verification milestone is complete. This previous-session result was supplied by The Manager/user and recorded on 2026-09-26; no build was rerun in this documentation task and no toolchain versions were changed.
+
+**Not yet verified:** Unreal Editor launch, successful FactoryGame project load in Unreal Editor, Early Locomotion implementation, mod packaging, and runtime behaviour.
+
+**Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, and INDEX.md. Prior project-generation documentation and chronological history are preserved.
+
+**Exact next action:** Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
 
 ## Rules for Maintaining This Log
 

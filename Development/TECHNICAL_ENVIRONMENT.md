@@ -2,6 +2,8 @@
 
 Last verified: 19 September 2026
 
+Project generation and first-build results: 20 September 2026, verified by The Manager/user. Build result recorded on 26 September 2026; toolchain versions unchanged.
+
 ## Verified Development Target
 
 - Satisfactory: 1.2
@@ -35,9 +37,11 @@ The current setup checkpoint records:
   - .NET 8 Runtime;
   - .NET Framework 4.8.1 SDK.
 - Windows restarted after Visual Studio installation.
+- Visual Studio project generation succeeded on 20 September 2026; `FactoryGame.sln` appeared in the SML repository.
+- First FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026: **12 succeeded, 0 failed, 0 up-to-date, 0 skipped**; duration **09:44.449**.
 - Git available and used successfully for the SML clone and project tracking; exact installed version not recorded.
 
-The exact Visual Studio patch/build and exact SML checkout commit are not recorded. The blank FactoryGame/SML environment has not yet been confirmed to generate, build, or open successfully.
+The exact Visual Studio patch/build and exact SML checkout commit are not recorded. Visual Studio project generation and the FactoryGame Development Editor / Win64 build are confirmed. Unreal Editor launch, FactoryGame project load, Early Locomotion implementation, mod packaging, and runtime behaviour remain unverified. The previous Visual Studio/project-generation blocker is cleared.
 
 ## Important Compatibility Notes
 
@@ -110,17 +114,15 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Generate Visual Studio project files from:
+Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
 
-`C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject`
-
-Success at this step means generation completes without errors and `FactoryGame.sln` is created. It does **not** establish that the project builds successfully.
+The successful build does not establish editor launch or project-load success. Record those results separately.
 
 Do not begin major gameplay implementation until:
 
-1. Visual Studio project generation succeeds;
-2. the SML development environment builds successfully;
-3. Unreal Editor launches successfully;
+1. Visual Studio project generation succeeds (completed 20 September 2026);
+2. the SML development environment builds successfully (FactoryGame Development Editor / Win64 completed 20 September 2026);
+3. Unreal Editor launches and the FactoryGame project loads successfully;
 4. the relevant railroad headers are inspected locally;
 5. locomotive architecture has been reviewed against the real APIs.
 

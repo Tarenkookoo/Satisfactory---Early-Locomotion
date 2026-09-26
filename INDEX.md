@@ -1,7 +1,7 @@
 # Satisfactory - Early Locomotion
 ## Project Index
 
-**Last updated:** 20 September 2026
+**Last updated:** 26 September 2026
 **Project phase:** Design finalisation + development environment setup  
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
@@ -522,13 +522,13 @@ Completed and verified:
 - companion Wwise project created;
 - SoundBanks generated successfully;
 - Visual Studio Community 2022 17.14.x installed with the required workloads/components selected;
-- Windows restarted after Visual Studio installation.
+- Windows restarted after Visual Studio installation;
+- Visual Studio project generation succeeded on 20 September 2026; `FactoryGame.sln` created in the SML repository;
+- first FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026 (12 succeeded, 0 failed).
 
 Pending verification:
 
-- Visual Studio project generation;
-- first successful FactoryGame build;
-- successful Unreal Editor launch.
+- successful Unreal Editor launch and FactoryGame project load.
 
 ### Important current traps
 
@@ -701,15 +701,15 @@ Completed:
 - SML starter repository cloned and `FactoryGame.uproject` associated with 5.6.1-CSS;
 - Wwise 2023.1.14.8770 installed and integrated, companion project created, and SoundBanks generated;
 - Visual Studio Community 2022 17.14.x installed with required selections;
-- Windows restarted after Visual Studio installation.
+- Windows restarted after Visual Studio installation;
+- Visual Studio project generation succeeded on 20 September 2026; `FactoryGame.sln` created in the SML repository;
+- first FactoryGame **Development Editor / Win64** build succeeded in Visual Studio 2022 on 20 September 2026 (12 succeeded, 0 failed).
 
 Documentation reconciliation and repository cleanup are complete; INDEX.md is restored and reconciled files are in place. Project Operations (Local) is established inside the ChatGPT Project with local access verified; Project Operations (Cloud) remains available for cloud/project-source work.
 
 Not yet completed:
 
-- Visual Studio project generation;
-- first successful FactoryGame build;
-- successful Unreal Editor launch;
+- successful Unreal Editor launch and FactoryGame project load;
 - Early Locomotion Unreal plugin creation;
 - local header inspection;
 - first compilable mod build;
@@ -721,20 +721,15 @@ Not yet completed:
 
 ### Current next task
 
-Generate Visual Studio project files from:
+Launch `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject` in the **Coffee Stain Unreal Engine 5.6.1-CSS editor** and verify that the project loads successfully.
 
-`C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject`
-
-Success means `FactoryGame.sln` is generated without errors. This is not yet a successful build.
+Project generation and the first FactoryGame build are verified. Editor launch, project load, Early Locomotion implementation, mod packaging, and runtime behaviour remain unverified.
 
 Expected sequence:
 
-1. Generate `FactoryGame.sln` and record the complete result.
-2. If generation succeeds, open the solution in Visual Studio 2022.
-3. Build the **FactoryGame** project using **Development Editor / Win64**.
-4. Launch Unreal Editor successfully.
-5. Inspect local rail/train headers before deciding steam locomotive architecture.
-6. Commit a clean working development skeleton only after the working state is verified and the user explicitly requests a commit.
+1. Launch the project in the custom editor and verify successful project load; record the result.
+2. Inspect local rail/train headers before deciding steam locomotive architecture.
+3. Commit a clean working development skeleton only after the working state is verified and the user explicitly requests a commit.
 
 Do not begin major gameplay implementation before the local headers and working build environment exist.
 
