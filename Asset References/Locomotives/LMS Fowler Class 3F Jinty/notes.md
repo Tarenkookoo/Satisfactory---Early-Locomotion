@@ -6,6 +6,43 @@ Supporting visual references for modelling research in EL — Asset Development.
 
 Researched and inspected: **2026-10-01**. Photographs depict real preserved Fowler 3F locomotives, not models or generated artwork. Dimensions below distinguish source evidence from unresolved discrepancies.
 
+## Verified dimensions
+
+These measurements anchor the real-world reference model. **Verified** means checked against the cited published text or visible diagram labels, not physical measurement or authentication against an original engineering drawing. Source disagreements remain unresolved. Metric conversions use **1 in = 25.4 mm**; extra decimal places express conversion arithmetic, not measurement precision.
+
+The [Rail Album dimensioned diagram](http://www.railalbum.co.uk/steam-locomotives/images/diagram-lms-060t-jinty.jpg) supplies the callouts below; its incomplete provenance and low scan resolution remain limitations.
+
+| Dimension | Imperial source value | Metric conversion | Source / confidence / caveat |
+| --- | --- | --- | --- |
+| Overall length | 31 ft 4¾ in | **9.56945 m** (about 9.57 m) | Rail Album diagram, buffer-to-buffer dimension; corroborated by [SVR Wiki's 47383 technical table](https://www.svrwiki.com/LMS_Jinty_47383). Conflicting Loco-info value is retained below. |
+| Maximum overall width | 8 ft 9 in | **2.667 m** (about 2.67 m) | Rail Album diagram's maximum-width label; [UK Railway Reference](https://railref.wikidot.com/lms-fowler-3f-0-6-0t) publishes the same value. Diagram provenance remains incomplete. |
+| Overall height | 12 ft 6 13/16 in (diagram reading) | **3.83064 m** (about 3.83 m) | Rail Album diagram, vertical height callout. Candidate 12 ft 6.81 in is a rounded version of this fraction. UK Railway Reference instead gives 12 ft 6⅞ in = **3.832225 m**: unresolved difference of 1/16 in (1.5875 mm). Do not silently merge the two. |
+| Total wheelbase (first to third coupled axle) | 16 ft 6 in | **5.0292 m** (about 5.03 m) | Rail Album diagram; [SpotLog class table](https://spotlog.org/locolist/class/UKP/3F%20Jinty) corroborates. The rounded candidate 5.03 m is consistent. |
+| Front to middle axle centres | 8 ft 0 in | **2.4384 m** | Read from Rail Album diagram; the smokebox/front is on the left. Single reproduced-diagram evidence; confirm in a dated original drawing before precision mechanical work. |
+| Middle to rear axle centres | 8 ft 6 in | **2.5908 m** | Read from the same diagram. Sum with the front spacing equals 16 ft 6 in; do not assume evenly spaced axles. |
+| Driving-wheel diameter | 4 ft 7 in | **1.397 m** | Rail Album diagram and reproduced Vulcan Foundry order-book extract agree. Nominal diameter; photographs do not establish present tyre wear or reprofiling. |
+| Track gauge | 4 ft 8½ in | **1.4351 m**, conventionally **1,435 mm** | Published for this class by [Loco-info](https://www.loco-info.com/view.aspx?id=11211); this is secondary-source verification, not confirmed by a gauge label in the inspected diagram. No different gauge is inferred from photographs. |
+| Boiler barrel length / diameter | **Not yet verified** | **Not yet verified** | Diagram contains boiler labels, but exact values and measurement datums have not been confidently verified for this pack; obtain a clearer drawing. |
+| Tank dimensions (length / width / height) | **Not yet verified** | **Not yet verified** | No explicit usable specification established from recorded sources; tank capacity is not a geometry measurement. |
+| Cab dimensions (length / width / height / interior) | **Not yet verified** | **Not yet verified** | Photographs show proportions, not a calibrated dimensional specification. |
+| Frame dimensions (length / spacing / thickness) | **Not yet verified** | **Not yet verified** | Overall length and wheelbase do not establish frame dimensions. |
+| Buffer dimensions / positions | **Not yet verified** | **Not yet verified** | Overall length is buffer-to-buffer; individual buffer dimensions and positional callouts have not been verified for this pack. |
+
+### Source disagreements and remaining dimensional limits
+
+- [Loco-info's imperial table](https://www.loco-info.com/view.aspx?id=11211) gives **35 ft 9 in**, while its [metric view](https://www.loco-info.com/view.aspx?id=11211&t=2) gives **10.90 m** for length. This conflicts materially with the diagram/SVR value above. The reason is not established; no value has been silently substituted or declared an error.
+- Height: the diagram reading is **12 ft 6 13/16 in (3.83064 m)**; [UK Railway Reference](https://railref.wikidot.com/lms-fowler-3f-0-6-0t) reports **12 ft 6⅞ in (3.832225 m)**. The difference is **1/16 in (1.5875 mm)**. Retain both until a clearer original drawing or direct measurement settles the applicable datum/specification.
+- Overall width/height and axle-spacing evidence is useful but depends on an undated reproduced diagram. Do not present its scan as authenticated metrology.
+- Gauge is only corroborated at class-database level in this pack. A class-specific original drawing/owner specification would strengthen it.
+- No verified rod thickness, crank throw, journal dimensions, wheel back-to-back, boiler diameter, cab interior dimensions or tyre-wear tolerances were established. Do not derive these by counting pixels in perspective views.
+
+## Modelling scale guidance
+
+- Model in Blender at **metric real-world scale**: use Metric units with Unit Scale **1.0**, so one Blender unit represents one metre. Enter dimensions in metres rather than interpreting feet/inches as Blender units.
+- Use the source-backed overall dimensions, nominal wheel diameter and wheelbase as scale anchors. Length and height have unresolved source conflicts; label any provisional modelling choice with its source rather than treating it as a settled specification.
+- Check uncertain boiler, tank, cab, frame and internal proportions against multiple reference images and clearer drawings. Perspective photographs are not calibrated measurements; an overall envelope does not verify hidden mechanical dimensions.
+- These are **reference measurements, not gameplay balance values**. They do not change canonical design, settle Open Questions or establish Satisfactory/Unreal export requirements.
+
 ## Reference image list
 
 Seven JPEGs are saved: four original-resolution files and three official Commons previews. Two further photographic sources and one dimensioned diagram are linked below. No photographs were locally cropped, recoloured, retouched or upscaled. Commons previews are server-resized versions, explicitly identified per entry.
@@ -118,29 +155,6 @@ Seven JPEGs are saved: four original-resolution files and three official Commons
 - The page does not identify the diagram's original draughtsman, drawing number, date or applicable batch. No explicit reuse licence was established; it is **not copied into this repository**. Do not assume an old-looking scan is public domain.
 - Treat this as a reproduced class diagram, not a verified original general-arrangement drawing or a precise reference for every preserved locomotive's fittings. Low scan resolution limits small details.
 - The separate order-book extract is manufacturer-origin evidence reproduced by the site; it corroborates the driving-wheel diameter for the depicted Vulcan batch. It does not establish all dimensions for every batch.
-
-## VERIFIED DIMENSIONS
-
-“Verified” here means checked against the cited published text or visible diagram labels. It does not mean physical measurement of a preserved engine, an authenticated original drawing, or resolution of every conflicting source. Imperial labels are retained; metric figures are calculated using 1 in = 25.4 mm and are not additional measurements.
-
-| Dimension | Checked value and metric conversion | Source / confidence / discrepancy |
-| --- | --- | --- |
-| Overall length | 31 ft 4¾ in = **9.56945 m** (about 9.57 m) | Rail Album diagram, buffer-to-buffer dimension; corroborated by [SVR Wiki's 47383 technical table](https://www.svrwiki.com/LMS_Jinty_47383). Conflicting Loco-info value is retained below. |
-| Maximum overall width | 8 ft 9 in = **2.667 m** | Rail Album diagram's maximum-width label; [UK Railway Reference](https://railref.wikidot.com/lms-fowler-3f-0-6-0t) publishes the same value. Diagram provenance remains incomplete. |
-| Overall height | Diagram appears to label 12 ft 6 13/16 in = **3.83064 m** | Rail Album diagram, vertical height callout. Candidate 12 ft 6.81 in is a rounded version of this fraction. UK Railway Reference instead gives 12 ft 6⅞ in = **3.832225 m**: unresolved difference of 1/16 in (1.5875 mm). Do not silently merge the two. |
-| Total coupled wheelbase | 16 ft 6 in = **5.0292 m** | Rail Album diagram; [SpotLog class table](https://spotlog.org/locolist/class/UKP/3F%20Jinty) corroborates. The rounded candidate 5.03 m is consistent. |
-| Front to middle axle centres | 8 ft 0 in = **2.4384 m** | Read from Rail Album diagram; the smokebox/front is on the left. Single reproduced-diagram evidence; confirm in a dated original drawing before precision mechanical work. |
-| Middle to rear axle centres | 8 ft 6 in = **2.5908 m** | Read from the same diagram. Sum with the front spacing equals 16 ft 6 in; do not assume evenly spaced axles. |
-| Driving-wheel diameter | 4 ft 7 in = **1.397 m** | Rail Album diagram and reproduced Vulcan Foundry order-book extract agree. Nominal diameter; photographs do not establish present tyre wear or reprofiling. |
-| Track gauge | 4 ft 8½ in = **1.4351 m**, conventionally **1,435 mm** | Published for this class by [Loco-info](https://www.loco-info.com/view.aspx?id=11211); this is secondary-source verification, not confirmed by a gauge label in the inspected diagram. No different gauge is inferred from photographs. |
-
-### Source disagreements and remaining dimensional limits
-
-- [Loco-info's imperial table](https://www.loco-info.com/view.aspx?id=11211) gives **35 ft 9 in**, while its [metric view](https://www.loco-info.com/view.aspx?id=11211&t=2) gives **10.90 m** for length. This conflicts materially with the diagram/SVR value above. The reason is not established; no value has been silently substituted or declared an error.
-- Height differs between the reproduced diagram and UK Railway Reference as recorded above. Retain both until a higher-quality original drawing or direct measurement settles the applicable datum/specification.
-- Overall width/height and axle-spacing evidence is useful but depends on an undated reproduced diagram. Do not present its scan as authenticated metrology.
-- Gauge is only corroborated at class-database level in this pack. A class-specific original drawing/owner specification would strengthen it.
-- No verified rod thickness, crank throw, journal dimensions, wheel back-to-back, boiler diameter, cab interior dimensions or tyre-wear tolerances were established. Do not derive these by counting pixels in perspective views.
 
 ## Known visual differences / caveats
 
