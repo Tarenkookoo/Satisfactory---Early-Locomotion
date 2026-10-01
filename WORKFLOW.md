@@ -39,6 +39,8 @@ Read and apply project sources in this order:
 
 `ROADMAP.docx` is a human-readable planning/orientation overview maintained from canonical project information. It is outside the authority chain; canonical files win on conflict. It must not introduce independent decisions.
 
+`Design/Early Locomotion Feature Catalogue.docx` explains planned gameplay/features in readable detail, derived from GAME_DESIGN.md. It is non-authoritative on conflict and remains outside the authority chain; ROADMAP.docx retains the project position and phase overview.
+
 If sources disagree, flag the conflict and identify what needs correction. Do not silently reconcile it.
 
 ## Delegation Loop

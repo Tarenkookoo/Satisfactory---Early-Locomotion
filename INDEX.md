@@ -816,6 +816,8 @@ Project authority order:
 
 `ROADMAP.docx` — human-readable project direction and phase roadmap; maintained from canonical information, overview only and non-authoritative on conflict. It is outside the formal authority order.
 
+[Design/Early Locomotion Feature Catalogue.docx](Design/Early%20Locomotion%20Feature%20Catalogue.docx) — comprehensive human-readable explanation of planned gameplay/features, derived from GAME_DESIGN.md and non-authoritative on conflict. It explains what features do and why; ROADMAP.docx retains current position and phase planning.
+
 `WORKFLOW.md` is the concise human-and-agent guide to coordination and change flow. `Design/Early Locomotion Design Reference.docx` is the human-readable Word copy of the design master. `Balance/` holds future balance models and playtest data.
 
 Future chats and AI agents should read `INDEX.md` first, then follow its references.
