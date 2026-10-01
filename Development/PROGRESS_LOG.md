@@ -2,13 +2,15 @@
 
 ## Current Checkpoint
 
-**Date:** 2026-09-26
+**Date:** 2026-10-01
 **Phase:** Runtime Baseline Experiment 1 preparation; first pass pending
 **Status:** Claude Code workflow/priming is complete and Experiment 1 is scoped but not run. Read-only railway header/API reconnaissance is complete; runtime behaviour remains unverified because local Private `.cpp` implementations are generated stubs. First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
 **Current blocker:** Runtime unknowns require baseline experiments before architecture selection. The Wwise Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
 **Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds and loads in the editor successfully; implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
 
 This checkpoint incorporates the Manager/user-confirmed usable editor UI, local startup-log/file/runtime evidence, and the later Manager/user-verified Wwise resolution on 2026-09-26. Earlier chronological entries remain historical records of what was known at the time.
+
+**Workspace preparation (2026-10-01):** Minimum folders for EL — Asset Development are prepared; existing assets and Blender test files are preserved. The runtime experiment remains unrun and the next technical action is unchanged.
 
 ### Current Environment
 
@@ -256,6 +258,18 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 **Files changed:** Development/PROGRESS_LOG.md, Development/TECHNICAL_ENVIRONMENT.md, INDEX.md. Documentation checkpoint commit authorised by The Manager; historical entries preserved.
 
 **Exact next action:** Run TEST 1 — POWERED CONTROL, then TEST 2 — UNPOWERED FROM REST, using the Current Checkpoint sequence. Record motion, visible input response, no-power indication, and UI/menu function; defer all expanded tests.
+
+### 2026-10-01 - Asset Development Workspace Preparation
+
+**Completed:** Ensured Assets/Prototypes/Claude, Assets/Locomotives, Assets/Wagons, Assets/Infrastructure, Assets/Signalling, Assets/Materials, Assets/Textures, Assets/Animations, Assets/Exports, Blender, and References/Locomotives exist for **EL — Asset Development**. Its intended scope is Blender modelling, rigging, animation, materials, prototypes, and future export preparation. This task prepared folders, not a new chat or management structure.
+
+**Files changed:** Nine minimal .gitkeep placeholders in new empty leaf folders, plus this setup entry required by WORKFLOW.md. Existing Assets/Textures and Blender are nonempty and need no placeholder. No INDEX navigation update was necessary.
+
+**Preserved:** Existing assets/references, Blender Test.blend and Blender Test.blend1, and unrelated pending design edits. No production assets, gameplay/design decisions, duplicated documentation, or SML repository changes. Existing Blender files remain untracked and excluded from this checkpoint.
+
+**Verification:** Folder inspection and Git review; existing file hashes checked after creation. Commit scope is the nine placeholders and this log only. Pending design edits remain outside the checkpoint.
+
+**Exact next action:** Use the prepared folders for scoped asset work. The main technical next action remains Runtime Baseline Experiment 1: powered control, then unpowered from rest. No experiment was run.
 
 ## Rules for Maintaining This Log
 
