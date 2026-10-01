@@ -33,7 +33,11 @@ Read and apply project sources in this order:
 4. `Development/TECHNICAL_ENVIRONMENT.md` — verified toolchain, API, and environment facts.
 5. `CHANGELOG.md` — meaningful project, design, and implementation history.
 6. `CLAUDE.md` — Claude-specific implementation rules.
-7. `References/` — historical and supporting material; not automatically authoritative.
+7. `WORKFLOW.md` — coordination and change discipline.
+
+`References/` is supporting/historical material, not part of the authority chain.
+
+`ROADMAP.docx` is a human-readable planning/orientation overview maintained from canonical project information. It is outside the authority chain; canonical files win on conflict. It must not introduce independent decisions.
 
 If sources disagree, flag the conflict and identify what needs correction. Do not silently reconcile it.
 

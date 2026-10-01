@@ -1,7 +1,7 @@
 # Satisfactory - Early Locomotion
 ## Project Index
 
-**Last updated:** 26 September 2026
+**Last updated:** 1 October 2026
 **Project phase:** Design finalisation + runtime baseline experiments before architecture selection
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
@@ -28,9 +28,9 @@ The player should gain powerful early long-distance bulk transport, but have to 
 
 ### Railway assistant and animated education — Agreed
 
-Early Locomotion includes a dedicated scripted, voiced railway-assistant character, distinct from ADA, with enthusiastic, expressive, competent railway teaching, plus a progressive animated railway tutorial/library system. Her first introduction accompanies the first qualifying Early Locomotion unlock; the apparent ADA-style takeover is humorous, not sinister. Tutorials teach principles as relevant technology unlocks and preserve player problem-solving. Live network inspection, diagnostics, route calculation, train management, automatic fixes/signal placement, optimisation, and generative AI are out of scope.
+Early Locomotion has a warm, bubbly, expressive scripted railway assistant, distinct from ADA and voiced by the creator, with optional/replayable animated miniature teaching on a clean white model-railway table. The always-accessible library uses older/prototype FICSIT visual language; lessons unlock progressively. Live network diagnosis/operation, route calculation, automatic fixes/signal placement and generative AI are excluded.
 
-White-table presentation, older-FICSIT aesthetics, library layout, player playback controls, and expanded content remain Proposed; lore, exact roster, character details, and implementation remain open. See Design/GAME_DESIGN.md, “Railway Assistant & Animated Tutorial System”, and OQ15–OQ18. Implementation capabilities are unverified.
+The first-unlock ADA-style takeover and legacy-FICSIT lore flavour remain Proposed; name, dialogue, lore, tutorial roster, final UI and implementation remain Open Questions OQ15–OQ18. TECHNICAL VERIFICATION NEEDED.
 
 ---
 
@@ -153,6 +153,10 @@ Desired UI information:
 - used/available capacity;
 - control territory.
 
+### Mechanical linkage visuals — Agreed
+
+Automatic rods/wires represent semaphore-to-box control, following the formation and updating assignments where practical. No manual wiring or full mechanical transmission simulation. Twitch/clack ambience is secondary to arms/levers; routing, equipment coverage, continuity, regeneration, clutter, performance and multiplayer remain OQ04. TECHNICAL VERIFICATION NEEDED.
+
 Open questions include:
 
 - exact signal capacity;
@@ -220,46 +224,11 @@ Large must not simply make Small and Medium obsolete.
 
 ## 7. Regional Locomotive Variants
 
-Long-term ambition: locomotives and wagons visually change according to a **regional rolling-stock style**.
+Agreed: regional style is world/save-level, not per-player, and is intended to update existing and future Core/basic infrastructure and rolling stock. Normal Core uses one world style rather than duplicate regional buildables or routine cross-region mixing. Each supported Core style ultimately provides one Small, Medium and Large locomotive with individual definitions. Exact launch regions remain open; discussed British/North American/Continental examples are not launch commitments.
 
-The original idea was to derive this from game language.
+Standardise software/data contracts, not physical chassis. Regional power, mass and rolling-stock tare may differ while representative regional trains offer broadly comparable useful performance. **Superseded:** identical regional class statistics. Exact values, regional-switch stat/presentation migration and save/runtime safeguards remain OQ06; feasibility is unverified.
 
-Current preferred approach:
-
-- game language may choose an automatic regional default;
-- player should be able to manually override the region;
-- language and nationality should not be permanently bound.
-
-Possible regional styles could eventually include:
-
-- British;
-- North American;
-- German / Central European;
-- French;
-- Japanese;
-- others later.
-
-### Important architecture rule
-
-Do **not** force every regional locomotive onto a universal physical chassis.
-
-Different locomotives may have entirely different:
-
-- wheel arrangements;
-- wheelbases;
-- tender geometry;
-- animation rigs;
-- servicing hatch positions;
-- proportions.
-
-What should be standardised is the **software/data contract**, not the physical mesh.
-
-Regional gameplay balance is still unresolved:
-
-- identical statistics between regions;
-- or equivalent overall balance budgets with different tradeoffs.
-
-The latter is more interesting but substantially harder to balance.
+Post-Core enthusiast packs remain **Proposed**, with agreed Core-priority/shared-foundation/compatibility constraints. Role-based catalogues, historical cards/liveries and optional Advanced driving are expansion directions, not current prototype tasks. Pricing (~£10 planning target), roster, chronology, advanced infrastructure, migration, distribution and multiplayer entitlement remain open. See GAME_DESIGN OQ19–OQ27 and ROADMAP.docx.
 
 ---
 
@@ -778,13 +747,13 @@ Maximum segment length, speed cap, recipe quantities, curvature/gradient rules.
 Block lengths, speed caps, interlocking progression, invalid/uncontrolled behaviour.
 
 ### OQ04 — Signal Boxes
-Signal capacities, territory rules, overlaps, reassignment.
+Signal capacities, territory/overlap/reassignment and generated-linkage technical details (routing, equipment coverage, regeneration, performance and multiplayer).
 
 ### OQ05 — Locomotives
 Whether Medium is fastest; exact traction, acceleration, mass, capacities, and consumption.
 
 ### OQ06 — Regions
-Launch regions, American locomotive references, fallback region, regional stats, multiplayer/save selection.
+Exact Core launch regions, world/save style selection, fallback and visual/stat migration; dynamic versus construction-fixed data, running trains, total mass, save migration and switching exploits. Regional variation is Agreed; identical class statistics are Superseded.
 
 ### OQ07 — Wagons
 Launch wagon roster, capacities, dimensions, costs, platform compatibility.
@@ -805,7 +774,7 @@ Facility set, timetable controls, departure conditions, signal-box requirements.
 Geometry preservation, costs, safeguards, occupied track, partial conversion, recovery.
 
 ### OQ13 — Launch Scope
-Whether interchange buildings, specialist locomotives, advanced service equipment, etc. belong in initial release.
+Core/later non-expansion scope; advanced late-game steam infrastructure is expansion-only, with catalogue open under OQ22.
 
 ### OQ14 — Implementation
 Final toolchain validation, multiplayer/save architecture, performance, testing and packaging.
@@ -816,12 +785,17 @@ Character/name/dialogue/avatar/palette/interface (OQ15); historical origin and o
 
 ---
 
+### OQ19–OQ27 — Post-Core and UX questions
+
+Build-menu support/nesting (19); expansion names/roster/cap/roles (20); Golden Era chronology (21); advanced infrastructure (22); expansion regional migration/fallback (23); Advanced driving/steam systems and Simple performance (24); liveries/cameos/licensing (25); pricing/distribution/commercial permissions (26); multiplayer installation/entitlement/save compatibility (27). Details remain in GAME_DESIGN.
+
 ## 24. Superseded Ideas
 
 Do not accidentally reintroduce these without a deliberate design decision:
 
 - early rail being limited to roughly half vanilla placement length;
 - universal physical chassis for all regional locomotives;
+- identical locomotive class statistics between regional variants;
 - steam locomotives remaining compatible with upgraded FICSIT monorail.
 
 ---
@@ -836,7 +810,11 @@ Project authority order:
 4. `Development/TECHNICAL_ENVIRONMENT.md` — verified toolchain, API, and environment facts.
 5. `CHANGELOG.md` — meaningful project, design, and implementation history.
 6. `CLAUDE.md` — Claude-specific implementation rules.
-7. `References/` — historical and supporting material; not automatically authoritative.
+7. `WORKFLOW.md` — coordination and change discipline.
+
+`References/` remains supporting/historical material outside the authority chain.
+
+`ROADMAP.docx` — human-readable project direction and phase roadmap; maintained from canonical information, overview only and non-authoritative on conflict. It is outside the formal authority order.
 
 `WORKFLOW.md` is the concise human-and-agent guide to coordination and change flow. `Design/Early Locomotion Design Reference.docx` is the human-readable Word copy of the design master. `Balance/` holds future balance models and playtest data.
 

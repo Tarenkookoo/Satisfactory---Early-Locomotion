@@ -140,7 +140,7 @@ The project intends to support many locomotives, wagons, and regional visual var
 
 Avoid copy-pasting gameplay logic into every locomotive.
 
-Prefer a shared gameplay system with data/configuration describing individual vehicles.
+Prefer a shared gameplay system with data/configuration describing individual vehicles. Core and future expansions use one sufficiently expressive foundation; standardise software/data contracts, not chassis. Expansion work must not delay first playable/Core 1.0. Regional statistics may differ; do not implement the Superseded identical-stat baseline or select unresolved region-switch migration rules.
 
 Likely categories include:
 

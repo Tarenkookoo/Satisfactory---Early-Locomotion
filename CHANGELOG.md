@@ -33,6 +33,24 @@
 - Added OQ15–OQ18; no existing Open Question was resolved. Updated INDEX.md with a concise feature summary and question references.
 - Files updated: Design/GAME_DESIGN.md, INDEX.md, CHANGELOG.md. This is design approval only; no implementation progress or verified technical-environment change is claimed.
 
+## 1 October 2026 — Proposed mechanical signal-box linkage visuals
+
+- Following The Manager's review, canonically recorded automatically generated mechanical-looking line-side rods/wires as **Proposed**, not Agreed. No manual placement, routing or wiring is required by the proposal.
+- Recorded control-relationship readability, corridor-following/branching direction, assignment updates, and secondary twitch/clack ambience without specifying full mechanical transmission simulation.
+- Left path generation, branching, overlapping territories, regeneration, clutter, LOD/culling/performance and equipment coverage unresolved. No Open Question or gameplay implementation decision was resolved.
+- Updated Design/GAME_DESIGN.md, INDEX.md and CHANGELOG.md. A synchronized Word draft is prepared; installation and the combined commit remain pending visual QA. Development/PROGRESS_LOG.md is unchanged.
+
+## 1 October 2026 — Expanded design direction and project roadmap
+
+- Applied the Manager-reviewed dispositions: railway assistant concept/user voice/no-live-network scope, always-accessible progressive miniature tutorials and white-table/older-FICSIT UI direction are Agreed; apparent ADA takeover and legacy lore flavour remain Proposed.
+- Promoted the compatible pending automatic semaphore/box linkage proposal to Agreed, with no manual wiring and perceptual secondary motion/audio rather than full transmission simulation. Its preceding Proposed entry is preserved as history.
+- Agreed world/save regional style, existing/future Core presentation intent and one Small/Medium/Large per supported Core style. Launch regions remain open.
+- Marked identical regional locomotive class statistics **Superseded**; meaningful regional mechanical differences and comparable representative-train usefulness replace that active baseline. Numeric values and runtime/stat migration remain open; earlier history is retained.
+- Separated a **Proposed post-Core** regional enthusiast programme from first playable/Core 1.0. Agreed Core quality/priority, expressive shared data-driven foundation, role-based expanded browsing, truthful historical cards, historical livery principles, roster cap, optional/default-Simple Advanced driving, expansion-only advanced infrastructure, electric superiority and pack compatibility/conditional multiplayer goals.
+- Preserved Proposed pack pricing/update model, Golden Era scope, detailed advanced infrastructure/driving, livery/shop integration/commentary and cameos. Distribution/commercial permission/entitlement remain unverified.
+- Revised OQ04/OQ06/OQ13/OQ15–OQ18; added OQ19–OQ27 for build-menu UX, expansion catalogue/chronology/infrastructure/migration/driving/liveries/commercial delivery/multiplayer. No remaining Open Question was silently resolved.
+- Created ROADMAP.docx as a non-authoritative human-readable overview maintained from canonical files; synchronized the Word design reference and reconciled INDEX/WORKFLOW roles and concise CLAUDE constraints. Current runtime experiment remains unrun; no speculative implementation fact added to TECHNICAL_ENVIRONMENT.
+
 ## Future entry template
 
 Version and date:

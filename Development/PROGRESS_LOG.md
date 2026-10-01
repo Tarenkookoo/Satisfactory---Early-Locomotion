@@ -271,6 +271,16 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 
 **Exact next action:** Use the prepared folders for scoped asset work. The main technical next action remains Runtime Baseline Experiment 1: powered control, then unpowered from rest. No experiment was run.
 
+### 2026-10-01 - Manager-approved Design and Roadmap Reconciliation
+
+**Completed:** Documentation-only reconciliation of Manager-approved design statuses, compatible pending linkage edits and post-Core scope; synchronized the Word design reference and created the non-authoritative ROADMAP.docx overview. Updated INDEX, CHANGELOG, WORKFLOW and concise CLAUDE foundation constraints. This history entry records documentation work, not Ideas Lab brainstorming as implementation progress.
+
+**Preserved:** Current Checkpoint and Exact Next Action are unchanged. Runtime Baseline Experiment 1 has not been run; architecture remains unresolved. No gameplay code, production asset or verified toolchain/API fact was changed. TECHNICAL_ENVIRONMENT.md is unchanged. Blender/prototype work and committed reference-library work are excluded.
+
+**Verification:** Canonical status/OQ and document-content comparison; Word layout QA is recorded in the Manager handoff, not presumed from text extraction. Git checkpoint scope reviewed separately; no commit hash is claimed in advance.
+
+**Exact next action:** Run the existing powered-control and unpowered-from-rest first pass, return observations to The Manager, then assess architecture. Future expansion ambitions do not change current technical priority.
+
 ## Rules for Maintaining This Log
 
 1. After every meaningful work session, update **Current Checkpoint** and append a dated history entry. Keep the checkpoint at the top and history oldest first.

@@ -70,9 +70,19 @@ Playtest targets: 6 to 8 signals per station box, 12 to 16 per dedicated box, an
 
 Open implementation details include how distance is measured across junctions, territory overlap, assignment priority, reassignment after track edits and the relationship between signal count and distance limits.
 
+### Mechanical signal-box linkage visuals — Agreed
+
+Agreed: when a semaphore becomes assigned to or controlled by a signal box, automatically generated mechanical-looking line-side rods/wires/linkages represent that relationship. Where technically practical, they originate from or visibly connect to the controlling box area, follow the railway formation believably, and head toward controlled equipment. They regenerate/update when assignments change. This is primarily a presentation/readability layer; it does not replace automatic territory/control assignment.
+
+Agreed: players do not manually place, route or wire signalling equipment. There is no manual wiring minigame. Full physical simulation of mechanical rod/cable travel over hundreds of metres is excluded. When controlled equipment changes state, linkage may twitch/jolt/vibrate slightly and appropriate mechanical click/clack/tension audio may play. The semaphore arm, signal-box lever and relevant machine supply the primary readable movement; line-side motion remains secondary environmental detail.
+
+The design principle is perceptual plausibility, visual communication and mechanical atmosphere, not museum-grade simulation. This builds on mechanical semaphores, limited box capacity/territory, connected-territory assignment and the rod/cable conduit visual language.
+
+Open Question / technical: rod versus wire appearance, spline/path generation, junction branching, continuity over long runs, overlapping territories, linkage to points/switch equipment, regeneration after track edits or reassignment, clutter, LOD/culling/performance and multiplayer presentation remain unresolved under OQ04. TECHNICAL VERIFICATION NEEDED; no implementation architecture or API is established.
+
 ## Locomotives
 
-Agreed: Small, Medium and Large are the three initial gameplay classes. They should retain useful roles rather than form a ladder in which every larger engine invalidates the last. Purchase cost, traction, acceleration, speed, supply capacity, consumption and footprint must be considered together.
+Agreed: Small, Medium and Large are the three primary Core gameplay roles. Every supported Core regional style ultimately provides one Small, one Medium and one Large locomotive; exact supported launch regions remain open. Each locomotive may have individual statistics. Core simplicity comes from a small roster, broad roles and accessible UX, not identical hidden physics. They should retain useful roles rather than form a ladder in which every larger engine invalidates the last. Purchase cost, traction, acceleration, speed, supply capacity, consumption and footprint must be considered together.
 
 Small British reference: LMS Fowler Dock Tank. It is a tank locomotive with onboard coal and water and no normal tender. It is the weakest class, suited to short industrial trains and local branches. Low cost and economical operation should keep it useful later. An auxiliary tender is possible but adds a significant burden to its limited hauling ability.
 
@@ -86,19 +96,25 @@ Proposed operating character: the Small should start a few loaded wagons confide
 
 ## Regional variants
 
-Agreed ambition: regional models apply to locomotives and wagons. Automatic selection may use the game's language as a default, but players should be able to override it through a Regional Rolling Stock Style option. Language alone does not identify a country or railway preference.
+### Core regional presentation — Agreed
 
-Suggested style entries include Automatic, British, North American, German or Central European, French and Japanese. This is an example menu, not a committed launch roster. The user is willing to invest in research and modelling; release scope remains open.
+Regional presentation is a world/save-level setting, not a per-player visual preference: conflicting infrastructure styles would confuse multiplayer. Normal Core rolling stock follows one regional world style; cross-region mixing is not the normal Core design. Do not duplicate equivalent buildables merely to offer separate British/American/etc. versions of the same freight wagon.
 
-Agreed correction: do not force all regional locomotives onto one physical chassis. Different wheel arrangements, wheelbases, proportions and motion require their own models, rigs and animations. Standardise software behaviour and interfaces instead. The earlier shared collision box and wheel layout proposal must not be treated as a settled requirement.
+Changing the selected Core region is intended to affect existing and future Core/basic infrastructure, Core locomotives, Core wagons and other presentation covered by the regional system, not just newly built objects. Runtime implementation is unverified. The earlier language-derived automatic default remains a possible default-selection idea, not a replacement for world/save-level selection.
 
-The user used Big Boy as an extreme illustration of chassis differences, then chose a smaller but still impressive American steam freighter for the ordinary Large role. Big Boy is not the baseline selection. The conversation corrected its wheel arrangement to 4 8 8 4; that correction is background context rather than a gameplay specification.
+Each supported Core style ultimately includes one Small, Medium and Large locomotive serving broad roles, with individual definitions/statistics. British, North American and Continental European styles have been discussed repeatedly, but none of these examples establishes the final launch list. Exact launch regions and references remain OQ06.
 
-Later candidate suggestions included a Santa Fe type 2 10 2, a large Mikado 2 8 2, or a heavy 4 8 2 or 2 8 4. No American class has been selected. Regional equivalents should be comparable in role and visual stature, while remaining recognisably distinct.
+Agreed architectural constraint: standardise software/data contracts, not physical chassis. Wheel arrangements, wheelbases, proportions, tenders, rigs and animations may differ substantially. The shared collision box/wheel-layout proposal remains Superseded. Big Boy was an illustration of chassis differences, not the ordinary American Large selection. Santa Fe-type 2-10-2, Mikado 2-8-2, heavy 4-8-2 and 2-8-4 suggestions remain unselected examples.
 
-Open balance decision: the accepted initial recommendation used identical statistics within each regional gameplay class. A later assistant proposal allowed different statistics within an equivalent overall performance and cost budget. This later proposal was not confirmed. Use identical class statistics as the earlier baseline pending an explicit decision; do not quietly introduce regional advantages.
+### Regional performance — Agreed
 
-Specialist or articulated locomotives outside the three class baseline were suggested for distant future expansion. They are not a core launch commitment.
+Regional locomotive traditions may have meaningfully different absolute physical/performance characteristics. A North American locomotive may be heavier/more powerful while its corresponding rolling stock is also heavier; a British locomotive may have lower absolute power and lighter stock. These are illustrative principles, not selected classes or numeric specifications.
+
+The objective is broadly comparable useful gameplay performance for representative regional trains while preserving regional mechanical character, not identical displayed numbers. Wagon tare/mass may be an internal balancing parameter. No numeric balance values or final curves are approved.
+
+Superseded: the earlier requirement for identical locomotive class statistics between regional variants. It is retained here and in CHANGELOG history only, not as an active requirement.
+
+Open Question OQ06: whether a world-region change dynamically changes existing locomotive/wagon mass or performance, whether values are fixed at construction, save/load migration, already-running trains, total train mass display, transient/exploit states, coherent migration and visual fallback. Do not choose a migration rule in implementation without approval. TECHNICAL VERIFICATION NEEDED.
 
 ## Fuel and water servicing
 
@@ -168,7 +184,7 @@ Every limitation should support a player choice: range can be extended with supp
 
 ## Development and asset direction
 
-Proposed architecture: a shared SteamLocomotiveBase owns common fuel, water, traction, steam state, signalling and interface behaviour. Definitions hold performance values; model specific presentation supplies mesh, wheel configuration, rig, animation, steam emitters and audio. Wagon families share common behaviour with cargo, fluid and possible specialist variants.
+Agreed design constraint: Core and expansions share expressive locomotive gameplay/simulation with individual definitions; expansions must not delay current Core work. The class/inheritance decision remains unresolved. Proposed architecture: a shared SteamLocomotiveBase owns common fuel, water, traction, steam state, signalling and interface behaviour. Definitions hold performance values; model specific presentation supplies mesh, wheel configuration, rig, animation, steam emitters and audio. Wagon families share common behaviour with cargo, fluid and possible specialist variants.
 
 The earlier workflow discussion suggested AI assisted coding with independent review, Blender for final locomotive geometry, generated props or concepts as starting points, material authoring for coherent wear and soot, and layered sound effects driven by operating state. These are workflow proposals rather than installed tools or development commitments.
 
@@ -176,72 +192,120 @@ Locomotive geometry, rods and wheel motion require deliberate modelling. Servici
 
 ## Railway Assistant & Animated Tutorial System
 
-Approved design addition recorded on 20 September 2026, following The Manager's review and the user's explicit approval of the requirements and status split. The groups below distinguish approved behaviour from proposed presentation and unresolved choices.
+The 20 September 2026 addition is reconciled with the Manager-approved 1 October dispositions below. Concept approval does not establish API feasibility.
 
 ### Confirmed / Agreed
 
-#### Scripted railway-assistant character
+#### Railway assistant character and scope
 
-Early Locomotion has its own scripted, voiced railway-assistant character, distinct from ADA in personality and presentation. She is bubbly, enthusiastic, expressive, noticeably more alive/emotive than ADA, and genuinely eager to help. She is whimsical without becoming random or obnoxiously hyperactive, and competent as an instructor.
+Early Locomotion has its own scripted railway-focused assistant, distinct from ADA and voiced by the user/project creator. She is warm, bubbly, enthusiastic, expressive and competent as a teacher, strongly interested in railways, signalling, locomotives and engineering. Her warmer support-oriented presentation contrasts with ADA/FICSIT's colder corporate tone. She handles Early Locomotion narrative/voice presentation and supports integrated railway education.
 
-Her enthusiasm centres on railways, railway engineering, signalling, locomotives, and teaching, rather than generic “quirky AI” behaviour. She should feel like an enthusiastic new recruit delighted to finally have a job. The user currently intends to voice her personally, enabling bespoke Early Locomotion guidance without requiring ADA's voice actor. This is a scripted character, not generative/live AI behaviour.
+She is not actual generative AI, a live railway-management/diagnostic system, a route calculator, a network inspector, an automatic signal placer or an automatic railway fixer. She does not diagnose or operate the player's live network. Tutorials teach principles and preserve player problem-solving.
 
-#### First appearance
+#### Animated teaching and reference library
 
-The assistant first appears when the player enters Early Locomotion progression: the first applicable Early Locomotion milestone/technology unlock triggers the introduction, whichever qualifying unlock occurs first. The introduction initially resembles the normal Satisfactory/FICSIT/ADA announcement presentation. When ADA would normally appear, the interface appears to glitch or be interrupted/taken over by the railway assistant.
+The assistant includes an always-accessible animated railway teaching/reference system. Lessons remain optional and replayable and become available progressively alongside relevant technology. The library remains accessible; individual lessons respect progression. Miniature demonstrations animate concepts, pause at important moments, highlight relevant objects/behaviour and use short explanatory captions. Avoid giant text walls.
 
-The sequence is humorous, surprising, and clearly different from ADA, never sinister or horror-themed. She need not claim to have “hacked FICSIT”; the preferred tone is that she takes over and behaves as though this is completely ordinary. Exact presentation details and implementation remain non-canonical until technically verified.
+Agreed presentation direction: a clean white miniature model-railway/showroom/IKEA-like table with miniature Early Locomotion trains, track, stations, semaphores, signal boxes and servicing structures. Create's Ponder system may inspire visual interaction, but its assets/presentation must not be copied literally. This is not an implementation dependency.
 
-#### Teaching purpose and scope
-
-Her major gameplay function is railway education and Early Locomotion-specific guidance. She may provide bespoke narration/dialogue for appropriate milestones and railway concepts. She teaches principles and leaves railway construction and problem-solving to the player; player agency remains intact.
-
-She is not a live railway-management system. Explicitly out of scope are inspecting the player's live railway network, analysing current network state, automatically diagnosing signal problems, calculating routes, managing trains, automatically fixing railway designs, automatically placing signals, live railway optimisation, and generative conversational AI.
-
-#### Animated tutorials and progressive availability
-
-Early Locomotion includes an integrated animated railway tutorial/library system. Minecraft Create's Ponder system is an inspiration for the interaction philosophy only, not an implementation dependency or a system to copy directly.
-
-Animated miniature demonstrations teach visually rather than relying primarily on written documentation. Each demonstration focuses on one railway principle, animates the relevant track/trains/infrastructure, pauses or emphasises important stages, and uses short explanatory captions. Demonstrations remain instructional and do not solve the player's real railway automatically. Scripted pauses/emphasis are distinct from the proposed player playback controls below.
-
-Tutorial material becomes available alongside the technology/mechanics needed to use it: signalling lessons should not appear before signalling technology exists, and advanced lessons should not precede their corresponding systems. The first railway remains approachable, with operational complexity, signalling, servicing, and advanced railway engineering introduced and taught progressively as they become relevant.
-
-This feature complements conventional steam infrastructure, progressive railway introduction, simple first routes, increasing signalling complexity, semaphore/block signalling, signal boxes, fuel/water logistics, station/service infrastructure, and operational railway problem-solving.
+Agreed library UI direction: recognisably older FICSIT visual language, instructional, cleaner, older/prototype and less aggressively corporate. This visual direction does not establish historical lore. Desired controls where practical are pause, replay, previous step and next step; exact UI and playback/control implementation remain open under OQ15/OQ18.
 
 #### Release audio requirement
 
-The brainstorming reference to the Windows XP startup sound is not an approved release asset. Release audio must use an original, legally distinct retro-computer-style startup jingle unless rights to any third-party copyrighted audio are separately established.
+Windows XP audio is not intended release content. Use an original legally distinct retro-computer startup jingle; no third-party sound rights are assumed.
 
 ### Proposed
 
-#### Tutorial presentation
+#### First unlock introduction and apparent ADA takeover
 
-A clean white miniature model-railway demonstration table, with IKEA/display-table-like simplicity and miniature Early Locomotion track, locomotives, wagons, stations, signals, and service infrastructure, is a strong current direction rather than a final choice. The presentation would be intentionally clean and instructional.
+On the first applicable Early Locomotion technology unlock, expected ADA-style presentation may begin, followed by interface glitches/interference, an apparent railway-assistant takeover, an original retro startup jingle and her introduction. The intended humour is surprising rather than sinister. Exact animation, sequence, dialogue, timing and trigger remain Proposed/Open; no ADA interception or independent recreation mechanism is selected.
 
-#### Tutorial controls and library UI
+#### Legacy FICSIT flavour
 
-Proposed controls, where practical, include pause, replay, and stepping forwards/backwards or staged progression. Their exact scheme and feasibility are not approved. A vertical subject/category list and logical subject grouping are proposed library layout choices. That layout would expose progressive availability based on unlock state; progressive tutorial availability itself is Agreed above.
+Older UI language, warmer support tone, obsolete/prototype styling, less productivity-obsessed wording and strange persistence in the modern system may imply an earlier FICSIT era. Do not canonise “FICSIT used to be good and was later corrupted.” Exact historical origin remains open.
 
-#### Visual language and possible lore implication
+#### Expanded teaching and character content
 
-The proposed UI is recognisably FICSIT-derived but appears older than current FICSIT UI: cleaner, more instructional, less aggressively corporate/efficiency-focused, and archival/prototype in character. It may imply that the assistant belongs to or originated from an earlier FICSIT era. That implication is not confirmed lore.
-
-#### Expanded content
-
-Later/proposed possibilities include specialised railway lessons, common-mistakes demonstrations, additional character flavour dialogue/animations, a larger tutorial catalogue, advanced junction/passing-loop/signalling demonstrations, and additional milestone narration structure. No launch tutorial roster is defined by this approval.
+Specialised/common-mistakes lessons, advanced junction/passing-loop/signalling demonstrations, additional flavour dialogue/animations and milestone narration remain Proposed beyond the concept. A vertical subject/category list is one Proposed layout, not the final library UI.
 
 ### Open Questions
 
-- **OQ15 — Character and presentation:** What is the assistant's final name? What is the exact introductory dialogue? What avatar/visual character design, if any, and colour palette should be used? What is the final library/interface layout?
-- **OQ16 — Historical origin and lore:** Is her historical origin ever explicitly explained? Does the older-FICSIT presentation represent real project lore or remain visual implication only?
-- **OQ17 — Tutorial content and narration:** What is the exact launch tutorial roster? Which technology/unlock grants each tutorial? What is the exact milestone voice-line structure?
-- **OQ18 — Tutorial and assistant implementation:** What are the exact playback controls and first-unlock trigger implementation? How is the ADA-style takeover/presentation implemented? Should it imitate/intercept vanilla ADA presentation or recreate the effect independently? How are animated miniature demonstrations, progressive tutorial unlock tracking, and voice/audio integration implemented? Each implementation-related choice requires technical verification against the real Satisfactory/SML/Unreal environment.
+- **OQ15 — Character and presentation:** Exact assistant name, introductory dialogue, avatar/visual design, palette and final library/UI layout remain open.
+- **OQ16 — Historical origin and lore:** Exact deeper lore/origin; whether history is explained or implied, and whether older-FICSIT styling represents lore or visual implication only.
+- **OQ17 — Tutorial content and narration:** Exact subject/launch roster, unlock mapping and milestone voice-line structure.
+- **OQ18 — Tutorial and assistant implementation:** Exact playback controls, first-unlock trigger, announcement UI, ADA-style illusion/interception versus independent recreation, animated demonstration scenes, lesson tracking and voice/audio integration. TECHNICAL VERIFICATION NEEDED against the actual environment; no API, hook, Blueprint or architecture is approved.
 
-#### Technical verification required
+## Build menu UX
 
-The following capabilities remain unverified: intercepting or recreating ADA-style announcement presentation; triggering the introduction exactly once; custom tutorial/library UI; animated miniature demonstrations; progressive tutorial unlock tracking; pause/replay/step functionality; and custom voice/audio integration.
+Proposed: Early Locomotion eventually has its own top-level build category rather than placing the entire system in vanilla Transport. Possible groups are Railway Infrastructure, Stations / Servicing, Signalling and Rolling Stock. Exact hierarchy/nesting remains OQ19. TECHNICAL VERIFICATION NEEDED for Satisfactory build-menu support; no API or implementation is established.
 
-Investigate whether the desired “ADA takeover” illusion can be reproduced independently instead of modifying/intercepting ADA's actual presentation system. This may be safer for compatibility, but no implementation decision has been made. No APIs, class names, hooks, Blueprints, or implementation architecture are specified by this design approval.
+## Post-release enthusiast expansion programme
+
+### Core boundary and shared foundation — Agreed
+
+The expansion programme is a Proposed long-term post-Core direction. Agreed constraint: it must not delay Core, first playable implementation or Core 1.0. Core must be complete, polished and satisfying; do not deliberately weaken or leave Core locomotives incomplete to sell expansions. Core retains its identity as Satisfactory with a distinct early steam railway system. Expansion value would come from breadth, historical variety, specialisation, enthusiast depth, advanced operation and infrastructure.
+
+Agreed: Core and expansion locomotives share one sufficiently expressive underlying gameplay/simulation foundation, with individual data-driven definitions. Expansions add definitions, nuanced characteristics and optional deeper driving interactions. Do not create an expansion-only physics engine where the common foundation can support both. Standardise software/data contracts, not physical locomotive chassis. This is a design constraint, not a choice of Unreal inheritance or implementation type.
+
+### Regional packs and updates — Proposed
+
+Separate regional enthusiast packs may add expanded fleets, region-specific advanced infrastructure presentation, enthusiast systems and historical/livery content. Approximately £10 GBP per pack is a Proposed planning target only; exact price is open. Pricing, storefront, entitlement, distribution and commercial permission are not technically or legally settled.
+
+Proposed update model: launch with a smaller meaningful roster, then add locomotives/content through updates supplied to existing owners without charging per locomotive. Exact roster and release strategy remain open. Do not canonise early adopters paying more for incomplete content; early-access pricing remains open.
+
+### Expanded locomotive catalogue — Agreed direction
+
+Without expansions, Small / Medium / Large remains the simple primary Core selection. With a substantially expanded enthusiast roster, browsing should move to historical/operational role categories. Core locomotives remain available and are reclassified into that catalogue. Shunters, Mixed Traffic, Express Freight / Fast Freight and Heavy Freight are candidate names only. A category explains a locomotive family/role; its individual card explains that machine's strengths and duties. Exact category names remain open.
+
+Satisfactory has no normal passenger economy. A gameplay Express category primarily means express/fast freight or high-speed logistics, not a passenger-service requirement. Passenger-oriented historical classes may appear for broader real-world use, enthusiast significance or cameo/prestige content. Historical descriptions must state their real purpose honestly even if gameplay adapts it.
+
+Each expansion locomotive may meaningfully differ in tractive effort, speed, mass, acceleration, braking, coal/water capacity and consumption, gradient behaviour and hauling character. They are not cosmetic skins of Small/Medium/Large; same-category locomotives need not behave identically. No final values are approved. Real railway research informs relative character, role, identity and plausible differences; do not copy all engineering values literally into Satisfactory. The aim is historically knowledgeable gameplay, not exact engineering simulation.
+
+Agreed: the eventual roster has a deliberate cap to avoid overwhelming players. Substantial variety is a Proposed aspiration; earlier examples of roughly four shunters, five–six mixed-traffic and up to ten each fast/heavy freight machines are not committed counts or requirements. Exact expansion names, roster, count and role categories remain OQ20.
+
+### Historical cards and Golden Era scope
+
+Agreed: expansion locomotive cards separate HISTORY / CHARACTER from EARLY LOCOMOTION GAMEPLAY. History gives a short researched introduction covering class, designer/builder/operator, introduction era/year, intended historical purpose and useful reputation/story. Gameplay states duties, strengths, weaknesses and practical role. Research class-specific history when developing rosters; no roster is approved here.
+
+Proposed: regional fleets primarily draw from steam's mature/Golden Era period. British examples may include suitable GWR, LNER, LMS, SR, British Railways and other relevant operators. Operators inform history, livery and identity; they are not build-menu categories. Exact chronological boundaries remain OQ21.
+
+### Late steam and advanced infrastructure
+
+Agreed: vanilla electric monorail remains technically superior overall even with expansions. High-end steam may remain late-game viable in specialised roles through physical scale: large terminals, many tracks/trains, substantial signalling/servicing and large railway complexes. Electric remains compact, efficient, convenient and high-density; steam's scale/volume ambition does not make it objectively better.
+
+Agreed: advanced late-game steam infrastructure is expansion-only and serves enthusiasts intentionally retaining steam after electric unlocks. Larger terminals, higher-capacity servicing, larger signal boxes/capacity/territories, improved interlocking, greater practical signal spacing and large-network systems remain Proposed/Open. Do not give steam vanilla electronic capability with semaphore visuals. Exact catalogue remains OQ22.
+
+Proposed regional asset direction: Core provides BASIC regional infrastructure presentation; matching regional packs provide ADVANCED expansion presentation. Owned matching assets may supply the selected visual set; unowned regional assets must not be provided magically. Fallback for existing advanced infrastructure when a matching pack is unavailable remains OQ23.
+
+### Expansion locomotive region switching — Open Question
+
+OQ23 includes a British expansion-exclusive locomotive remaining in a save after switching world style to North American without owning that pack. No transformation mapping, fallback machine, restriction or retention rule is selected. With multiple packs, whether machines transform into equivalent regional classes is also open. Do not force identical roster structures to enable mapping.
+
+### Advanced manual driving
+
+Agreed direction: advanced manual steam driving is an optional/toggleable enthusiast expansion feature. Normal Simple controls remain available and are the default. First relevant expansion use/launch presents SIMPLE CONTROLS versus ADVANCED STEAM CONTROLS, with Simple preselected and clear notice that the choice can change later. The assistant may present the choice. SML/SMM configuration implementation remains unverified.
+
+Proposed exploration: reverser/cutoff, regulator/throttle, locomotive brake, firing/firebox, steam pressure and possibly boiler water/injectors. A conceptual loop links fire/heat/water, steam/pressure, regulator consumption, cutoff tradeoffs and anticipating gradients/heavy starts; it is not an approved final physics model. Boiler water, injectors, firing depth, pressure limits, reverser modelling, failure consequences and stall/performance penalties remain OQ24. Catastrophic boiler explosions/damage are not an approved requirement.
+
+Proposed/Open: Simple could behave as a competent automatic crew managing complex steam systems; skilful Advanced operation might provide engagement and possibly modest efficiency/performance benefits. Do not make Simple deliberately bad to force Advanced. The performance relationship remains OQ24.
+
+### Liveries and cameo content
+
+Agreed expansion principle: historical liveries are prominent, with an appropriate/default historical presentation where feasible and possible additional historical liveries. FICSIT/custom corporate styles remain possible. Historical liveries must not become separate real-money microtransactions within an owned expansion proposal. Customizer/AWESOME Shop integration is Proposed and technically unverified; exact livery integration and relevant licensing remain OQ25.
+
+Proposed flavour: occasional, first-time/context-sensitive, non-spammy assistant reactions may express railway-nerd pleasure at historical liveries and playful disappointment at corporate/FICSIT styling. Exact dialogue remains future writing work.
+
+Proposed: famous locomotives may be special enthusiast, prestige/cameo additions or AWESOME Shop-style unlocks within an owned pack where appropriate. Flying Scotsman and Mallard are examples only; no cameo roster is approved. Names, trademarks, liveries and licensing require verification before commercial release (OQ25).
+
+### Multiplayer and compatibility
+
+Agreed desired outcome: friends should ideally not need a separate enthusiast-content purchase simply to join/play with an owner, if technically, legally and commercially viable. This is not verified server-side DLC. Client installation/asset requirements and commercial entitlement are distinct. Client assets, mod loading, server dependencies, entitlement, save compatibility and differing pack availability remain OQ27.
+
+Agreed: regional packs depend on Core, should coexist and be mutually compatible. Multiple packs should not duplicate underlying mechanical systems. Share gameplay systems/data contracts where practical and vary content/presentation; different regional buildings do not justify separate gameplay implementations.
+
+### Commercial delivery — Open Question
+
+Exact pack pricing, early-access pricing, paid distribution/storefront and commercial/platform permission remain OQ26. Patreon, external purchases and manual installation are unapproved ideas, not implementation plans. Investigation must cover Coffee Stain and Satisfactory Modding policies, SML/SMR rules, redistribution, commercial permissions, platform terms, entitlement, updates, dependencies and licensing. TECHNICAL VERIFICATION NEEDED, plus legal/commercial verification; no promise of sale or distribution mechanism is established.
 
 ## Open questions
 
@@ -251,11 +315,11 @@ Investigate whether the desired “ADA takeover” illusion can be reproduced in
 
 - OQ03 Signalling: choose block lengths, speed caps, path or interlocking progression, and invalid or uncontrolled block behaviour.
 
-- OQ04 Signal boxes: settle capacity, territory measurement, overlap and reassignment rules.
+- OQ04 Signal boxes: settle capacity, territory measurement, overlap and reassignment; generated linkage appearance, routing/branching, continuity, equipment coverage including points, regeneration, clutter, LOD/performance and multiplayer presentation.
 
 - OQ05 Locomotives: confirm whether Medium is the fastest steam class, then define traction, acceleration, mass, capacities and consumption curves.
 
-- OQ06 Regions: select launch packs, American references, fallback style and identical statistics versus regional tradeoffs; define multiplayer selection and save behaviour.
+- OQ06 Regions: select exact supported Core launch regions and references; specify world/save selection and existing/future presentation switching, fallback, save/load migration, dynamic versus construction-fixed mass/performance, already-running trains, total train mass display, transient/exploit states and coherent migration. Identical class statistics are Superseded; regional balance values remain unset.
 
 - OQ07 Wagons: establish item and fluid roster, capacities, dimensions, costs and platform compatibility.
 
@@ -269,16 +333,36 @@ Investigate whether the desired “ADA takeover” illusion can be reproduced in
 
 - OQ12 Conversion: validate geometry preservation and replacement, protect occupied lines, determine costs and retain station or timetable references where possible.
 
-- OQ13 Scope: decide whether interchange buildings, specialist engines and faster servicing equipment belong in later releases.
+- OQ13 Scope: determine Core/post-launch non-expansion scope for interchange buildings and specialist content. Advanced late-game steam infrastructure belongs to expansions; its exact catalogue remains OQ22.
 
 - OQ14 Implementation: choose and verify game, mod loader and editor versions, then establish multiplayer, save and load, performance and build validation requirements.
 
 - OQ15–OQ18 Railway assistant and animated tutorials: see the dedicated section above for character/presentation, lore, tutorial content/narration, and technically unverified implementation questions.
+
+- OQ19 Build menu: verify top-level category support and select exact hierarchy/nesting.
+
+- OQ20 Expansion catalogue: exact pack names, release/update roster and strategy, deliberate total cap and historical/operational role-category names. No suggested counts are commitments.
+
+- OQ21 Golden Era: exact chronological start/end and regional/operator coverage.
+
+- OQ22 Advanced infrastructure: exact expansion-only catalogue, capabilities, capacity/territory/interlocking limits and balancing against electric superiority.
+
+- OQ23 Expansion regional migration: expansion-only locomotive handling across world-region switches with missing/multiple packs; advanced regional-asset fallback; no mapping, retention, restriction or fallback rule selected.
+
+- OQ24 Advanced driving: exact simulation depth, boiler water/injectors, firing, pressure limits, reverser, failures/stalls and Simple-versus-Advanced performance. Configuration and input implementation require verification.
+
+- OQ25 Liveries and cameos: exact livery integration, Customizer/AWESOME support, cameo roster and name/trademark/livery licensing.
+
+- OQ26 Commercial programme: exact regional pack price, early-access pricing, paid distribution/storefront, permissions/policies, redistribution, updates/dependencies and licensing. No delivery plan approved.
+
+- OQ27 Multiplayer expansions: client assets/install/mod loading, server dependencies, entitlement, save compatibility, differing pack availability and feasibility of the join-without-extra-purchase goal.
 
 ## Revision record
 
 Version 0.1 created on 14 September 2026. Consolidates the initial concept, detailed balance discussion, user corrections on rail length and tenders, the regional chassis correction, animated servicing requirements and the final conventional rail versus monorail distinction.
 
 20 September 2026: added the approved Railway Assistant & Animated Tutorial System, preserving the Confirmed / Agreed, Proposed, and Open Questions split; added OQ15–OQ18 without resolving existing questions.
+
+1 October 2026: reconciled Manager-approved assistant/tutorial, generated linkage, world-region and regional-performance direction; identical regional statistics are Superseded. Added a clearly post-Core Proposed enthusiast programme, agreed scope/foundation/compatibility constraints, OQ19–OQ27 and revised OQ04/OQ06/OQ13/OQ15–OQ18. No implementation or remaining Open Question is resolved.
 
 Future revisions should update the relevant section, change its status where appropriate, record the reason and source in CHANGELOG.md, and resolve the corresponding open question. Preserve superseded decisions in the change history rather than leave conflicting instructions active.
