@@ -44,7 +44,7 @@ The current setup checkpoint records:
 - First usable editor launch and FactoryGame environment load completed on 26 September 2026 in 5.6.1-CSS; SML 3.12.0 initialization completed.
 - Git available and used successfully for the SML clone and project tracking; exact installed version not recorded.
 
-The exact Visual Studio patch/build is not recorded. The relocated SML checkout HEAD is recorded below. Project generation, FactoryGame Development Editor / Win64 build, editor loading and temporary probe Windows Shipping packaging/deployment are verified. Runtime Probe 1 now verifies the specific construction/rail/input/braking/unpowered-movement behaviour recorded below. Production Early Locomotion implementation, causality and a warning/error-free environment remain unverified. The previous Visual Studio/project-generation blocker is cleared.
+The exact Visual Studio patch/build is not recorded. The relocated SML checkout HEAD is recorded below. Project generation, FactoryGame Development Editor / Win64 build, editor loading and temporary probe Windows Shipping packaging/deployment are verified. Runtime Probe 1 now verifies the specific construction/rail/input/braking/unpowered-movement behaviour recorded below. The tested implementation's traction-causality result is recorded below; production Early Locomotion implementation and a warning/error-free environment remain unverified. The previous Visual Studio/project-generation blocker is cleared.
 
 ### Startup issue evidence — 2026-09-26
 
@@ -108,7 +108,19 @@ The EL Probe Locomotive built normally through the Build Gun; its vanilla locomo
 
 **Presentation/configuration residuals:** Camera could not rotate/look left/right normally, normal locomotive UI was absent, and exiting placed the player partly underneath/intersecting the locomotive. These presentation/configuration residuals remain unresolved but do not currently invalidate the observed traction/rail integration result.
 
-**Causality uncertainty:** This does not prove that `SetTractivePowerFactor(1.f)` specifically caused unpowered traction. Vanilla unpowered movement on the same dead track, sufficiency of the probe's no-op `UpdatePower`, and necessity of `SetTractivePowerFactor` remain untested. Final production architecture remains unresolved.
+**Historical initial causality uncertainty (before the later control result below):** This does not prove that `SetTractivePowerFactor(1.f)` specifically caused unpowered traction. Vanilla unpowered movement on the same dead track, sufficiency of the probe's no-op `UpdatePower`, and necessity of `SetTractivePowerFactor` remain untested. Final production architecture remains unresolved.
+
+## Runtime Probe 1 Traction-causality Result — 2026-10-02
+
+**Evidence:** Manager/user-verified three-way control; no new source inspection or runtime testing was performed in this documentation task.
+
+1. **Vanilla control:** On deliberately unpowered railway, the Vanilla Electric Locomotive showed No Power; a W throttle attempt produced no movement.
+2. **Working EL probe:** With `SetTractivePowerFactor(1.f)` active and `UpdatePower()` a no-op, `HasPower=false` while driver input was accepted, `TractiveEffortPct` and `TractiveForceN` were non-zero, the locomotive accelerated/moved normally, and braking worked.
+3. **Single-change EL control:** Only `SetTractivePowerFactor(1.f)` was disabled; `UpdatePower()` remained the same no-op. `HasTrain=true`, `IsDerailed=false` and `HasPower=false` each held for **165/165 samples**. Reverser/throttle input was observed, `TractiveEffortPct` reached **0.340**, and air brake was released during driving attempts. `TractiveForceN` and `ForwardSpeedCmS` remained **0 throughout**.
+
+**Verified conclusion:** Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. The result is specific to the current tested implementation, not a claim about every possible unpowered-traction design.
+
+**Current direction:** Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones. Camera, normal locomotive UI and exit-placement residuals remain unresolved. Coupling and broader integration are not yet verified.
 
 ## Important Compatibility Notes
 
@@ -174,7 +186,6 @@ Any third-party MCP/editor integration must be tested separately before it becom
 The following still require verification:
 
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
-- causality of unpowered probe traction: vanilla dead-track control, no-op UpdatePower sufficiency and SetTractivePowerFactor necessity
 - railroad movement beyond the tested probe and train composition/timetable APIs
 - probe camera, normal locomotive UI and exit-placement configuration
 - save/load behavior needed for custom steam state
@@ -185,9 +196,9 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
+Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones.
 
-Runtime Probe 1 is completed, not pending. Remaining integration unknowns include electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; timetable/autopilot; save/load; and client prediction/replication for steam traction. The tested probe's unpowered movement does not settle these areas or the causal controls above.
+Runtime Probe 1 and its traction-causality control are completed. Remaining integration unknowns include electric subobject requirements beyond the tested probe; track `CanConnectTo` behaviour; vanilla/EL wagon coupling compatibility; station/platform behaviour without power; timetable/autopilot; save/load; and client prediction/replication. Final production architecture remains unresolved.
 
 Do not begin major gameplay implementation until:
 

@@ -86,3 +86,9 @@ Files updated:
 - Runtime observation and FactoryGame.log analysis verified AFGLocomotive subclass construction, vanilla rail attachment, train membership, input response, braking and movement from rest without railway power; two separately placed probes reproduced the result.
 - Recorded camera, locomotive UI and exit-placement residuals without invalidating the tested traction/rail integration result.
 - Next checkpoint is causality control testing; no-op UpdatePower sufficiency, SetTractivePowerFactor necessity and vanilla dead-track behaviour remain unresolved. No final architecture selected or design/Open Question changed.
+
+## 2 October 2026 — Runtime Probe 1 traction causality
+
+- Three-way control: vanilla unpowered locomotive did not move; the working EL probe produced unpowered traction; disabling only SetTractivePowerFactor(1.f) left 165/165 samples with train membership, no derailment and no power, but zero force and speed despite input and released air brake.
+- Within the tested implementation, SetTractivePowerFactor(1.f) is necessary for unpowered traction; no-op UpdatePower alone is insufficient. Final production architecture remains unresolved.
+- Next: restore the working probe and begin normal railway integration with vanilla wagon coupling. No restoration/coupling success, gameplay change or Open Question resolution is claimed.

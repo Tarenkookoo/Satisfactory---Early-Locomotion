@@ -3,9 +3,9 @@
 ## Current Checkpoint
 
 **Date:** 2026-10-02
-**Phase:** Runtime Probe 1 completed; causality control testing before architecture selection
-**Status:** Retail Runtime Probe 1 is completed and analysed, verified by Manager/user runtime observation and FactoryGame.log. AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement in the tested probe. Generation, build, editor loading and Windows Shipping packaging/deployment at `C:\SML` remain verified.
-**Current blocker:** Causality control tests are required before final architecture selection; the contribution of no-op UpdatePower versus SetTractivePowerFactor is unresolved. Camera, UI and exit-placement residuals remain. The UBT Shipping path blocker and Wwise issue are resolved; Turnkey/System.Windows.Forms remains unresolved/deferred. No dependency/toolchain versions changed.
+**Phase:** Runtime Probe 1 traction causality verified; working probe restoration and vanilla wagon coupling next
+**Status:** Runtime Probe 1 and its three-way traction-causality control are completed, based on Manager/user-verified results. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. Prior construction, rail attachment, driver input, braking, movement while HasPower=false, build/editor and packaging verification remain valid.
+**Current blocker:** No traction-causality blocker remains for this tested implementation. Normal railway integration and final architecture require further evidence; camera, UI and exit-placement residuals remain. UBT Shipping path and Wwise issues are resolved; Turnkey remains unresolved/deferred. No dependency/toolchain change is recorded.
 **Implementation status:** The temporary non-production EL_ArchitectureProbe has demonstrated runtime construction, rail attachment, input, braking and unpowered movement. This is not final production architecture or production gameplay implementation; save/load, multiplayer and other untested integration areas remain unverified.
 
 Earlier chronological entries remain historical records of what was known at the time. The Claude/Blender asset capability experiment remains paused; its existing outputs are preserved.
@@ -39,14 +39,14 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
+Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones.
 
 ### Remaining Milestones
 
-- Causality controls and evidence-based final locomotive/track architecture assessment.
-- Address probe camera, locomotive UI and exit-placement residuals separately.
-- Untested coupling, track connectivity, stations/platforms, timetable/autopilot, save/load and replication integration.
-- Production gameplay implementation, packaging and in-game verification; retain Turnkey as unresolved/deferred.
+- Restore the successful working probe and test vanilla wagon coupling.
+- Further railway integration and evidence-based final locomotive/track architecture assessment.
+- Address camera, locomotive UI and exit-placement residuals.
+- Track connectivity, stations/platforms, timetable/autopilot, save/load, replication and production gameplay implementation remain unverified; Turnkey remains deferred.
 
 ### Documentation Reconciliation
 
@@ -328,6 +328,20 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 **Next action:** Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
 
 **Documentation boundary:** This task records the supplied verified results; it did not rerun the experiment or independently analyse the log. No gameplay requirements, design statuses or Open Questions changed.
+
+### 2026-10-02 - Runtime Probe 1 Traction-causality Control Completed
+
+**Evidence:** Manager/user-verified three-way runtime result; this documentation task did not rerun the experiment.
+
+1. **Vanilla control:** On deliberately unpowered railway, the Vanilla Electric Locomotive showed No Power; a W throttle attempt produced no movement.
+2. **Working EL probe:** With `SetTractivePowerFactor(1.f)` active and `UpdatePower()` a no-op, `HasPower=false` while driver input was accepted, `TractiveEffortPct` and `TractiveForceN` were non-zero, the locomotive accelerated/moved normally, and braking worked.
+3. **Single-change EL control:** Only `SetTractivePowerFactor(1.f)` was disabled; `UpdatePower()` remained the same no-op. `HasTrain=true`, `IsDerailed=false` and `HasPower=false` each held for **165/165 samples**. Reverser/throttle input was observed, `TractiveEffortPct` reached **0.340**, and air brake was released during driving attempts. `TractiveForceN` and `ForwardSpeedCmS` remained **0 throughout**.
+
+**Conclusion / scope:** Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture.
+
+**Next action:** Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones.
+
+No gameplay requirements, design statuses or Open Questions were changed. Historical Probe 1 observations and earlier causality uncertainty are preserved as records of what was known at the time.
 
 ## Rules for Maintaining This Log
 
