@@ -1,7 +1,7 @@
 # Satisfactory - Early Locomotion
 ## Project Index
 
-**Last updated:** 1 October 2026
+**Last updated:** 2 October 2026
 **Project phase:** Design finalisation + runtime baseline experiments before architecture selection
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
@@ -222,13 +222,17 @@ Large must not simply make Small and Medium obsolete.
 
 ---
 
+### Core locomotive identity and numbering — Agreed
+
+Normal locomotives are normally unnamed class members with automatic visible running numbers and a distinct permanent hidden Fleet Identity. Core provides world-level Standardised / Historical Operator modes, remembered regional numbers, a cheap renumber-unlock direction and class/number fleet search. VIPs retain fixed historical names/numbers. Historical datasets, uniqueness domain, storage, hooks, unlock cost and UI remain OQ28–OQ30; no implementation/API is verified.
+
 ## 7. Regional Locomotive Variants
 
-Agreed: regional style is world/save-level, not per-player, and is intended to update existing and future Core/basic infrastructure and rolling stock. Normal Core uses one world style rather than duplicate regional buildables or routine cross-region mixing. Each supported Core style ultimately provides one Small, Medium and Large locomotive with individual definitions. Exact launch regions remain open; discussed British/North American/Continental examples are not launch commitments.
+Agreed: regional style is world/save-level, not per-player, and is intended to update existing and future Core/basic infrastructure and rolling stock. Normal Core uses one world style rather than duplicate regional buildables or routine cross-region mixing. Connected wagon presentation follows its controlling locomotive; disconnected wagons follow the world style. Controlling-locomotive determination and live mass/presentation migration remain technically unverified. Each supported Core style ultimately provides one Small, Medium and Large locomotive with individual definitions. Exact launch regions remain open; discussed British/North American/Continental examples are not launch commitments.
 
 Standardise software/data contracts, not physical chassis. Regional power, mass and rolling-stock tare may differ while representative regional trains offer broadly comparable useful performance. **Superseded:** identical regional class statistics. Exact values, regional-switch stat/presentation migration and save/runtime safeguards remain OQ06; feasibility is unverified.
 
-Post-Core enthusiast packs remain **Proposed**, with agreed Core-priority/shared-foundation/compatibility constraints. Role-based catalogues, historical cards/liveries and optional Advanced driving are expansion directions, not current prototype tasks. Pricing (~£10 planning target), roster, chronology, advanced infrastructure, migration, distribution and multiplayer entitlement remain open. See GAME_DESIGN OQ19–OQ27 and ROADMAP.docx.
+Post-Core enthusiast packs remain **Proposed**, with agreed Core-priority/shared-foundation/compatibility constraints. Role-based catalogues, historical cards/liveries and optional Advanced driving are expansion directions, not current prototype tasks. Agreed fallback: an expansion locomotive without a valid owned destination counterpart retains its region, presentation and number; symmetric regional rosters are not required. Advanced driving focuses on firebox, regulator and reverser/cutoff, with competent default Simple controls; formulas/advantage remain open. Core/expansion VIPs are prestige rewards with fixed historical identity, not logistics upgrades; no named roster is approved. Expansion progression accompanies Core; milestone integration remains Proposed/unverified. Pricing (~£10 planning target), roster, chronology, infrastructure, technical migration, distribution and entitlement remain open. See GAME_DESIGN OQ19–OQ30 and ROADMAP.docx.
 
 ---
 
@@ -785,9 +789,9 @@ Character/name/dialogue/avatar/palette/interface (OQ15); historical origin and o
 
 ---
 
-### OQ19–OQ27 — Post-Core and UX questions
+### OQ19–OQ30 — Expansion, identity and UX questions
 
-Build-menu support/nesting (19); expansion names/roster/cap/roles (20); Golden Era chronology (21); advanced infrastructure (22); expansion regional migration/fallback (23); Advanced driving/steam systems and Simple performance (24); liveries/cameos/licensing (25); pricing/distribution/commercial permissions (26); multiplayer installation/entitlement/save compatibility (27). Details remain in GAME_DESIGN.
+Build-menu support/nesting (19); expansion roster/roles/progression and milestone API (20); chronology (21); advanced infrastructure (22); technical regional correspondence/migration and advanced-asset fallback (23); Advanced formulas/slip/advantage (24); liveries/VIP roster/prices/licensing (25); commercial delivery (26); multiplayer/saves (27); Fleet Identity storage/lifecycle (28); historical numbering data/rules/collision domain (29); renumber-unlock and fleet-search UI (30). The missing-counterpart locomotive retention rule is Agreed; its implementation remains open. Details remain in GAME_DESIGN.
 
 ## 24. Superseded Ideas
 

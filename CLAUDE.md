@@ -161,6 +161,8 @@ The exact implementation type — Data Assets, data tables, UObject definitions,
 
 ---
 
+Core normal locomotives require a stable hidden Fleet Identity distinct from visible running numbers; it must survive cosmetic, regional and number changes. Numbering conventions are researched per region/class/operator, not universal British arithmetic. These are Agreed design constraints; storage, hooks and algorithms remain OQ28–OQ30 and must not be guessed.
+
 ### 4. Separate gameplay from presentation
 
 Regional locomotive models can differ radically in:

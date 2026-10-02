@@ -94,17 +94,67 @@ Earlier playtest suggestions were Small at 50 to 55 km/h with 1 to 3 wagons, Med
 
 Proposed operating character: the Small should start a few loaded wagons confidently but struggle with long heavy trains and hills. The Medium offers speed and range at higher consumption. The Large offers heavy haul capability with greater servicing demand and slower acceleration. Actual curves and relative values remain to be chosen.
 
+## Locomotive identity and running numbers — Core feature
+
+### Normal locomotives and permanent Fleet Identity — Agreed
+
+Visible running numbers are a Core feature for both Core and expansion normal locomotives. Normal locomotives represent class members, receive generated historically plausible numbers and normally have no individual names. A number is assigned after successful placement; the build hologram does not need a permanent final number. The lifecycle hook/event remains TECHNICAL VERIFICATION NEEDED.
+
+Every normal locomotive receives a permanent hidden Fleet Identity, distinct from its visible running number. It survives repainting, livery changes, regional transformations and renumbering. Dismantling/deletion destroys that identity; a new placement receives a new identity. Exact persistence/storage remains OQ28. The word registry/database does not require SQL or an external database.
+
+### Regional number mappings — Agreed
+
+One Fleet Identity may store separate visible-number mappings for its regional identities. British → North American → British restores the previous British number rather than generating a fresh one each round trip. Manual renumbering within a region updates that region's stored mapping: a player changing 47298 to 47111 returns to Britain with 47111. These numbers illustrate persistence, not verified class-number datasets.
+
+A genuine Core regional transformation uses the destination region's stored/generated number and retains Fleet Identity and previous mappings. If an expansion locomotive cannot transform because no valid corresponding owned destination locomotive is available, it retains its existing regional identity, presentation and number; no new destination number is allocated. Livery changes alone never assign a new number. Explicit numbering-mode changes, region/class transformations and manual renumbering are number-change events; their technical implementation remains open.
+
+### World numbering modes — Agreed
+
+Core provides a world-level choice between **Standardised** and **Historical Operator** numbering. Standardised uses a consistent later/common scheme appropriate to that region; BR-style standardisation is a likely British reference baseline, not an approved dataset. Historical Operator uses researched operator/class-specific rules; GWR, LMS, LNER, Southern and BR are British examples, not complete data. The setting affects eligible locomotives across the world, rather than giving each normal engine an independent regime by default. The railway assistant should explain the choice when introduced; exact dialogue remains future writing work.
+
+Changing mode alters only system-controlled/class-specific structure as required and preserves player-selected digits wherever valid. If a destination scheme cannot support the prior structure, adjust/remove incompatible scheme-controlled structure while preserving user-controlled content where possible. A controlled portion need not literally be a prefix. The system must protect class/scheme structure. Exact conversions and datasets remain OQ29.
+
+### Unique allocation, release and overflow — Agreed
+
+Normal numbers must be historically plausible, not one-to-one recreations of real individual machines. Generation follows researched class blocks, operator ranges, controlled portions, formats and meaningful ordering rules. Produce a valid candidate, check the active registry, reject/retry a reserved candidate and reserve a valid number. Two active normal locomotives cannot share a visible number in the relevant numbering pool/domain; whether that domain is class, operator, region or a broader scheme remains OQ29.
+
+Dismantling/deletion releases the active reservation, allowing later reuse; the save does not permanently retire every allocated number. Exhausting a plausible historical pool must not block placement: use explicit, unique, visibly non-historical overflow allocation. X-00001 / X-00002 are examples only; the final prefix/format remains open.
+
+Construction order, a save-local sequence or another internal ordering mechanism may inform schemes where historical age/order matters. This remains Open Question OQ29; Satisfactory playtime is not currently a historical calendar. Per-class research determines whether ordering matters.
+
+### Manual renumbering — Agreed
+
+Manual renumbering is a customisation feature enabled by a cheap AWESOME Shop-style unlock. Afterwards the player may edit permitted number portions; duplicates are rejected and scheme-controlled portions enforced. A manual value is retained in its regional mapping, including through return visits to that region. Later numbering-scheme changes preserve player-controlled digits where valid. Exact unlock cost, UI and technical integration remain OQ30.
+
+### Number presentation and fleet search — Agreed direction
+
+Display numbers in historically appropriate/canonical locations defined per locomotive class/model: possible surfaces include smokebox/front, tanks, cab, tender or bunker. Do not use a universal decal/socket transform or visually impossible placements. Painted/displayed numbering is the consistent simplification; reproducing physical brass/cast-plate manufacture is not a universal requirement. Exact locations/transforms belong in model asset data and require research.
+
+The visible number forms part of player-facing identity; [Class] — No. [Running Number] is an example format only. Fleet management, train/timetable identity, map search and locomotive lists are possible uses; the hidden Fleet Identity remains internal. Players should be able to search/filter locomotives/trains by running number and class. Desired map behaviour keeps matches prominent and dulls non-matches; list/sidebar behaviour filters non-matching entries out. 92214 and 9F illustrate specific-engine versus class searches, not a fixed UI specification. Exact UI integration remains OQ30, TECHNICAL VERIFICATION NEEDED.
+
+### Historical numbering research and cards
+
+Agreed research discipline: each supported region requires its own verified conventions. Do not transpose British logic onto North American, German/Central European, French, Japanese or other future regions; these examples do not approve a launch-region list. Do not force every operator into one arithmetic rule. On selecting each production class, research and record historical ranges, operator conventions, nationalisation/renumbering treatment, blocks/controlled portions, construction-order significance, number placement, livery compatibility and exceptions in a structured per-locomotive definition suitable for later implementation. LNER/GWR and others may need bespoke logic. User screenshots are supporting references until independently verified, not sufficient hardcoding evidence.
+
+Proposed: historical build cards may show a small secondary numbering note covering typical series, operator convention or class-range structure. Normal cards should not become full historical registries. Exact per-class data and algorithms remain OQ29.
+
 ## Regional variants
 
 ### Core regional presentation — Agreed
 
-Regional presentation is a world/save-level setting, not a per-player visual preference: conflicting infrastructure styles would confuse multiplayer. Normal Core rolling stock follows one regional world style; cross-region mixing is not the normal Core design. Do not duplicate equivalent buildables merely to offer separate British/American/etc. versions of the same freight wagon.
+Regional presentation is a world/save-level setting, not a per-player visual preference: conflicting infrastructure styles would confuse multiplayer. Normal Core regional selection follows the world style; connected wagon presentation follows the controlling locomotive rule below. Cross-region mixing is not the normal Core design. Do not duplicate equivalent buildables merely to offer separate British/American/etc. versions of the same freight wagon.
 
 Changing the selected Core region is intended to affect existing and future Core/basic infrastructure, Core locomotives, Core wagons and other presentation covered by the regional system, not just newly built objects. Runtime implementation is unverified. The earlier language-derived automatic default remains a possible default-selection idea, not a replacement for world/save-level selection.
 
 Each supported Core style ultimately includes one Small, Medium and Large locomotive serving broad roles, with individual definitions/statistics. British, North American and Continental European styles have been discussed repeatedly, but none of these examples establishes the final launch list. Exact launch regions and references remain OQ06.
 
 Agreed architectural constraint: standardise software/data contracts, not physical chassis. Wheel arrangements, wheelbases, proportions, tenders, rigs and animations may differ substantially. The shared collision box/wheel-layout proposal remains Superseded. Big Boy was an illustration of chassis differences, not the ordinary American Large selection. Santa Fe-type 2-10-2, Mikado 2-8-2, heavy 4-8-2 and 2-8-4 suggestions remain unselected examples.
+
+### Consist regional presentation — Agreed
+
+A connected consist derives wagon regional presentation from its controlling / lead locomotive's regional identity. A British controlling locomotive gives its wagons British presentation; a North American controlling locomotive gives North American presentation. An unconnected wagon follows the global world regional style. This supports coherent consists and regional rolling-stock mass/balance without duplicate regional wagon buildables.
+
+Do not define the controlling / lead locomotive solely by front-most mesh order. Determination for multiple locomotives, double-heading, banking, coupling/uncoupling, timetable ownership and multiple-unit operation remains technically unverified. Live reskin updates, cargo/resource preservation, regional wagon mass/data migration, save/load, replication and performance remain OQ06/OQ27. TECHNICAL VERIFICATION NEEDED; this presentation rule does not select a runtime implementation.
 
 ### Regional performance — Agreed
 
@@ -277,17 +327,27 @@ Agreed: advanced late-game steam infrastructure is expansion-only and serves ent
 
 Proposed regional asset direction: Core provides BASIC regional infrastructure presentation; matching regional packs provide ADVANCED expansion presentation. Owned matching assets may supply the selected visual set; unowned regional assets must not be provided magically. Fallback for existing advanced infrastructure when a matching pack is unavailable remains OQ23.
 
-### Expansion locomotive region switching — Open Question
+### Expansion locomotive region switching — Agreed fallback
 
-OQ23 includes a British expansion-exclusive locomotive remaining in a save after switching world style to North American without owning that pack. No transformation mapping, fallback machine, restriction or retention rule is selected. With multiple packs, whether machines transform into equivalent regional classes is also open. Do not force identical roster structures to enable mapping.
+If no valid corresponding owned expansion locomotive is available in the newly selected world region, the existing expansion locomotive does not transform: it retains regional/national identity, presentation and running number. Core locomotives and other stock with valid regional replacements may still transform normally. “No nationality change → no new VISA” is design shorthand only, not required UI text. The high-level fallback is now resolved; valid correspondence, transformations when available, advanced-asset fallback and technical migration remain OQ23.
 
-### Advanced manual driving
+Agreed: regional expansion rosters need not have identical role counts or class-to-class symmetry. Do not force equal shunter, Mixed Traffic or Heavy Freight counts or artificial equivalents merely to enable switching. Each region should represent plausible/useful locomotives from its tradition; final rosters remain future research/design work (OQ20).
 
-Agreed direction: advanced manual steam driving is an optional/toggleable enthusiast expansion feature. Normal Simple controls remain available and are the default. First relevant expansion use/launch presents SIMPLE CONTROLS versus ADVANCED STEAM CONTROLS, with Simple preselected and clear notice that the choice can change later. The assistant may present the choice. SML/SMM configuration implementation remains unverified.
+### Expansion progression
 
-Proposed exploration: reverser/cutoff, regulator/throttle, locomotive brake, firing/firebox, steam pressure and possibly boiler water/injectors. A conceptual loop links fire/heat/water, steam/pressure, regulator consumption, cutoff tradeoffs and anticipating gradients/heavy starts; it is not an approved final physics model. Boiler water, injectors, firing depth, pressure limits, reverser modelling, failure consequences and stall/performance penalties remain OQ24. Catastrophic boiler explosions/damage are not an approved requirement.
+Agreed philosophy: ownership does not immediately grant advanced/endgame steam content. Expansions progress alongside Core: early/small expansion machines unlock around comparable Core stages; more capable machines and infrastructure unlock around Heavy Steam or later progression. Exact unlocks remain open.
 
-Proposed/Open: Simple could behave as a competent automatic crew managing complex steam systems; skilful Advanced operation might provide engagement and possibly modest efficiency/performance benefits. Do not make Simple deliberately bad to force Advanced. The performance relationship remains OQ24.
+Proposed implementation preference: integrate unlocks into existing Early Locomotion milestones where practical. If technically awkward, use parallel/additional clearly labelled expansion milestones. Exact milestone integration/API remains OQ20, TECHNICAL VERIFICATION NEEDED.
+
+### Advanced manual driving — refined Agreed scope
+
+Advanced manual steam driving remains expansion-only, optional/toggleable. Simple remains available, default and preselected. First relevant use presents Simple versus Advanced with notice that settings can change later; the assistant may explain it. Technical configuration/input APIs remain unverified.
+
+Agreed: meaningful steam-engine operation without full professional locomotive simulation. Primary player-managed systems are coal/firebox management, regulator/throttle and reverser/cutoff; braking remains part of driving where required. Manual injectors, detailed boiler-water management, blower/damper simulation, dozens of cab valves and engineering-procedure simulation are not currently required features. The earlier broader exploratory loop is narrowed by this approval. Steam and Steel may later be researched as a conceptual interaction reference only; do not copy formulas without verification/design review.
+
+Agreed: poor operation produces natural performance consequences rather than arbitrary punishment. Unsuitable regulator/reverser use reduces effective hauling; excessive power/cutoff combinations may cause wheel slip; insufficient steam pressure reduces available power; weak fire/steam management reduces performance. Boiler explosions, permanent boiler damage, locomotive destruction and catastrophic punishment are not required. Exact formulas, pressure/reverser behaviour and wheel-slip model remain OQ24.
+
+Agreed: Simple behaves like a competent automatic crew / automatic transmission: the player provides basic movement intent and the game handles detailed steam operation. Advanced is manual operation, allowing a skilled player to prepare for gradients, hold power, trade efficiency for short-term output and manage immediate needs. Simple must remain competent and useful. Advanced may offer a modest skill ceiling and potentially somewhat better useful performance; the exact amount/shape of that advantage remains OQ24. Do not intentionally cripple Simple.
 
 ### Liveries and cameo content
 
@@ -295,7 +355,19 @@ Agreed expansion principle: historical liveries are prominent, with an appropria
 
 Proposed flavour: occasional, first-time/context-sensitive, non-spammy assistant reactions may express railway-nerd pleasure at historical liveries and playful disappointment at corporate/FICSIT styling. Exact dialogue remains future writing work.
 
-Proposed: famous locomotives may be special enthusiast, prestige/cameo additions or AWESOME Shop-style unlocks within an owned pack where appropriate. Flying Scotsman and Mallard are examples only; no cameo roster is approved. Names, trademarks, liveries and licensing require verification before commercial release (OQ25).
+### VIP / Prestige locomotive framework — Agreed
+
+VIP / Prestige locomotives are extremely expensive enthusiast/show-off rewards for display, collection, screenshots and bragging rights, analogous in spirit to Golden Nut / Golden FICSIT Cup prestige rewards. They are not superior logistics upgrades. Exact prices remain OQ25.
+
+Expansion VIPs represent specific famous historical machines with fixed historical identity, name and number, no procedural fleet number, one-per-world/save where appropriate, and extremely expensive prestige/AWESOME-style unlocks. Practical freight utility is deliberately poor; high speed must not make them logistics-meta. Mallard and Flying Scotsman remain examples only, not an approved roster. Name/trademark/livery licensing review remains required.
+
+Core prestige normally selects a special historical individual from an existing Core locomotive class rather than an unrelated celebrity engine, keeping it understandable to non-enthusiasts. It has fixed identity/name/number, special livery/presentation, prestige treatment and one-per-world where appropriate. If 9F remains British Large/Core, Evening Star is an example only; it is not approved here.
+
+Normal locomotives are generated, normally unnamed class members; VIPs are fixed historical individuals. VIPs ignore procedural numbering and retain fixed name, number and identity through rerolls, global numbering-mode changes, manual renumbering and procedural regional replacement.
+
+Proposed: suitable prestige/historical passenger stock may accompany expansion VIPs for appearance, display and showpiece consists. Exact coach roster remains OQ25; this adds no normal passenger economy, and full passenger simulation is outside scope unless separately approved.
+
+Proposed flavour: the assistant may recognise VIPs and react enthusiastically to purchase or first placement, briefly losing professional composure. Avoid repeated lengthy dialogue on every placement. Exact dialogue remains future writing work.
 
 ### Multiplayer and compatibility
 
@@ -319,7 +391,7 @@ Exact pack pricing, early-access pricing, paid distribution/storefront and comme
 
 - OQ05 Locomotives: confirm whether Medium is the fastest steam class, then define traction, acceleration, mass, capacities and consumption curves.
 
-- OQ06 Regions: select exact supported Core launch regions and references; specify world/save selection and existing/future presentation switching, fallback, save/load migration, dynamic versus construction-fixed mass/performance, already-running trains, total train mass display, transient/exploit states and coherent migration. Identical class statistics are Superseded; regional balance values remain unset.
+- OQ06 Regions: select exact supported Core launch regions/references and world/save selection; verify existing/future switching, controlling/parent locomotive determination for multi-locomotive consists, live wagon reskin updates, cargo/resource preservation, regional wagon mass/data migration, dynamic versus construction-fixed performance, already-running trains, total mass display, save/load, replication, performance and transient/exploit safeguards. The controlling-locomotive presentation rule is Agreed; its implementation is not. Identical statistics are Superseded; balance values remain unset.
 
 - OQ07 Wagons: establish item and fluid roster, capacities, dimensions, costs and platform compatibility.
 
@@ -341,21 +413,27 @@ Exact pack pricing, early-access pricing, paid distribution/storefront and comme
 
 - OQ19 Build menu: verify top-level category support and select exact hierarchy/nesting.
 
-- OQ20 Expansion catalogue: exact pack names, release/update roster and strategy, deliberate total cap and historical/operational role-category names. No suggested counts are commitments.
+- OQ20 Expansion catalogue and progression: exact pack names, release/update roster/strategy, deliberate total cap, role-category names and unlock stages; verify existing-milestone integration API versus Proposed parallel/additional labelled milestones. Symmetric regional role counts/equivalents are not required. No suggested roster counts are commitments.
 
 - OQ21 Golden Era: exact chronological start/end and regional/operator coverage.
 
 - OQ22 Advanced infrastructure: exact expansion-only catalogue, capabilities, capacity/territory/interlocking limits and balancing against electric superiority.
 
-- OQ23 Expansion regional migration: expansion-only locomotive handling across world-region switches with missing/multiple packs; advanced regional-asset fallback; no mapping, retention, restriction or fallback rule selected.
+- OQ23 Expansion regional migration: valid owned correspondence and transformation handling when available, missing/multiple-pack technical migration and advanced regional-asset fallback. High-level locomotive fallback is resolved: no valid corresponding owned destination locomotive means retain current identity/presentation/number. No technical mapping, storage or migration mechanism is chosen.
 
-- OQ24 Advanced driving: exact simulation depth, boiler water/injectors, firing, pressure limits, reverser, failures/stalls and Simple-versus-Advanced performance. Configuration and input implementation require verification.
+- OQ24 Advanced driving: exact firebox/pressure/regulator/reverser formulas, wheel-slip model, natural performance consequences and amount/shape of a modest potential Advanced advantage. Simple is competent automatic operation; injectors, detailed boiler-water/blower/damper/cab-valve simulation and catastrophic damage are not current required features. Configuration/input implementation needs verification.
 
-- OQ25 Liveries and cameos: exact livery integration, Customizer/AWESOME support, cameo roster and name/trademark/livery licensing.
+- OQ25 Liveries and VIP/prestige content: exact livery integration, Customizer/AWESOME support, Core/expansion VIP rosters and prices, one-per-world applicability, prestige passenger coach roster, dialogue and name/trademark/livery licensing. Named examples are not approved selections; the Agreed prestige framework is not a logistics upgrade or passenger economy.
 
 - OQ26 Commercial programme: exact regional pack price, early-access pricing, paid distribution/storefront, permissions/policies, redistribution, updates/dependencies and licensing. No delivery plan approved.
 
-- OQ27 Multiplayer expansions: client assets/install/mod loading, server dependencies, entitlement, save compatibility, differing pack availability and feasibility of the join-without-extra-purchase goal.
+- OQ27 Multiplayer expansions: client assets/install/mod loading, server dependencies, entitlement, save compatibility, differing pack availability and feasibility of joining without extra purchase; replication/save/performance implications of consist regional updates. No entitlement or runtime mechanism is verified.
+
+- OQ28 Fleet Identity: verify placement lifecycle hooks, permanent identity persistence/storage, regional mapping save/load, dismantling/deletion lifecycle and replication. No SQL/external database requirement or API is chosen.
+
+- OQ29 Numbering rules/data: define collision pool/domain, independently verified per-class/operator/regional algorithms and datasets, construction-order relevance, scheme conversion, controlled/player-controlled portions, manual-value validity and overflow prefix/format. Do not treat playtime as a historical calendar or screenshots as verified data.
+
+- OQ30 Numbering customisation/UI: exact cheap renumber-unlock price, AWESOME-style integration, editing/duplicate validation, player-facing number locations in UI and fleet search/filter integration. Map prominence/dulling and list filtering are Agreed desired behaviour; APIs and final UI remain unverified.
 
 ## Revision record
 
@@ -364,5 +442,7 @@ Version 0.1 created on 14 September 2026. Consolidates the initial concept, deta
 20 September 2026: added the approved Railway Assistant & Animated Tutorial System, preserving the Confirmed / Agreed, Proposed, and Open Questions split; added OQ15–OQ18 without resolving existing questions.
 
 1 October 2026: reconciled Manager-approved assistant/tutorial, generated linkage, world-region and regional-performance direction; identical regional statistics are Superseded. Added a clearly post-Core Proposed enthusiast programme, agreed scope/foundation/compatibility constraints, OQ19–OQ27 and revised OQ04/OQ06/OQ13/OQ15–OQ18. No implementation or remaining Open Question is resolved.
+
+2 October 2026: applied Manager-approved numbering/Advanced Driving/VIP refinements. Resolved high-level expansion locomotive retention fallback; agreed controlling-locomotive wagon presentation and asymmetric regional rosters. Added Core identity/numbering/search family, refined Advanced scope/Simple relationship, expansion progression and Core/expansion prestige framework. Revised OQ06/OQ20/OQ23–OQ25/OQ27; added OQ28–OQ30. Technical mechanisms, exact values, roster, licensing and Proposed details remain open. No gameplay implementation is claimed.
 
 Future revisions should update the relevant section, change its status where appropriate, record the reason and source in CHANGELOG.md, and resolve the corresponding open question. Preserve superseded decisions in the change history rather than leave conflicting instructions active.

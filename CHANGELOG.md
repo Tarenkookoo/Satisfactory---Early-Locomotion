@@ -51,6 +51,16 @@
 - Revised OQ04/OQ06/OQ13/OQ15–OQ18; added OQ19–OQ27 for build-menu UX, expansion catalogue/chronology/infrastructure/migration/driving/liveries/commercial delivery/multiplayer. No remaining Open Question was silently resolved.
 - Created ROADMAP.docx as a non-authoritative human-readable overview maintained from canonical files; synchronized the Word design reference and reconciled INDEX/WORKFLOW roles and concise CLAUDE constraints. Current runtime experiment remains unrun; no speculative implementation fact added to TECHNICAL_ENVIRONMENT.
 
+## 2 October 2026 — Locomotive identity, numbering and expansion refinement
+
+- Source: Manager-approved Ideas Lab revised handoff dated 2026-10-02. Integrated refinements into current canon rather than repeating the 1 October reconciliation.
+- Agreed expansion fallback retains current region/presentation/number when no valid corresponding owned destination locomotive exists; controlling-locomotive wagon presentation and asymmetric regional expansion rosters are Agreed. Correspondence, live migration and controlling-locomotive implementation remain unverified.
+- Agreed Core running numbers, distinct permanent hidden Fleet Identity, world numbering modes, regional/manual number persistence, unique allocation/release/overflow, scheme-controlled structure, cheap renumber-unlock direction, class-specific display and fleet search. Per-region historical research is required; no dataset/API is invented.
+- Narrowed Advanced driving to firebox, regulator and reverser/cutoff with braking as needed, natural performance consequences and competent default Simple operation. Detailed injectors/boiler-water/blower/damper/valve simulation and catastrophic punishment are not required. Exact formulas, slip and potential modest advantage remain open.
+- Agreed expansion progression alongside Core and Core/expansion prestige frameworks with fixed historical names/numbers and no logistics-meta reward. Existing-milestone integration, passenger showpiece stock, assistant flavour and card numbering notes remain Proposed. No named VIP roster, price, coach set or licence is approved.
+- Revised OQ06/OQ20/OQ23–OQ25/OQ27; added OQ28–OQ30. Only the expressly approved high-level fallback/direction was resolved; remaining technical, data, UI, price, roster and licensing questions remain open.
+- Updated canonical design, concise INDEX/CLAUDE constraints and synchronized all three existing Word references. Documentation work only; implementation checkpoint and TECHNICAL_ENVIRONMENT remain unchanged. Unrelated Blender/prototype work is excluded.
+
 ## Future entry template
 
 Version and date:

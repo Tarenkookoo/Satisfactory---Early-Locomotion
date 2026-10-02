@@ -281,6 +281,14 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 
 **Exact next action:** Run the existing powered-control and unpowered-from-rest first pass, return observations to The Manager, then assess architecture. Future expansion ambitions do not change current technical priority.
 
+### 2026-10-02 - Approved Identity, Numbering and Expansion Documentation Refinement
+
+**Completed:** Applied the Manager-approved revised Ideas Lab handoff to current canonical design; reconciled INDEX/CHANGELOG and concise CLAUDE identity constraints, synchronized the existing Word Design Reference, ROADMAP and Feature Catalogue. Revised OQ06/OQ20/OQ23–OQ25/OQ27 and added OQ28–OQ30. This records documentation work only, not brainstorming as gameplay implementation.
+
+**Preserved:** Current Checkpoint and Exact Next Action remain unchanged. Runtime Baseline Experiment 1 is still unrun and architecture remains unresolved. TECHNICAL_ENVIRONMENT and gameplay implementation state are unchanged; no speculative API/storage/formula, toolchain fact, production asset or licence is claimed. Prior uncommitted Claude/Blender capability entry and all experimental outputs are preserved and excluded from this checkpoint commit.
+
+**Verification:** Canonical status/OQ consistency and synchronized Word content/layout checks are reported in the Manager handoff. Exact next technical action remains powered control followed by unpowered from rest, returning observations before architecture selection.
+
 ## Rules for Maintaining This Log
 
 1. After every meaningful work session, update **Current Checkpoint** and append a dated history entry. Keep the checkpoint at the top and history oldest first.
