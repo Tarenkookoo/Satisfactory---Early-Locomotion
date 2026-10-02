@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 2 October 2026
-**Project phase:** Design finalisation + prepared runtime Probe 1 awaiting retail verification before architecture selection
+**Project phase:** Design finalisation + Runtime Probe 1 completed; causality controls before final architecture selection
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -504,7 +504,7 @@ Wwise Windows metadata/platform and Init resource-loading errors are resolved af
 
 Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
 
-SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Retail Satisfactory was not launched; runtime Probe 1 remains pending and architecture is unresolved.
+SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is completed: AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement. Final architecture remains unresolved pending causality control tests; SetTractivePowerFactor causality is not established.
 
 ### Important current traps
 
@@ -686,11 +686,11 @@ Documentation reconciliation and repository cleanup are complete; INDEX.md is re
 
 Read-only railway header/API reconnaissance is complete (Manager/user confirmed 26 September 2026).
 
-SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Retail Satisfactory was not launched; runtime Probe 1 remains pending and architecture is unresolved.
+SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is completed: AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement. Final architecture remains unresolved pending causality control tests; SetTractivePowerFactor causality is not established.
 
 Not yet completed:
 
-- runtime Probe 1 observations and architecture selection;
+- causality control testing and final architecture selection;
 - production Early Locomotion gameplay implementation and first playable railway;
 - production packaging/runtime verification.
 
@@ -700,11 +700,11 @@ Not yet completed:
 
 ### Current next task
 
-Run the prepared **Runtime Probe 1** in retail Satisfactory at `D:\Steam\steamapps\common\Satisfactory`, following the Manager-approved probe procedure. `EL_ArchitectureProbe` has been packaged and deployed; retail Satisfactory was not launched by Alpakit and the runtime outcome remains **pending / unverified**. Record observations and return them to The Manager before extending tests or selecting locomotive/track architecture.
+Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
 
-Temporary probe generation, build, editor loading and Windows Shipping packaging/deployment are verified. Production implementation, runtime/in-game behaviour and a warning/error-free environment remain unverified.
+Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Camera, normal locomotive UI and exit-placement residuals remain; these do not currently invalidate the traction/rail integration result. Production implementation and broader runtime integration remain unverified.
 
-Runtime unknowns and the verified Wwise fix are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no locomotive inheritance or architecture decision has been made.
+The detailed observations, causality limits and other untested integration areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
 
 Do not begin major gameplay implementation before the runtime evidence and architecture review establish a viable approach.
 

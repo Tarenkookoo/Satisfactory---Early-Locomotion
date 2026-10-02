@@ -44,7 +44,7 @@ The current setup checkpoint records:
 - First usable editor launch and FactoryGame environment load completed on 26 September 2026 in 5.6.1-CSS; SML 3.12.0 initialization completed.
 - Git available and used successfully for the SML clone and project tracking; exact installed version not recorded.
 
-The exact Visual Studio patch/build is not recorded. The relocated SML checkout HEAD is recorded below. Project generation, FactoryGame Development Editor / Win64 build, editor loading and temporary probe Windows Shipping packaging/deployment are verified. Production Early Locomotion implementation, runtime probe behaviour and a warning/error-free environment remain unverified. The previous Visual Studio/project-generation blocker is cleared.
+The exact Visual Studio patch/build is not recorded. The relocated SML checkout HEAD is recorded below. Project generation, FactoryGame Development Editor / Win64 build, editor loading and temporary probe Windows Shipping packaging/deployment are verified. Runtime Probe 1 now verifies the specific construction/rail/input/braking/unpowered-movement behaviour recorded below. Production Early Locomotion implementation, causality and a warning/error-free environment remain unverified. The previous Visual Studio/project-generation blocker is cleared.
 
 ### Startup issue evidence — 2026-09-26
 
@@ -85,18 +85,30 @@ This later verified result supersedes the unresolved Wwise status in the histori
 - **Checkout HEAD before/after:** `d2162c999bbaa9650594ee9ad6e6e06190306009`; tracked Git status and ignored state matched immediately after the move; final tracked working tree clean.
 - **EngineAssociation:** `5.6.1-CSS`, unchanged.
 - **Development Editor / Win64:** build succeeded at the new path in **488.10 seconds**; FactoryGame/SML loaded and SML 3.12.0 initialized.
-- **Temporary probe:** `Mods/EL_ArchitectureProbe` implementation/Blueprint configuration exists; module loaded, `BP_EL_ProbeLocomotive` resolved/opened and native class resolved. Runtime behaviour remains unverified; this is not production gameplay implementation.
+- **Temporary probe:** `Mods/EL_ArchitectureProbe` implementation/Blueprint configuration exists; module loaded, `BP_EL_ProbeLocomotive` resolved/opened and native class resolved. Runtime Probe 1 results are recorded below; this is not production gameplay implementation.
 - **Blueprint SHA-256 before/after:** `882de775beaa0458924c616e3fb0ca65899b6211f8c165bcbd29096402b99564`.
 - **FactoryGame.uproject SHA-256 before/after:** `a4b627b3d11537131f0610c914471db69245018561278cf2a5e508c96aba923b`.
 - **Wwise:** integration survived relocation, SoundEngine initialized, and WwiseProjectDatabase reported `UpdateDataStructure: Done.` Companion Wwise project is `C:\SML\SatisfactoryModLoader_WwiseProject\SatisfactoryModLoader_WwiseProject.wproj`; generated output is `C:\SML\SatisfactoryModLoader_WwiseProject\GeneratedSoundBanks`. The configured relative project/output paths remain valid.
 
 **Shipping path limit:** The former root `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` produced 262-character Shipping action paths. UBT's hard-coded 260-character action-path validation was not bypassed by Windows LongPathsEnabled. Relocation to `C:\SML` removed this blocker; subsequent Shipping packaging succeeded. No toolchain/dependency versions changed.
 
-**Verified Alpakit configuration/result:** Windows client enabled, copy-to-game enabled for `D:\Steam\steamapps\common\Satisfactory`, launch game disabled; Windows Server and Linux Server disabled; advanced settings unchanged/default. Only `EL_ArchitectureProbe` was packaged, using Shipping configuration. Alpakit's backend automation completed with ExitCode **0** in approximately **6 minutes 41 seconds** and deployed the package to the retail game folder. Retail Satisfactory was not launched; runtime Probe 1 is pending.
+**Verified Alpakit configuration/result:** Windows client enabled, copy-to-game enabled for `D:\Steam\steamapps\common\Satisfactory`, launch game disabled; Windows Server and Linux Server disabled; advanced settings unchanged/default. Only `EL_ArchitectureProbe` was packaged, using Shipping configuration. Alpakit's backend automation completed with ExitCode **0** in approximately **6 minutes 41 seconds** and deployed the package to the retail game folder. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is now completed; see the runtime result below.
 
 The editor build initially encountered a Wwise prebuild PowerShell security-module loading failure. A process-local Windows PowerShell module search path allowed the existing build step to succeed; system policy and dependency versions were not changed. Startup warnings remain; successful package automation does not establish resolution of the separately deferred Turnkey/System.Windows.Forms issue.
 
 Temporary recovery backup: `C:\Users\a156b\Documents\Codex\2026-09-19\referenced-chatgpt-conversation-this-is-an-2\sml-relocation\safety-backup`. It contains the probe and companion Wwise project, is retained pending Manager review, and is not a permanent development tree or canonical source.
+
+## Retail Runtime Probe 1 Result — 2026-10-02
+
+**Evidence:** Manager/user-verified runtime observation and FactoryGame.log analysis; no independent log re-analysis was performed in this documentation task.
+
+The EL Probe Locomotive built normally through the Build Gun; its vanilla locomotive hologram snapped correctly to vanilla railway track. Diagnostic samples consistently showed `HasTrain=true`, `IsDerailed=false` and `HasPower=false`, with `FGLocomotiveMovementComponent` retained. Reverser/throttle inputs changed normally; TrainStatus changed between Parked and ManualDriving. `TractiveEffortPct` and `TractiveForceN` became non-zero, and `ForwardSpeedCmS` rose from standstill. Air and dynamic braking stopped the locomotive. Two separately placed probe locomotives reproduced the result.
+
+**Verified viability:** AFGLocomotive subclassing is runtime-verified viable for construction, vanilla rail attachment, input, braking and unpowered movement in the tested probe. This does not select a final production architecture or establish all vanilla railroad compatibility.
+
+**Presentation/configuration residuals:** Camera could not rotate/look left/right normally, normal locomotive UI was absent, and exiting placed the player partly underneath/intersecting the locomotive. These presentation/configuration residuals remain unresolved but do not currently invalidate the observed traction/rail integration result.
+
+**Causality uncertainty:** This does not prove that `SetTractivePowerFactor(1.f)` specifically caused unpowered traction. Vanilla unpowered movement on the same dead track, sufficiency of the probe's no-op `UpdatePower`, and necessity of `SetTractivePowerFactor` remain untested. Final production architecture remains unresolved.
 
 ## Important Compatibility Notes
 
@@ -162,7 +174,9 @@ Any third-party MCP/editor integration must be tested separately before it becom
 The following still require verification:
 
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
-- runtime behaviour of railroad movement and train composition/timetable APIs
+- causality of unpowered probe traction: vanilla dead-track control, no-op UpdatePower sufficiency and SetTractivePowerFactor necessity
+- railroad movement beyond the tested probe and train composition/timetable APIs
+- probe camera, normal locomotive UI and exit-placement configuration
 - save/load behavior needed for custom steam state
 - multiplayer replication design for steam systems
 - best inheritance architecture for steam locomotives
@@ -171,9 +185,9 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Run the prepared **Runtime Probe 1** in retail Satisfactory at `D:\Steam\steamapps\common\Satisfactory`, following the Manager-approved probe procedure. `EL_ArchitectureProbe` has been packaged and deployed; retail Satisfactory was not launched by Alpakit and the runtime outcome remains **pending / unverified**. Record observations and return them to The Manager before extending tests or selecting locomotive/track architecture.
+Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
 
-Important runtime unknowns: unpowered locomotive behaviour; electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; and client prediction implications for steam traction. Header declarations alone do not establish these behaviours; no experiment results or architecture decisions are recorded yet.
+Runtime Probe 1 is completed, not pending. Remaining integration unknowns include electric subobject requirements; track `CanConnectTo` behaviour; vanilla/Early Locomotion vehicle coupling compatibility; station/platform behaviour without power; timetable/autopilot; save/load; and client prediction/replication for steam traction. The tested probe's unpowered movement does not settle these areas or the causal controls above.
 
 Do not begin major gameplay implementation until:
 

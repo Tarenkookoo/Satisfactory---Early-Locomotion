@@ -80,3 +80,9 @@ Files updated:
 - Centralized Manager model/effort and escalation guidance, separated user-facing configuration recommendations from specialist task prompts, and documented required handoffs/verification. Claude guidance is dated and linked to official Anthropic sources; no pricing is fixed.
 - Recorded the meaningful environment milestone: active SML workspace relocated to `C:\SML`, UBT Shipping path-limit blocker resolved, Development Editor build and probe-only Windows Shipping packaging/deployment succeeded, Wwise remained functional.
 - Runtime Probe 1 outcome and architecture remain unresolved; no gameplay requirements, design status or Open Questions changed. Temporary recovery backup and unrelated asset work are preserved.
+
+## 2 October 2026 — Retail Runtime Probe 1 milestone
+
+- Runtime observation and FactoryGame.log analysis verified AFGLocomotive subclass construction, vanilla rail attachment, train membership, input response, braking and movement from rest without railway power; two separately placed probes reproduced the result.
+- Recorded camera, locomotive UI and exit-placement residuals without invalidating the tested traction/rail integration result.
+- Next checkpoint is causality control testing; no-op UpdatePower sufficiency, SetTractivePowerFactor necessity and vanilla dead-track behaviour remain unresolved. No final architecture selected or design/Open Question changed.

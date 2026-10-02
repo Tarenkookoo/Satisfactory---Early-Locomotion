@@ -3,10 +3,10 @@
 ## Current Checkpoint
 
 **Date:** 2026-10-02
-**Phase:** Runtime Probe 1 prepared and deployed; retail runtime outcome pending
-**Status:** Probe implementation and Blueprint configuration are complete. The SML workspace has been relocated to `C:\SML`; project generation, Development Editor / Win64 build, editor loading and Alpakit Windows Shipping packaging/deployment succeeded there. `EL_ArchitectureProbe` loaded and its Blueprint resolved and opened successfully. Read-only railway reconnaissance remains complete; architecture and runtime behaviour remain unverified.
-**Current blocker:** Runtime Probe 1 observations are required before architecture selection. The UBT 260-character Shipping action-path blocker is resolved. Wwise is functioning and reported `UpdateDataStructure: Done.` Turnkey/System.Windows.Forms remains unresolved/deferred; successful packaging does not establish its resolution or a warning/error-free environment. No dependency/toolchain versions changed.
-**Implementation status:** The temporary non-production `EL_ArchitectureProbe` exists and is packaged/deployed. This does not verify traction behaviour or constitute a production Early Locomotion gameplay implementation. Production architecture, implementation and in-game behaviour remain unverified.
+**Phase:** Runtime Probe 1 completed; causality control testing before architecture selection
+**Status:** Retail Runtime Probe 1 is completed and analysed, verified by Manager/user runtime observation and FactoryGame.log. AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement in the tested probe. Generation, build, editor loading and Windows Shipping packaging/deployment at `C:\SML` remain verified.
+**Current blocker:** Causality control tests are required before final architecture selection; the contribution of no-op UpdatePower versus SetTractivePowerFactor is unresolved. Camera, UI and exit-placement residuals remain. The UBT Shipping path blocker and Wwise issue are resolved; Turnkey/System.Windows.Forms remains unresolved/deferred. No dependency/toolchain versions changed.
+**Implementation status:** The temporary non-production EL_ArchitectureProbe has demonstrated runtime construction, rail attachment, input, braking and unpowered movement. This is not final production architecture or production gameplay implementation; save/load, multiplayer and other untested integration areas remain unverified.
 
 Earlier chronological entries remain historical records of what was known at the time. The Claude/Blender asset capability experiment remains paused; its existing outputs are preserved.
 
@@ -39,13 +39,14 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-Run the prepared **Runtime Probe 1** in retail Satisfactory at `D:\Steam\steamapps\common\Satisfactory`, following the Manager-approved probe procedure. `EL_ArchitectureProbe` has been packaged and deployed; retail Satisfactory was not launched by Alpakit and the runtime outcome remains **pending / unverified**. Record observations and return them to The Manager before extending tests or selecting locomotive/track architecture.
+Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
 
 ### Remaining Milestones
 
-- Retain Turnkey assembly loading as unresolved/deferred; assess other log warnings/errors separately as needed. The Wwise metadata/platform issue is resolved.
-- Runtime baseline experiments, followed by evidence-based locomotive/track architecture assessment and selection.
-- Runtime verification of the deployed probe; production Early Locomotion implementation, packaging and in-game verification remain future milestones.
+- Causality controls and evidence-based final locomotive/track architecture assessment.
+- Address probe camera, locomotive UI and exit-placement residuals separately.
+- Untested coupling, track connectivity, stations/platforms, timetable/autopilot, save/load and replication integration.
+- Production gameplay implementation, packaging and in-game verification; retain Turnkey as unresolved/deferred.
 
 ### Documentation Reconciliation
 
@@ -313,6 +314,20 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 **Current development state preserved:** The relocation/build/packaging facts above remain verified; active SML workspace is `C:\SML`, Wwise remains functional, and Windows Shipping probe deployment is prepared. Runtime Probe 1 in retail Satisfactory remains pending/unverified. No runtime test, architecture choice, gameplay/design decision, Open Question resolution, dependency change or implementation-workspace modification occurred in this documentation task. Historical entries and recovery backup are preserved. Updated the derived roadmap's governance navigation and recorded the restructuring in CHANGELOG.
 
 **Next action:** Run the prepared retail Runtime Probe 1 under the Manager-approved procedure and return evidence before architecture selection.
+
+### 2026-10-02 - Retail Runtime Probe 1 Completed and Analysed
+
+**Completed / evidence:** The Manager/user reports completed runtime observation and FactoryGame.log analysis. The EL Probe Locomotive built normally through the Build Gun; its vanilla locomotive hologram snapped correctly to vanilla railway track. Diagnostic samples consistently showed `HasTrain=true`, `IsDerailed=false` and `HasPower=false`, with `FGLocomotiveMovementComponent` retained. Reverser/throttle inputs changed normally; TrainStatus changed between Parked and ManualDriving. `TractiveEffortPct` and `TractiveForceN` became non-zero, and `ForwardSpeedCmS` rose from standstill. Air and dynamic braking stopped the locomotive. Two separately placed probe locomotives reproduced the result.
+
+**Verified scope:** AFGLocomotive subclassing is runtime-verified viable for construction, vanilla rail attachment, input, braking and unpowered movement in this probe. No final production architecture is selected.
+
+**Residuals:** Camera could not rotate/look left/right normally, normal locomotive UI was absent, and exiting placed the player partly underneath/intersecting the locomotive. These presentation/configuration residuals remain unresolved but do not currently invalidate the observed traction/rail integration result.
+
+**Causality limit:** This does not prove that `SetTractivePowerFactor(1.f)` specifically caused unpowered traction. Vanilla unpowered movement on the same dead track, sufficiency of the probe's no-op `UpdatePower`, and necessity of `SetTractivePowerFactor` remain untested. Final production architecture remains unresolved.
+
+**Next action:** Perform Manager-scoped causality control testing on the same dead track: establish whether a vanilla unpowered locomotive moves, whether the probe's no-op `UpdatePower` alone is sufficient, and whether `SetTractivePowerFactor(1.f)` is necessary. Return observations and log evidence before selecting the final production locomotive architecture.
+
+**Documentation boundary:** This task records the supplied verified results; it did not rerun the experiment or independently analyse the log. No gameplay requirements, design statuses or Open Questions changed.
 
 ## Rules for Maintaining This Log
 
