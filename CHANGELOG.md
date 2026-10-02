@@ -92,3 +92,9 @@ Files updated:
 - Three-way control: vanilla unpowered locomotive did not move; the working EL probe produced unpowered traction; disabling only SetTractivePowerFactor(1.f) left 165/165 samples with train membership, no derailment and no power, but zero force and speed despite input and released air brake.
 - Within the tested implementation, SetTractivePowerFactor(1.f) is necessary for unpowered traction; no-op UpdatePower alone is insufficient. Final production architecture remains unresolved.
 - Next: restore the working probe and begin normal railway integration with vanilla wagon coupling. No restoration/coupling success, gameplay change or Open Question resolution is claimed.
+
+## 2 October 2026 — Runtime Probe 1 vanilla-wagon integration
+
+- Restored known-good EL probe formed a usable consist with a vanilla Freight Wagon built/snapped directly onto it on deliberately unpowered railway. Forward/reverse movement and clean braking succeeded; no normal-operation derailment or separation observed.
+- Coupling alignment remains a residual. Collision with an independently placed loose wagon made the train unresponsive; vanilla collision-coupling support is unestablished, so no architecture failure is inferred.
+- Next: station/timetable integration testing with the working probe. Final architecture remains unresolved; no gameplay requirement or Open Question changed.

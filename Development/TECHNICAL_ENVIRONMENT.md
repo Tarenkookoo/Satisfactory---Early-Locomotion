@@ -120,7 +120,17 @@ The EL Probe Locomotive built normally through the Build Gun; its vanilla locomo
 
 **Verified conclusion:** Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. The result is specific to the current tested implementation, not a claim about every possible unpowered-traction design.
 
-**Current direction:** Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones. Camera, normal locomotive UI and exit-placement residuals remain unresolved. Coupling and broader integration are not yet verified.
+**Historical direction after the causality control (superseded by the wagon test below):** Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones. Camera, normal locomotive UI and exit-placement residuals remain unresolved. Coupling and broader integration are not yet verified.
+
+## Runtime Probe 1 Vanilla-wagon Integration — 2026-10-02
+
+**Evidence / completed:** Manager/user-verified runtime observations; not independently repeated in this documentation task. The restored known-good EL Probe Locomotive was tested on the same deliberately unpowered railway. A vanilla Freight Wagon built/snapped directly onto the probe formed a usable consist. The locomotive moved the consist forward and in reverse; normal braking stopped locomotive and wagon cleanly. No derailment or separation was observed during normal movement/braking.
+
+**Verified scope:** AFGLocomotive-derived probe integration with vanilla rolling stock is runtime-verified for normal construction-time consist formation, forward/reverse movement and braking while electrically unpowered. Final production architecture remains unresolved. This establishes the tested construction-time workflow, not every vehicle combination or coupling method.
+
+**Residuals / unresolved:** The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. Earlier camera, normal locomotive UI and exit-placement residuals remain unresolved.
+
+**Next direction:** Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
 
 ## Important Compatibility Notes
 
@@ -187,6 +197,7 @@ The following still require verification:
 
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
 - railroad movement beyond the tested probe and train composition/timetable APIs
+- coupling-node alignment and whether collision-coupling independently placed loose vehicles is supported vanilla workflow
 - probe camera, normal locomotive UI and exit-placement configuration
 - save/load behavior needed for custom steam state
 - multiplayer replication design for steam systems
@@ -196,9 +207,9 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones.
+Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
 
-Runtime Probe 1 and its traction-causality control are completed. Remaining integration unknowns include electric subobject requirements beyond the tested probe; track `CanConnectTo` behaviour; vanilla/EL wagon coupling compatibility; station/platform behaviour without power; timetable/autopilot; save/load; and client prediction/replication. Final production architecture remains unresolved.
+Runtime Probe 1, traction-causality control and normal construction-time vanilla Freight Wagon integration are completed. Remaining integration unknowns include electric subobject requirements beyond the tested probe; track `CanConnectTo`; other vehicle combinations and coupling methods; station/platform behaviour without power; timetable/autopilot; save/load; and client prediction/replication. Final production architecture remains unresolved.
 
 Do not begin major gameplay implementation until:
 

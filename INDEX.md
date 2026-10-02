@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 2 October 2026
-**Project phase:** Design finalisation + Probe 1 traction causality verified; working probe restoration and wagon coupling next
+**Project phase:** Design finalisation + construction-time vanilla wagon integration verified; station/timetable tests next
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -504,7 +504,7 @@ Wwise Windows metadata/platform and Init resource-loading errors are resolved af
 
 Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
 
-SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is completed: AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture.
+SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is completed: AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. The working probe is restored; AFGLocomotive-derived probe integration with vanilla rolling stock is runtime-verified for normal construction-time consist formation, forward/reverse movement and braking while electrically unpowered. Final production architecture remains unresolved.
 
 ### Important current traps
 
@@ -686,11 +686,11 @@ Documentation reconciliation and repository cleanup are complete; INDEX.md is re
 
 Read-only railway header/API reconnaissance is complete (Manager/user confirmed 26 September 2026).
 
-SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is completed: AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture.
+SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Alpakit did not launch retail Satisfactory during packaging. The later retail Runtime Probe 1 is completed: AFGLocomotive subclassing is runtime-verified viable for construction, rail attachment, input, braking and unpowered movement. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. The working probe is restored; AFGLocomotive-derived probe integration with vanilla rolling stock is runtime-verified for normal construction-time consist formation, forward/reverse movement and braking while electrically unpowered. Final production architecture remains unresolved.
 
 Not yet completed:
 
-- working probe restoration, vanilla wagon coupling and broader railway integration before final architecture selection;
+- station/timetable and broader railway integration before final architecture selection;
 - production Early Locomotion gameplay implementation and first playable railway;
 - production packaging/runtime verification.
 
@@ -700,11 +700,11 @@ Not yet completed:
 
 ### Current next task
 
-Restore the successful working probe with `SetTractivePowerFactor(1.f)` active and `UpdatePower()` remaining a no-op, then proceed to normal railway-integration tests beginning with vanilla wagon coupling. Record observations before final production architecture selection. Restoration and coupling testing are next actions, not completed milestones.
+Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
 
-Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Camera, normal locomotive UI and exit-placement residuals remain; these do not currently invalidate the traction/rail integration result. Production implementation and broader runtime integration remain unverified.
+Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Construction-time vanilla Freight Wagon formation, forward/reverse movement and clean braking are now verified without derailment/separation in normal operation on unpowered railway. The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. Earlier camera, normal locomotive UI and exit-placement residuals remain unresolved. Production implementation and broader runtime integration remain unverified.
 
-The completed three-way traction-causality result, its implementation-specific limit and other untested integration areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
+The traction-causality and vanilla-wagon integration results, their tested-workflow limits and other untested areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
 
 Do not begin major gameplay implementation before the runtime evidence and architecture review establish a viable approach.
 
