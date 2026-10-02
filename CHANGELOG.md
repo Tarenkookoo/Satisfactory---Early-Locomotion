@@ -72,3 +72,11 @@ Reason and decision source:
 Open questions resolved or added:
 
 Files updated:
+
+## 2 October 2026 — Governance, specialist delegation and relocation checkpoint
+
+- Established `Development/SPECIALIST_DELEGATION.md` as the detailed authoritative specialist/delegation guide; WORKFLOW is the concise workflow/navigation document, and CLAUDE retains implementation-specific guidance.
+- Aligned active authority order to INDEX, GAME_DESIGN, PROGRESS_LOG, TECHNICAL_ENVIRONMENT, CHANGELOG, WORKFLOW, SPECIALIST_DELEGATION, then CLAUDE; updated the project-local asset skill and derived roadmap navigation.
+- Centralized Manager model/effort and escalation guidance, separated user-facing configuration recommendations from specialist task prompts, and documented required handoffs/verification. Claude guidance is dated and linked to official Anthropic sources; no pricing is fixed.
+- Recorded the meaningful environment milestone: active SML workspace relocated to `C:\SML`, UBT Shipping path-limit blocker resolved, Development Editor build and probe-only Windows Shipping packaging/deployment succeeded, Wwise remained functional.
+- Runtime Probe 1 outcome and architecture remain unresolved; no gameplay requirements, design status or Open Questions changed. Temporary recovery backup and unrelated asset work are preserved.

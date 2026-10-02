@@ -2,22 +2,20 @@
 
 ## Current Checkpoint
 
-**Date:** 2026-10-01
-**Phase:** Runtime Baseline Experiment 1 preparation; first pass pending
-**Status:** Claude Code workflow/priming is complete and Experiment 1 is scoped but not run. Read-only railway header/API reconnaissance is complete; runtime behaviour remains unverified because local Private `.cpp` implementations are generated stubs. First Unreal Editor launch and FactoryGame environment load succeeded on 2026-09-26 in Coffee Stain Unreal Engine 5.6.1-CSS; SML 3.12.0 initialization completed. The earlier successful build remains a separate milestone.
-**Current blocker:** Runtime unknowns require baseline experiments before architecture selection. The Wwise Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
-**Implementation status:** No actual Early Locomotion mod implementation has started. The FactoryGame/SML target builds and loads in the editor successfully; implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
+**Date:** 2026-10-02
+**Phase:** Runtime Probe 1 prepared and deployed; retail runtime outcome pending
+**Status:** Probe implementation and Blueprint configuration are complete. The SML workspace has been relocated to `C:\SML`; project generation, Development Editor / Win64 build, editor loading and Alpakit Windows Shipping packaging/deployment succeeded there. `EL_ArchitectureProbe` loaded and its Blueprint resolved and opened successfully. Read-only railway reconnaissance remains complete; architecture and runtime behaviour remain unverified.
+**Current blocker:** Runtime Probe 1 observations are required before architecture selection. The UBT 260-character Shipping action-path blocker is resolved. Wwise is functioning and reported `UpdateDataStructure: Done.` Turnkey/System.Windows.Forms remains unresolved/deferred; successful packaging does not establish its resolution or a warning/error-free environment. No dependency/toolchain versions changed.
+**Implementation status:** The temporary non-production `EL_ArchitectureProbe` exists and is packaged/deployed. This does not verify traction behaviour or constitute a production Early Locomotion gameplay implementation. Production architecture, implementation and in-game behaviour remain unverified.
 
-This checkpoint incorporates the Manager/user-confirmed usable editor UI, local startup-log/file/runtime evidence, and the later Manager/user-verified Wwise resolution on 2026-09-26. Earlier chronological entries remain historical records of what was known at the time.
-
-**Workspace preparation (2026-10-01):** Minimum folders for EL — Asset Development are prepared; existing assets and Blender test files are preserved. The runtime experiment remains unrun and the next technical action is unchanged.
+Earlier chronological entries remain historical records of what was known at the time. The Claude/Blender asset capability experiment remains paused; its existing outputs are preserved.
 
 ### Current Environment
 
 | Item | Recorded version / selection | Status at checkpoint |
 | --- | --- | --- |
 | Satisfactory | 1.2 | Agreed development target |
-| Satisfactory Mod Loader | SML 3.12.0; pairing uses 3.12.x | Recorded development target; starter repository cloned; exact checkout commit not recorded |
+| Satisfactory Mod Loader | SML 3.12.0; pairing uses 3.12.x | Recorded target; relocated checkout HEAD `d2162c999bbaa9650594ee9ad6e6e06190306009` |
 | Coffee Stain Unreal Engine | 5.6.1-CSS | User reported installed; FactoryGame.uproject engine association confirmed in conversation |
 | Audiokinetic Launcher | Version not recorded | Used for Wwise installation and integration |
 | Wwise Authoring and SDK (C++) | 2023.1.14.8770 | Installation completed |
@@ -33,30 +31,21 @@ Visual Studio workloads selected during the completed installation: **.NET deskt
 ### Project Locations
 
 - Project/design master: `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
-- Separate SML development environment: `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader`
-- Unreal project: `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader\FactoryGame.uproject`
+- Separate SML development environment: `C:\SML`
+- Unreal project: `C:\SML\FactoryGame.uproject`
 - Companion Wwise project: `SatisfactoryModLoader_WwiseProject\SatisfactoryModLoader_WwiseProject.wproj`, under the SML checkout as described in the setup conversation.
 
 Keep the design/project repository separate from the SML development environment.
 
 ### Exact Next Action
 
-Runtime Baseline Experiment 1 is scoped but **not yet run**. Tomorrow's first technical action is a zero-code test in vanilla/SML-only retail Satisfactory, installed at `D:\Steam\steamapps\common\Satisfactory`.
-
-**Question:** Can a vanilla `AFGLocomotive` generate traction from rest when railway electrical power is unavailable?
-
-1. **TEST 1 — POWERED CONTROL:** Use a Train Station to supply track power, one Electric Locomotive, and approximately 200 m of straight track. Confirm that the powered locomotive accelerates from rest.
-2. **TEST 2 — UNPOWERED FROM REST:** Stop the locomotive, cut station/rail power, re-enter the locomotive, and apply the same forward input. Record whether it moves, whether throttle/input visibly responds, whether a no-power indication appears, and whether the locomotive UI/menu still functions.
-
-**Do not yet run:** power-loss-while-moving, slope/gravity, timetable/autopilot, brownout/fuse, a temporary logging mod, or Experiment 2 track-connectivity testing.
-
-Return observations to The Manager before extending the experiment or selecting architecture. No runtime outcome is recorded yet.
+Run the prepared **Runtime Probe 1** in retail Satisfactory at `D:\Steam\steamapps\common\Satisfactory`, following the Manager-approved probe procedure. `EL_ArchitectureProbe` has been packaged and deployed; retail Satisfactory was not launched by Alpakit and the runtime outcome remains **pending / unverified**. Record observations and return them to The Manager before extending tests or selecting locomotive/track architecture.
 
 ### Remaining Milestones
 
 - Retain Turnkey assembly loading as unresolved/deferred; assess other log warnings/errors separately as needed. The Wwise metadata/platform issue is resolved.
 - Runtime baseline experiments, followed by evidence-based locomotive/track architecture assessment and selection.
-- Early Locomotion implementation, packaging, and runtime/in-game verification.
+- Runtime verification of the deployed probe; production Early Locomotion implementation, packaging and in-game verification remain future milestones.
 
 ### Documentation Reconciliation
 
@@ -281,6 +270,20 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 
 **Exact next action:** Run the existing powered-control and unpowered-from-rest first pass, return observations to The Manager, then assess architecture. Future expansion ambitions do not change current technical priority.
 
+### 2026-10-01 - Claude/Blender Asset-development Capability Test
+
+**Completed (Manager-reviewed result):** V1 proved the Claude + Blender MCP workflow could create an editable locomotive prototype. V2 improved it through documented real-world dimension anchors and multi-angle visual-reference comparison, producing a recognisable LMS Fowler Class 3F "Jinty" silhouette rather than a generic steam locomotive, correctly scaled prototype geometry and an organised editable scene. Six-driver coupled running gear and coherent looping coupling-rod animation were verified visually and numerically in the completed experiment. V1 was preserved while V2 was created separately.
+
+**Prototype measurements:** V2 measured approximately 9.5695 m long, 2.667 m wide and 3.8306 m high, with 1.397 m driving-wheel diameter and approximately 5.0292 m total wheelbase. These are prototype/reference modelling values, not gameplay balance values.
+
+**Status and verification boundary:** The Manager has reviewed the completed V2 prototype and confirms that Claude + Blender MCP is viable for future reference-driven locomotive modelling. The asset capability experiment is now **paused**. The prototypes are non-production, not final art and not Unreal-export-ready. This documentation task records the Manager/user's verified results; it did not rerun Blender, remeasure geometry or repeat animation verification. Local inspection confirmed both .blend files and their associated preview folders exist.
+
+**Preserved outputs:** Blender/Jinty_Blockout_Test.blend, Blender/Jinty_Blockout_V2.blend, their existing backups and Assets/Prototypes/Claude/Jinty_Blockout_Test_Previews and Jinty_Blockout_V2_Previews were not renamed, moved, deleted or overwritten. They currently remain untracked; no applicable Git LFS attributes or documented Blender-specific storage policy were found. No storage policy was introduced and no binary assets were staged.
+
+**Future work:** A separately verified production pipeline must cover high-detail modelling, production topology, normals/bevel strategy, UVs, PBR materials/textures, Satisfactory visual/material conventions, production animation, LODs, collision, Blender-to-Unreal export and in-engine validation. None of those production/export capabilities is established by this prototype test.
+
+**Files changed / next action:** Development/PROGRESS_LOG.md only; no commit made. Current implementation checkpoint and exact next action remain unchanged: Runtime Baseline Experiment 1 powered control, then unpowered from rest. No gameplay/design decision, Open Question or technical-toolchain claim was changed. Resume asset experimentation or production pipeline work only as a separate Manager-scoped task.
+
 ### 2026-10-02 - Approved Identity, Numbering and Expansion Documentation Refinement
 
 **Completed:** Applied the Manager-approved revised Ideas Lab handoff to current canonical design; reconciled INDEX/CHANGELOG and concise CLAUDE identity constraints, synchronized the existing Word Design Reference, ROADMAP and Feature Catalogue. Revised OQ06/OQ20/OQ23–OQ25/OQ27 and added OQ28–OQ30. This records documentation work only, not brainstorming as gameplay implementation.
@@ -288,6 +291,28 @@ The previous Windows-platform, missing-metadata, "No data for Init bank", and In
 **Preserved:** Current Checkpoint and Exact Next Action remain unchanged. Runtime Baseline Experiment 1 is still unrun and architecture remains unresolved. TECHNICAL_ENVIRONMENT and gameplay implementation state are unchanged; no speculative API/storage/formula, toolchain fact, production asset or licence is claimed. Prior uncommitted Claude/Blender capability entry and all experimental outputs are preserved and excluded from this checkpoint commit.
 
 **Verification:** Canonical status/OQ consistency and synchronized Word content/layout checks are reported in the Manager handoff. Exact next technical action remains powered control followed by unpowered from rest, returning observations before architecture selection.
+
+### 2026-10-02 - SML Short-path Relocation and Runtime Probe 1 Packaging Preparation
+
+**Completed:** Relocated the active SML workspace from `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader` to `C:\SML`. The prior root produced 262-character Shipping action paths, exceeding UBT's hard-coded 260-character limit; Windows LongPathsEnabled did not bypass this validation. The shorter root removed the blocker. Probe implementation/Blueprint configuration is complete; project files regenerated successfully at the new path, and FactoryGame Development Editor / Win64 built successfully in **488.10 seconds**. The editor initialized SML 3.12.0 and loaded the probe module; its Blueprint resolved/opened and native class resolved. Wwise SoundEngine initialized and WwiseProjectDatabase reported `UpdateDataStructure: Done.`
+
+**Integrity:** Git HEAD before/after was `d2162c999bbaa9650594ee9ad6e6e06190306009`; tracked status and ignored state matched immediately after relocation, and the final SML working tree was clean. Probe Blueprint SHA-256 before/after: `882de775beaa0458924c616e3fb0ca65899b6211f8c165bcbd29096402b99564`. FactoryGame.uproject SHA-256 before/after: `a4b627b3d11537131f0610c914471db69245018561278cf2a5e508c96aba923b`; EngineAssociation remains `5.6.1-CSS`. All 114 protected probe/Wwise files matched the temporary backup before rebuilding.
+
+**Packaging/deployment:** Alpakit's own automation command succeeded (AutomationTool ExitCode **0**, approximately **6 minutes 41 seconds**). Only `EL_ArchitectureProbe` was packaged, Windows client / Shipping only, with copy-to-game enabled for `D:\Steam\steamapps\common\Satisfactory`; Windows Server and Linux Server were disabled and retail launch was off. Native UI control was unavailable, so automation invoked the same backend used by Alpakit Dev. The original path blocker did not recur; no new packaging error occurred.
+
+**Operational notes:** Only the two explicitly authorised workspace-bound processes were terminated before repeat safety checks. The initial filesystem move stopped partially with an access error; native same-drive directory moves completed relocation, followed by verification. An initial build failed in the Wwise prebuild step because Windows PowerShell could not load its security module; retrying with a process-local Windows PowerShell module search path succeeded. No dependency versions or system execution policy changed. The old empty source root/parent folders and logs were retained.
+
+**Recovery material:** Temporary hash-verified backup retained at `C:\Users\a156b\Documents\Codex\2026-09-19\referenced-chatgpt-conversation-this-is-an-2\sml-relocation\safety-backup`. This is recovery material, not a second canonical or permanent SML development tree; do not delete it before Manager review.
+
+**Boundary / next action:** Runtime Probe 1 in retail Satisfactory remains pending/unverified; no traction outcome, architecture decision, production implementation or warning/error-free certification is claimed. Run the prepared probe under the Manager-approved procedure and return observations before architecture selection. Reconciled the active path and preparation status in project documentation/derived roadmap and added the approved universal specialist model/effort handoff rule; gameplay design and Open Questions are unchanged.
+
+### 2026-10-02 - Project Governance and Specialist Delegation Reconciliation
+
+**Completed:** Created `Development/SPECIALIST_DELEGATION.md` as the detailed specialist-selection, model/effort, escalation, task-construction, handoff and verification guide. Shortened WORKFLOW to link to that guide and aligned active authority lists to INDEX, GAME_DESIGN, PROGRESS_LOG, TECHNICAL_ENVIRONMENT, CHANGELOG, WORKFLOW, SPECIALIST_DELEGATION, then CLAUDE. Preserved Claude-specific implementation guidance; recommendations now precede the task for the user and normally remain outside the specialist prompt. Recorded Manager-approved Claude Sonnet 5.5 / Opus 5.5 and Project Operations GPT-5.6 Sol effort guidance, with official Anthropic source notes and a time-sensitive re-verification rule, without pricing.
+
+**Current development state preserved:** The relocation/build/packaging facts above remain verified; active SML workspace is `C:\SML`, Wwise remains functional, and Windows Shipping probe deployment is prepared. Runtime Probe 1 in retail Satisfactory remains pending/unverified. No runtime test, architecture choice, gameplay/design decision, Open Question resolution, dependency change or implementation-workspace modification occurred in this documentation task. Historical entries and recovery backup are preserved. Updated the derived roadmap's governance navigation and recorded the restructuring in CHANGELOG.
+
+**Next action:** Run the prepared retail Runtime Probe 1 under the Manager-approved procedure and return evidence before architecture selection.
 
 ## Rules for Maintaining This Log
 

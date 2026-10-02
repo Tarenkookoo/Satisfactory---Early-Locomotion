@@ -15,7 +15,18 @@ The design goal is **not** to create "vanilla trains, but earlier." Steam rail m
 
 ## Authority and source of truth
 
-Before making implementation, balance, architecture, asset, or progression decisions, read the relevant project documentation.
+Before making implementation, balance, architecture, asset, or progression decisions, read the relevant project documentation in this authority order:
+
+1. `INDEX.md` — current project overview, navigation, and status.
+2. `Design/GAME_DESIGN.md` — canonical gameplay and design authority.
+3. `Development/PROGRESS_LOG.md` — current development checkpoint, blockers, work history, and exact next action.
+4. `Development/TECHNICAL_ENVIRONMENT.md` — verified toolchain, API, and environment facts.
+5. `CHANGELOG.md` — meaningful project, design, and implementation history.
+6. `WORKFLOW.md` — coordination and change discipline.
+7. `Development/SPECIALIST_DELEGATION.md` — detailed specialist selection, model/effort, task, handoff, and verification rules.
+8. `CLAUDE.md` — Claude-specific implementation rules.
+
+Detailed delegation/model-selection rules belong in `Development/SPECIALIST_DELEGATION.md`; this file retains Claude-specific implementation guidance.
 
 ### Primary design authority
 
@@ -57,13 +68,13 @@ Use this to understand how decisions changed over time.
 
 ## Current project state
 
-Current verified state (2026-09-26):
+Current verified state (2026-10-02):
 
-- The separate SML development environment is established at `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader`, outside this project/design repository's `Source/` folder.
+- The separate SML development environment is established at `C:\SML`, outside this project/design repository's `Source/` folder.
 - The target is Satisfactory 1.2 / SML 3.12.0 (3.12.x pairing), with Coffee Stain Unreal Engine 5.6.1-CSS installed. `FactoryGame.sln` generation and the FactoryGame **Development Editor / Win64** build succeeded; Unreal Editor launches, the FactoryGame/SML environment loads, and SML 3.12.0 initializes successfully.
 - Wwise integration is functioning; the Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms remains unresolved and deferred.
-- No Early Locomotion gameplay plugin/prototype exists yet. Architecture remains unresolved.
-- The Manager/user confirms header-level railway reconnaissance is complete in Claude Architecture & Research. Runtime baseline experiments are the next technical step before architecture selection.
+- Temporary non-production `EL_ArchitectureProbe` implementation and Blueprint configuration exist; its Blueprint resolves/opens and Windows Shipping packaging/deployment succeeded at `C:\SML`. Production gameplay implementation and runtime probe behaviour remain unverified; architecture remains unresolved.
+- The Manager/user confirms header-level railway reconnaissance is complete in Claude Architecture & Research. The prepared runtime Probe 1 in retail Satisfactory is the next technical step before architecture selection.
 - Do not assume project classes, APIs, build scripts, asset paths, module names, or editor assets exist unless verified directly.
 - Do not invent missing technical infrastructure merely to continue a task.
 
@@ -351,7 +362,7 @@ For a meaningful implementation task:
 
 ### Before editing
 
-1. Read this `CLAUDE.md`.
+1. Read `INDEX.md` and the relevant authority files in the order above, including this `CLAUDE.md`.
 2. Read the relevant section(s) of `Design/GAME_DESIGN.md`.
 3. Inspect the existing implementation.
 4. Identify relevant open questions.
@@ -481,11 +492,8 @@ Perform a read-only onboarding pass.
 
 Read:
 
-- `CLAUDE.md`
-- `README.md`
-- `Design/GAME_DESIGN.md`
-- `CHANGELOG.md`
-- `PROJECT_NOTES.md` if present
+- the authority files above, starting with `INDEX.md`, in that order;
+- `README.md` and `PROJECT_NOTES.md` if present as supporting project context.
 
 Then report:
 

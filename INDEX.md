@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 2 October 2026
-**Project phase:** Design finalisation + runtime baseline experiments before architecture selection
+**Project phase:** Design finalisation + prepared runtime Probe 1 awaiting retail verification before architecture selection
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -469,7 +469,7 @@ The exact Unreal implementation pattern is **not yet decided** and must be based
 
 ## 15. Current Verified Development Environment
 
-Technical reconnaissance began on 14 September 2026. The setup status below was reconciled on 19 September 2026.
+Technical reconnaissance began on 14 September 2026. The current setup checkpoint below includes verified relocation and probe packaging on 2 October 2026.
 
 ### Verified target
 
@@ -503,6 +503,8 @@ Completed and verified:
 Wwise Windows metadata/platform and Init resource-loading errors are resolved after enabling Object GUID, Object Path, Max Attenuation, and Estimated Duration metadata and regenerating SoundBanks. The all-banks metadata efficiency message is advisory.
 
 Turnkey/System.Windows.Forms, Version=6.0.2.0 remains unresolved but deferred because it has not blocked project generation, the FactoryGame build, or editor launch. No dependency/toolchain versions changed.
+
+SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Retail Satisfactory was not launched; runtime Probe 1 remains pending and architecture is unresolved.
 
 ### Important current traps
 
@@ -684,13 +686,13 @@ Documentation reconciliation and repository cleanup are complete; INDEX.md is re
 
 Read-only railway header/API reconnaissance is complete (Manager/user confirmed 26 September 2026).
 
+SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Editor / Win64 build and editor/probe Blueprint loading succeeded after relocation; Wwise remained functional. `EL_ArchitectureProbe` implementation and Blueprint preparation are complete, and its Windows Shipping package deployed successfully to `D:\Steam\steamapps\common\Satisfactory` (AutomationTool ExitCode 0). The 260-character Shipping path blocker is resolved. Retail Satisfactory was not launched; runtime Probe 1 remains pending and architecture is unresolved.
+
 Not yet completed:
 
-- runtime baseline experiments and architecture selection;
-
-- Early Locomotion Unreal plugin creation;
-- first compilable mod build;
-- first railway prototype.
+- runtime Probe 1 observations and architecture selection;
+- production Early Locomotion gameplay implementation and first playable railway;
+- production packaging/runtime verification.
 
 ---
 
@@ -698,9 +700,9 @@ Not yet completed:
 
 ### Current next task
 
-Run only the first pass of Runtime Baseline Experiment 1 in vanilla/SML-only retail Satisfactory: powered acceleration from rest, then the same forward input from rest with station/rail power cut. The experiment has not yet been run. See Development/PROGRESS_LOG.md for the exact test sequence and observations; architecture remains unresolved.
+Run the prepared **Runtime Probe 1** in retail Satisfactory at `D:\Steam\steamapps\common\Satisfactory`, following the Manager-approved probe procedure. `EL_ArchitectureProbe` has been packaged and deployed; retail Satisfactory was not launched by Alpakit and the runtime outcome remains **pending / unverified**. Record observations and return them to The Manager before extending tests or selecting locomotive/track architecture.
 
-Project generation, first build, usable editor launch, FactoryGame environment load, and SML 3.12.0 initialization are verified. Implementation, packaging, runtime/in-game behaviour, and a warning/error-free environment remain unverified.
+Temporary probe generation, build, editor loading and Windows Shipping packaging/deployment are verified. Production implementation, runtime/in-game behaviour and a warning/error-free environment remain unverified.
 
 Runtime unknowns and the verified Wwise fix are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no locomotive inheritance or architecture decision has been made.
 
@@ -813,8 +815,9 @@ Project authority order:
 3. `Development/PROGRESS_LOG.md` — current development checkpoint, blockers, work history, and exact next action.
 4. `Development/TECHNICAL_ENVIRONMENT.md` — verified toolchain, API, and environment facts.
 5. `CHANGELOG.md` — meaningful project, design, and implementation history.
-6. `CLAUDE.md` — Claude-specific implementation rules.
-7. `WORKFLOW.md` — coordination and change discipline.
+6. `WORKFLOW.md` — coordination and change discipline.
+7. `Development/SPECIALIST_DELEGATION.md` — detailed specialist selection, model/effort, task, handoff, and verification rules.
+8. `CLAUDE.md` — Claude-specific implementation rules.
 
 `References/` remains supporting/historical material outside the authority chain.
 
@@ -822,7 +825,7 @@ Project authority order:
 
 [Design/Early Locomotion Feature Catalogue.docx](Design/Early%20Locomotion%20Feature%20Catalogue.docx) — comprehensive human-readable explanation of planned gameplay/features, derived from GAME_DESIGN.md and non-authoritative on conflict. It explains what features do and why; ROADMAP.docx retains current position and phase planning.
 
-`WORKFLOW.md` is the concise human-and-agent guide to coordination and change flow. `Design/Early Locomotion Design Reference.docx` is the human-readable Word copy of the design master. `Balance/` holds future balance models and playtest data.
+`WORKFLOW.md` is the concise human-and-agent guide to coordination and change flow. [Development/SPECIALIST_DELEGATION.md](Development/SPECIALIST_DELEGATION.md) is the detailed authoritative specialist-selection, model/effort, task-construction, handoff and verification guide. `Design/Early Locomotion Design Reference.docx` is the human-readable Word copy of the design master. `Balance/` holds future balance models and playtest data.
 
 Future chats and AI agents should read `INDEX.md` first, then follow its references.
 

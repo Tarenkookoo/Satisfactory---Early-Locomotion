@@ -32,8 +32,9 @@ Read and apply project sources in this order:
 3. `Development/PROGRESS_LOG.md` — current development checkpoint, blockers, work history, and exact next action.
 4. `Development/TECHNICAL_ENVIRONMENT.md` — verified toolchain, API, and environment facts.
 5. `CHANGELOG.md` — meaningful project, design, and implementation history.
-6. `CLAUDE.md` — Claude-specific implementation rules.
-7. `WORKFLOW.md` — coordination and change discipline.
+6. `WORKFLOW.md` — coordination and change discipline.
+7. `Development/SPECIALIST_DELEGATION.md` — detailed specialist selection, model/effort, task, handoff, and verification rules.
+8. `CLAUDE.md` — Claude-specific implementation rules.
 
 `References/` is supporting/historical material, not part of the authority chain.
 
@@ -51,6 +52,14 @@ If sources disagree, flag the conflict and identify what needs correction. Do no
 4. The Manager reviews those results against the canonical files.
 5. The user approves decisions where required.
 6. Project Operations updates documentation when appropriate.
+
+## Specialist Delegation
+
+Use [Development/SPECIALIST_DELEGATION.md](Development/SPECIALIST_DELEGATION.md) for specialist selection, model/effort and escalation guidance, task construction, required handoffs and verification. The Manager presents the configuration recommendation to the user before delegation; it normally stays outside the specialist task prompt. Results return to The Manager for review before becoming project truth.
+
+### Active implementation workspace
+
+The canonical project/documentation root remains `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`. The active SML/implementation workspace is `C:\SML`. Temporary relocation backups are recovery material, not an additional project-management or development tree.
 
 ## Change Discipline
 

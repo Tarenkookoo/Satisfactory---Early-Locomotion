@@ -11,7 +11,7 @@ The canonical project root is:
 
 `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
-Use this root for project documentation and asset work. The separate SML workspace is `C:\Users\a156b\Documents\SatisfactoryModding\SatisfactoryModLoader`; do not treat it as the canonical documentation root.
+Use this root for project documentation and asset work. The separate SML workspace is `C:\SML`; do not treat it as the canonical documentation root.
 
 Read and apply project authority in this order, consulting the relevant sections for the task:
 
@@ -20,8 +20,9 @@ Read and apply project authority in this order, consulting the relevant sections
 3. `Development/PROGRESS_LOG.md`
 4. `Development/TECHNICAL_ENVIRONMENT.md`
 5. `CHANGELOG.md`
-6. `CLAUDE.md`
-7. `WORKFLOW.md`
+6. `WORKFLOW.md`
+7. `Development/SPECIALIST_DELEGATION.md`
+8. `CLAUDE.md`
 
 Preserve **Agreed**, **Proposed**, **Playtest Target**, **Superseded**, and **Open Question** distinctions. Do not promote proposals, finalise provisional values, revive superseded ideas, or resolve Open Questions through asset work. Report conflicts to The Manager.
 
