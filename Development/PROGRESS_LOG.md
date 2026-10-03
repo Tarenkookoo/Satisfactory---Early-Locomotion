@@ -2,10 +2,10 @@
 
 ## Current Checkpoint
 
-**Date:** 2026-10-02
-**Phase:** Runtime Probe 1 vanilla-wagon integration verified; station/timetable integration next
-**Status:** The known-good working probe was restored and vanilla Freight Wagon integration tested on deliberately unpowered railway. AFGLocomotive-derived probe integration with vanilla rolling stock is runtime-verified for normal construction-time consist formation, forward/reverse movement and braking while electrically unpowered. Final production architecture remains unresolved. The prior implementation-specific traction-causality result remains verified: SetTractivePowerFactor(1.f) is necessary and no-op UpdatePower alone is insufficient in the tested implementation.
-**Current blocker:** Station/timetable and broader integration require further evidence. Coupling alignment and probe camera/UI/exit residuals remain. The loose-wagon collision observation is unresolved, not an established architecture failure. UBT Shipping path and Wwise issues remain resolved; Turnkey remains deferred.
+**Date:** 2026-10-03
+**Phase:** Probe 2a power/timetable diagnostics completed; Probe 2b power-gate isolation next
+**Status:** Manager/user-verified PowerDiagnostics2A runtime log records 1,069 samples with HasPower=false and PowerInfoHasPower=false. Powered shoe contact did not clear the locomotive-level self-driving No Power condition; manual forward/reverse traction remained functional and returned immediately when self-driving was disabled. The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. The exact gate remains unresolved because `HasPower` and `PowerInfoHasPower` were always identical in this run. Prior Probe 1 traction-causality and construction-time vanilla-wagon results remain verified.
+**Current blocker:** Self-driving reports SDLE_NoPower and suppresses traction despite powered shoe contact. The exact locomotive-level gate needs Probe 2b isolation. Earlier powering-related manual-drive failure did not reproduce and remains unverified. Coupling alignment, loose-wagon workflow, camera/UI/exit residuals and deferred Turnkey remain unresolved.
 **Implementation status:** The temporary non-production EL_ArchitectureProbe now has verified normal construction-time vanilla wagon consist formation, forward/reverse movement and braking without railway power. Final production architecture and gameplay implementation remain unresolved; save/load, multiplayer and other untested integration areas remain unverified.
 
 Earlier chronological entries remain historical records of what was known at the time. The Claude/Blender asset capability experiment remains paused; its existing outputs are preserved.
@@ -39,14 +39,13 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
+Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
 
 ### Remaining Milestones
 
-- Station/timetable integration testing with the restored working probe.
-- Further railway integration and evidence-based final architecture assessment.
-- Coupling-node alignment, loose-wagon collision workflow support, and camera/UI/exit residuals.
-- Track connectivity, stations/platforms, timetable/autopilot, save/load, replication and production gameplay implementation remain unverified; Turnkey remains deferred.
+- Probe 2b isolation of locomotive mHasPower versus PowerInfoHasPower for self-driving.
+- Successful station/timetable operation and broader railway integration before final architecture assessment.
+- Coupling alignment, loose-wagon workflow support, camera/UI/exit residuals, track connectivity, save/load and replication remain unverified/unresolved; Turnkey remains deferred.
 
 ### Documentation Reconciliation
 
@@ -354,6 +353,20 @@ No gameplay requirements, design statuses or Open Questions were changed. Histor
 **Next action:** Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
 
 No final architecture, gameplay/design requirement or Open Question was selected/resolved. All prior history and the traction-causality result are preserved.
+
+### 2026-10-03 - Probe 2a Locomotive-power / Timetable Diagnostics
+
+**Evidence / completed:** Manager/user-verified runtime log result; no independent test/log analysis performed in this documentation task. `ProbeVariant=PowerDiagnostics2A` ran successfully. Runtime log: `HasPower=false` and `PowerInfoHasPower=false` on all **1,069 samples**. `PowerInfoConnected=true`, `PowerInfoFuseTriggered=false`, `ShoeCircuit=true`, `HasTrain=true` and `IsDerailed=false` throughout.
+
+**Powered railway/stations:** When railway/stations were powered, `ShoeHasPower` changed false -> true while `HasPower` and `PowerInfoHasPower` remained false. Manual forward/reverse traction continued to work.
+
+**Self-driving:** Enabling self-driving set `SelfDrivingEnabled=true`; one tick later `GetSelfDrivingError=SDLE_NoPower`. At that time `ShoeHasPower=true`, both locomotive power flags were false, and `TrainStatus=Self Driving`. Throttle, tractive effort and tractive force were suppressed to zero; air/dynamic braking held the train stationary. Disabling self-driving restored manual traction immediately.
+
+**Conclusion / limits:** The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. The exact gate remains unresolved because `HasPower` and `PowerInfoHasPower` were always identical in this run. The earlier observation that powering an already-placed probe breaks manual driving did not reproduce in this controlled run and remains unverified. It is not treated as established behaviour or an architecture failure. Final production architecture remains unresolved.
+
+**Next action:** Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
+
+No final architecture or gameplay/design decision was made; no Open Question was resolved. Prior history is preserved.
 
 ## Rules for Maintaining This Log
 

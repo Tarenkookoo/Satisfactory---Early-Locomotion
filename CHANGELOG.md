@@ -98,3 +98,9 @@ Files updated:
 - Restored known-good EL probe formed a usable consist with a vanilla Freight Wagon built/snapped directly onto it on deliberately unpowered railway. Forward/reverse movement and clean braking succeeded; no normal-operation derailment or separation observed.
 - Coupling alignment remains a residual. Collision with an independently placed loose wagon made the train unresponsive; vanilla collision-coupling support is unestablished, so no architecture failure is inferred.
 - Next: station/timetable integration testing with the working probe. Final architecture remains unresolved; no gameplay requirement or Open Question changed.
+
+## 3 October 2026 — Probe 2a locomotive-power / timetable diagnostics
+
+- PowerDiagnostics2A logged HasPower=false and PowerInfoHasPower=false on all 1,069 samples. Powered shoe contact did not clear self-driving SDLE_NoPower; manual forward/reverse traction worked and returned immediately after disabling self-driving.
+- Self-driving suppressed throttle, tractive effort and tractive force and held the train with braking. No Power is locomotive-level; the exact flag/gate remains unresolved because the two locomotive power flags stayed identical. Earlier powering-related manual-drive failure did not reproduce and remains unverified.
+- Next Probe 2b changes only inherited mHasPower through verified Unreal property reflection, leaving PowerInfoHasPower unchanged. No final architecture or Open Question decision made.

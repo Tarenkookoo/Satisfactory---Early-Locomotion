@@ -130,7 +130,19 @@ The EL Probe Locomotive built normally through the Build Gun; its vanilla locomo
 
 **Residuals / unresolved:** The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. Earlier camera, normal locomotive UI and exit-placement residuals remain unresolved.
 
-**Next direction:** Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
+**Historical direction after the wagon test (before Probe 2a below):** Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
+
+## Probe 2a Locomotive-power and Timetable Diagnostics — 2026-10-03
+
+**Evidence:** Manager/user-verified runtime log; not independently rerun/reanalysed in this documentation task. `ProbeVariant=PowerDiagnostics2A` ran successfully. Runtime log: `HasPower=false` and `PowerInfoHasPower=false` on all **1,069 samples**. `PowerInfoConnected=true`, `PowerInfoFuseTriggered=false`, `ShoeCircuit=true`, `HasTrain=true` and `IsDerailed=false` throughout.
+
+**Powered railway/stations:** When railway/stations were powered, `ShoeHasPower` changed false -> true while `HasPower` and `PowerInfoHasPower` remained false. Manual forward/reverse traction continued to work.
+
+**Self-driving:** Enabling self-driving set `SelfDrivingEnabled=true`; one tick later `GetSelfDrivingError=SDLE_NoPower`. At that time `ShoeHasPower=true`, both locomotive power flags were false, and `TrainStatus=Self Driving`. Throttle, tractive effort and tractive force were suppressed to zero; air/dynamic braking held the train stationary. Disabling self-driving restored manual traction immediately.
+
+**Verified conclusion:** The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. The exact gate remains unresolved because `HasPower` and `PowerInfoHasPower` were always identical in this run. The earlier observation that powering an already-placed probe breaks manual driving did not reproduce in this controlled run and remains unverified. It is not treated as established behaviour or an architecture failure. Final production architecture remains unresolved.
+
+**Next test:** Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
 
 ## Important Compatibility Notes
 
@@ -196,7 +208,9 @@ Any third-party MCP/editor integration must be tested separately before it becom
 The following still require verification:
 
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
-- railroad movement beyond the tested probe and train composition/timetable APIs
+- exact self-driving power gate: inherited mHasPower versus PowerInfoHasPower (always identical in Probe 2a)
+- earlier powering-related manual-drive failure, not reproduced in Probe 2a
+- railroad movement beyond the tested probe, train composition/timetable APIs and successful station/timetable operation
 - coupling-node alignment and whether collision-coupling independently placed loose vehicles is supported vanilla workflow
 - probe camera, normal locomotive UI and exit-placement configuration
 - save/load behavior needed for custom steam state
@@ -207,9 +221,9 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Proceed to station/timetable integration testing using the restored known-good working probe. Record observations before final production architecture selection; station/timetable success is not yet verified.
+Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
 
-Runtime Probe 1, traction-causality control and normal construction-time vanilla Freight Wagon integration are completed. Remaining integration unknowns include electric subobject requirements beyond the tested probe; track `CanConnectTo`; other vehicle combinations and coupling methods; station/platform behaviour without power; timetable/autopilot; save/load; and client prediction/replication. Final production architecture remains unresolved.
+Probe 2a verifies powered shoe contact with both locomotive power flags false, SDLE_NoPower under self-driving, suppressed traction/braking hold, and immediate return to manual traction. It does not distinguish the two locomotive power flags or prove successful timetable operation. Other integration unknowns remain: track CanConnectTo, other vehicle combinations/coupling methods, stations/platforms, save/load, client prediction/replication and final architecture.
 
 Do not begin major gameplay implementation until:
 
