@@ -142,7 +142,25 @@ The EL Probe Locomotive built normally through the Build Gun; its vanilla locomo
 
 **Verified conclusion:** The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. The exact gate remains unresolved because `HasPower` and `PowerInfoHasPower` were always identical in this run. The earlier observation that powering an already-placed probe breaks manual driving did not reproduce in this controlled run and remains unverified. It is not treated as established behaviour or an architecture failure. Final production architecture remains unresolved.
 
-**Next test:** Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
+**Historical next test after Probe 2a (completed by Probe 2b below):** Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
+
+## Probe 2b Logical-power / Self-driving Milestone — 2026-10-03
+
+**Evidence:** Manager/user-verified runtime observations and log result; not independently rerun or reanalysed in this documentation task.
+
+**Single behavioural change:** Server-authoritative reflected write sets inherited AFGLocomotive `mHasPower=true` each tick. `UpdatePower()` remained no-op; `SetTractivePowerFactor(1.f)` remained active. PowerInfo and sliding-shoe behaviour were not modified; no AccessTransformer was used.
+
+**Log verification:** `ProbeVariant=LogicalPower2B` on all **291 periodic samples**; reflection lookup `found=true` on all tested placements. First write changed HasPower false -> true. `HasPower=true` and `PowerInfoHasPower=false` each held for **291/291 samples**. `PowerInfoConnected=true`, `PowerInfoFuseTriggered=false`, `ShoeCircuit=true`, `HasTrain=true` and `IsDerailed=false` throughout. `ShoeHasPower=true` during the temporary powered-track window, but **false during all successful self-driving samples**.
+
+**Self-driving / consist:** `SDLE_NoPower` on **0 samples**. Self-driving produced normal throttle/traction and reached approximately **2,879.3 cm/s (~104 km/h)**. Autopilot reduced throttle, applied braking, approached/stopped at stations, reversed operational direction and departed. Two opposing EL Probe Locomotives received successful reflected writes and participated in multiple-unit behaviour with opposing reverser signs / mirrored force. The train repeatedly travelled between End 1 and End 2 on unpowered railway; the user observed correct station stops, brief dwell/wait and timetable continuation.
+
+**Inference boundary:** A transient `SDLE_StationUnreachable` with one locomotive disappeared after adding the opposing second locomotive. A one-way limitation explanation is inference, not verified causality.
+
+**Proven capability / limit:** In this tested AFGLocomotive-derived probe, logical `mHasPower` satisfies the vanilla self-driving/timetable readiness gate with `HasPower=true`, `PowerInfoHasPower=false` and `ShoeHasPower=false`. Powered third rail and PowerInfoHasPower are not required for the tested timetable operation. Combined with the earlier SetTractivePowerFactor traction control, traction availability and automation readiness can be independently substituted while retaining the tested vanilla train/timetable behaviour. The per-tick reflection write is a **temporary probe mechanism**, not the chosen production implementation. Final production locomotive architecture remains unresolved.
+
+**Remaining production questions:** Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved.
+
+**Next direction:** Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
 
 ## Important Compatibility Notes
 
@@ -208,9 +226,10 @@ Any third-party MCP/editor integration must be tested separately before it becom
 The following still require verification:
 
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
-- exact self-driving power gate: inherited mHasPower versus PowerInfoHasPower (always identical in Probe 2a)
+- production logical-readiness state-setting path and OnHasPowerChanged side effects
+- headlights/animation/HUD effects, actual steam fuel/water/operational readiness, and multi-locomotive master/slave details
 - earlier powering-related manual-drive failure, not reproduced in Probe 2a
-- railroad movement beyond the tested probe, train composition/timetable APIs and successful station/timetable operation
+- railroad movement beyond the tested probe, station docking/loading and vanilla-wagon timetable behaviour
 - coupling-node alignment and whether collision-coupling independently placed loose vehicles is supported vanilla workflow
 - probe camera, normal locomotive UI and exit-placement configuration
 - save/load behavior needed for custom steam state
@@ -221,9 +240,9 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
+Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
 
-Probe 2a verifies powered shoe contact with both locomotive power flags false, SDLE_NoPower under self-driving, suppressed traction/braking hold, and immediate return to manual traction. It does not distinguish the two locomotive power flags or prove successful timetable operation. Other integration unknowns remain: track CanConnectTo, other vehicle combinations/coupling methods, stations/platforms, save/load, client prediction/replication and final architecture.
+Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved. Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved. Other integration unknowns include track CanConnectTo and other vehicle combinations/coupling methods.
 
 Do not begin major gameplay implementation until:
 

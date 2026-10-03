@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 3 October 2026
-**Project phase:** Design finalisation + Probe 2a power/timetable diagnostics complete; Probe 2b power-gate isolation next
+**Project phase:** Design finalisation + Probe 2b logical-power/self-driving verified; production architecture unresolved
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -690,7 +690,7 @@ SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Edit
 
 Not yet completed:
 
-- Probe 2b exact power-gate isolation, successful station/timetable operation and broader integration before final architecture selection;
+- production logical-readiness path, station docking/loading, vanilla-wagon timetable behaviour and broader integration before final architecture selection;
 - production Early Locomotion gameplay implementation and first playable railway;
 - production packaging/runtime verification.
 
@@ -700,13 +700,17 @@ Not yet completed:
 
 ### Current next task
 
-Probe 2b: set only the inherited locomotive `mHasPower` state true via verified Unreal property reflection while leaving `PowerInfoHasPower` unchanged, then test self-driving. This is the next planned test, not a verified outcome; do not select final production architecture.
+Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
 
 Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Construction-time vanilla Freight Wagon formation, forward/reverse movement and clean braking are now verified without derailment/separation in normal operation on unpowered railway. The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. Earlier camera, normal locomotive UI and exit-placement residuals remain unresolved. Production implementation and broader runtime integration remain unverified.
 
-Probe 2a recorded 1,069 samples with both locomotive power flags false. Powered shoe contact allowed manual traction, but self-driving produced SDLE_NoPower one tick after activation and suppressed traction; disabling it restored manual driving. The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. The exact gate remains unresolved because `HasPower` and `PowerInfoHasPower` were always identical in this run. The earlier powering-related manual-drive failure did not reproduce and remains unverified.
+Probe 2a recorded 1,069 samples with both locomotive power flags false. Powered shoe contact allowed manual traction, but self-driving produced SDLE_NoPower one tick after activation and suppressed traction; disabling it restored manual driving. The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. Probe 2a alone could not distinguish the flags; the later Probe 2b result below isolates logical readiness. The earlier powering-related manual-drive failure did not reproduce and remains unverified.
 
-The Probe 1 and Probe 2a results, limits and other untested areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
+Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved.
+
+Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved.
+
+The Probe 1, Probe 2a and Probe 2b results, limits and other untested areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
 
 Do not begin major gameplay implementation before the runtime evidence and architecture review establish a viable approach.
 

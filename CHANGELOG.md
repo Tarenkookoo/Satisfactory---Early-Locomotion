@@ -104,3 +104,10 @@ Files updated:
 - PowerDiagnostics2A logged HasPower=false and PowerInfoHasPower=false on all 1,069 samples. Powered shoe contact did not clear self-driving SDLE_NoPower; manual forward/reverse traction worked and returned immediately after disabling self-driving.
 - Self-driving suppressed throttle, tractive effort and tractive force and held the train with braking. No Power is locomotive-level; the exact flag/gate remains unresolved because the two locomotive power flags stayed identical. Earlier powering-related manual-drive failure did not reproduce and remains unverified.
 - Next Probe 2b changes only inherited mHasPower through verified Unreal property reflection, leaving PowerInfoHasPower unchanged. No final architecture or Open Question decision made.
+
+## 3 October 2026 — Probe 2b logical-power / self-driving milestone
+
+- LogicalPower2B logged HasPower=true and PowerInfoHasPower=false on 291/291 samples; successful self-driving had ShoeHasPower=false and no SDLE_NoPower samples. Two opposing probes repeatedly operated the timetable on unpowered railway with station stops, brief dwell, reversal and departure.
+- Tested logical mHasPower readiness is independent of third-rail and PowerInfo power; combined with the earlier traction control this verifies independently substitutable traction and automation readiness in the probe.
+- Per-tick server-authoritative reflection is temporary, not selected production architecture. State-setting/side effects, steam readiness, replication/save-load, master/slave details, docking/loading and vanilla-wagon timetable checks remain unresolved. The transient StationUnreachable one-way explanation remains inference.
+- Updated PROGRESS_LOG, TECHNICAL_ENVIRONMENT, INDEX and CLAUDE current-state wording; no design/Open Question or toolchain change.
