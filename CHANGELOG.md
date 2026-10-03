@@ -111,3 +111,10 @@ Files updated:
 - Tested logical mHasPower readiness is independent of third-rail and PowerInfo power; combined with the earlier traction control this verifies independently substitutable traction and automation readiness in the probe.
 - Per-tick server-authoritative reflection is temporary, not selected production architecture. State-setting/side effects, steam readiness, replication/save-load, master/slave details, docking/loading and vanilla-wagon timetable checks remain unresolved. The transient StationUnreachable one-way explanation remains inference.
 - Updated PROGRESS_LOG, TECHNICAL_ENVIRONMENT, INDEX and CLAUDE current-state wording; no design/Open Question or toolchain change.
+
+## 3 October 2026 — Singleplayer-first Core release scope
+
+- Manager/user approved Core 1.0 as a complete, robust singleplayer release; multiplayer implementation and listen/dedicated-server, replication/client and multiplayer presentation validation move to post-release.
+- Singleplayer persistence/save-load remains mandatory Core work. Retain affordable server-authoritative and replication-friendly architecture without blocking singleplayer progress on networking tests.
+- LogicalPower2B_NetDiag is prepared but not runtime-tested; its multiplayer test is deferred. Return immediate priority to proper singleplayer steam readiness/traction and production architecture assessment, without selecting architecture here.
+- Reconciled canonical OQ timing, current authorities, Claude guidance and derived roadmap/design/catalogue references. Technical multiplayer questions remain open. Preserved and included the preceding user-verified wagon timetable/powered-station cargo documentation; custom station systems remain unimplemented.

@@ -70,12 +70,16 @@ Use this to understand how decisions changed over time.
 
 Current verified state (2026-10-03):
 
+Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
+
+`ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work.
+
 - The separate SML development environment is established at `C:\SML`, outside this project/design repository's `Source/` folder.
 - The target is Satisfactory 1.2 / SML 3.12.0 (3.12.x pairing), with Coffee Stain Unreal Engine 5.6.1-CSS installed. `FactoryGame.sln` generation and the FactoryGame **Development Editor / Win64** build succeeded; Unreal Editor launches, the FactoryGame/SML environment loads, and SML 3.12.0 initializes successfully.
 - Wwise integration is functioning; the Windows metadata/platform issue is resolved. Turnkey/System.Windows.Forms remains unresolved and deferred.
 - Temporary non-production `EL_ArchitectureProbe` implementation and Blueprint configuration exist; its Blueprint resolves/opens and Windows Shipping packaging/deployment succeeded at `C:\SML`. Retail Runtime Probe 1 completed successfully, verified by Manager/user runtime observation and FactoryGame.log analysis. AFGLocomotive subclassing is runtime-verified viable in the tested probe for construction, vanilla rail attachment, driver input, braking and movement while `HasPower=false`; two separately placed probes reproduced the result. Production gameplay implementation and final production architecture remain unresolved.
-- Header-level railway reconnaissance and Runtime Probe 1 traction-causality controls are complete. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. The known-good working probe is restored. AFGLocomotive-derived probe integration with vanilla rolling stock is runtime-verified for normal construction-time consist formation, forward/reverse movement and braking while electrically unpowered. Final production architecture remains unresolved. The coupling node is visibly misaligned; loose-wagon collision made commands unresponsive, but vanilla workflow support is unestablished, so do not classify this observation as an architecture failure. Probe 2a diagnostics and Probe 2b logical-power/self-driving tests are complete; the tested two-opposing-locomotive timetable operation is verified. Station docking/loading and vanilla-wagon timetable behaviour remain unverified.
-- Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved. Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved. Exact next direction: Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
+- Header-level railway reconnaissance and Runtime Probe 1 traction-causality controls are complete. Within the currently tested implementation, `SetTractivePowerFactor(1.f)` is necessary for producing unpowered traction; the no-op `UpdatePower()` alone is insufficient. This does not establish the final production locomotive architecture. The known-good working probe is restored. AFGLocomotive-derived probe integration with vanilla rolling stock is runtime-verified for normal construction-time consist formation, forward/reverse movement and braking while electrically unpowered. Final production architecture remains unresolved. The coupling node is visibly misaligned; loose-wagon collision made commands unresponsive, but vanilla workflow support is unestablished, so do not classify this observation as an architecture failure. Probe 2a diagnostics and Probe 2b logical-power/self-driving tests are complete; the tested two-opposing-locomotive timetable operation is verified. Vanilla Freight Wagon timetable compatibility and powered-station docking/loading are now verified; unpowered stations did not dock/load. Custom station implementation remains unverified.
+- Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved. Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour (deferred post-release); singleplayer save/load (Core requirement); multi-locomotive master/slave details; custom station servicing/power/dwell implementation; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved. Exact next direction: Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
 - Do not assume project classes, APIs, build scripts, asset paths, module names, or editor assets exist unless verified directly.
 - Do not invent missing technical infrastructure merely to continue a task.
 
@@ -196,38 +200,19 @@ Shared gameplay logic should be separated from model-specific presentation.
 
 ---
 
-### 5. Consider multiplayer from the beginning
+### 5. Preserve affordable future networking support
 
-Any gameplay-affecting state must be reviewed for multiplayer implications.
+Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
 
-Examples include:
+Agreed implementation discipline: where reasonably cheap, maintain server-authoritative ownership of mutable gameplay state, use replication-friendly structures and avoid knowingly making future multiplayer unnecessarily difficult. Unverified multiplayer behaviour is labelled deferred; it must not block singleplayer development. This does not verify any networking mechanism.
 
-- coal quantity;
-- water quantity;
-- current servicing state;
-- timetable behaviour;
-- signal state;
-- signal-box ownership/control;
-- track restrictions;
-- speed restrictions;
-- auxiliary tender resources;
-- locomotive operating state.
-
-For relevant features, explicitly identify:
-
-- server-authoritative state;
-- replicated state;
-- client-only presentation;
-- RPC/delegate requirements;
-- prediction or latency concerns if applicable.
-
-Do not assume a single-player-only implementation is acceptable.
+Do not require listen-server, dedicated-server, client replication or multiplayer-specific UI tests before continuing singleplayer architecture/implementation. Label their unknowns deferred post-release. `ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work.
 
 ---
 
 ### 6. Consider save/load compatibility from the beginning
 
-Persistent railway gameplay state may need to survive saving and loading.
+Singleplayer railway persistence and save/load correctness are mandatory Core requirements. Multiplayer save/session semantics are separate deferred post-release concerns.
 
 When adding persistent gameplay systems, explicitly consider:
 

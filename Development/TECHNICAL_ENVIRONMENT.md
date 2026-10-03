@@ -162,6 +162,24 @@ The EL Probe Locomotive built normally through the Build Gun; its vanilla locomo
 
 **Next direction:** Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
 
+## Probe 2b Station Docking and Vanilla Freight-wagon Compatibility — 2026-10-03
+
+**Evidence:** Verified user runtime observations using the existing LogicalPower2B build. This documentation task did not repeat the tests or independently inspect new logs; no new sample counts are claimed.
+
+**Consist:** EL Probe Locomotive / vanilla Freight Wagon / EL Probe Locomotive, with the two locomotives facing opposite directions.
+
+**Test 1 — Unpowered railway / basic timetable:** Using the existing Probe 2b / LogicalPower2B build, an EL Probe Locomotive–vanilla Freight Wagon–EL Probe Locomotive consist, with opposing locomotives, self-drove on unpowered railway, reached/stopped at both stations, reversed route direction and returned normally. Adding the vanilla Freight Wagon did not break timetable operation.
+
+**Test 2 — Station docking without power:** With stations unpowered, vanilla docking/loading did not operate. Train movement and timetable operation remained available through Probe 2b logical locomotive readiness; station machinery remained unavailable.
+
+**Test 3 — Station powered:** Powering station infrastructure allowed normal vanilla docking, correct wagon positioning, correct cargo loading, successful item transport and continuing timetable operation.
+
+**Interpretation:** Runtime evidence separates locomotive/train movement and timetable readiness without powered third rail from vanilla station docking/cargo machinery, which still requires station power. The user confirms the intended custom stations will have their own power connections while railway track will not distribute traction power; this is recorded as user-confirmed direction, not proof of custom station implementation or an independent design/Open Question decision.
+
+**Limit:** This verifies vanilla station power behaviour, vanilla Freight Wagon timetable compatibility and vanilla cargo docking/loading compatibility with the current probe only. Custom Early Locomotion stations, servicing, coal/water handling, custom dwell behaviour, custom station power logic and final station architecture remain unimplemented/unresolved. The reflected logical-power write remains a temporary probe mechanism. Final production locomotive architecture and all design Open Questions remain unresolved.
+
+**Next direction:** Return the completed vanilla-wagon timetable and powered-station docking/loading evidence to The Manager for selection of the next scoped production-readiness or railway-integration test. Final locomotive/station architecture remains unresolved; no further experiment is selected by this documentation task.
+
 ## Important Compatibility Notes
 
 - Do not use stock Unreal Engine from the Epic Games Launcher as a replacement for the Coffee Stain custom engine.
@@ -221,6 +239,14 @@ The official Epic Unreal MCP tooling targets newer Unreal versions than the curr
 
 Any third-party MCP/editor integration must be tested separately before it becomes part of the development workflow.
 
+## Current Release Scope and Prepared Multiplayer Diagnostic
+
+Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
+
+Agreed: singleplayer persistence and save/load correctness remain Core requirements. Multiplayer replication and multiplayer save/session semantics are separate, deferred post-release questions; their technical answers remain Open Question.
+
+`ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work. This records the user-verified preparation report, not independent build/source inspection or runtime evidence.
+
 ## Current Unknowns
 
 The following still require verification:
@@ -229,20 +255,22 @@ The following still require verification:
 - production logical-readiness state-setting path and OnHasPowerChanged side effects
 - headlights/animation/HUD effects, actual steam fuel/water/operational readiness, and multi-locomotive master/slave details
 - earlier powering-related manual-drive failure, not reproduced in Probe 2a
-- railroad movement beyond the tested probe, station docking/loading and vanilla-wagon timetable behaviour
+- railroad movement beyond the tested probe and custom station servicing, coal/water handling, dwell behaviour and power logic
 - coupling-node alignment and whether collision-coupling independently placed loose vehicles is supported vanilla workflow
 - probe camera, normal locomotive UI and exit-placement configuration
 - save/load behavior needed for custom steam state
-- multiplayer replication design for steam systems
+- deferred post-release: multiplayer replication/client prediction, listen/dedicated-server behaviour, multiplayer UI/presentation and multiplayer save/session semantics
 - best inheritance architecture for steam locomotives
 - feasibility of custom conventional track using the vanilla railroad graph
 - exact monorail conversion implementation
 
 ## Current Next Technical Step
 
-Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
+Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
 
-Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved. Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved. Other integration unknowns include track CanConnectTo and other vehicle combinations/coupling methods.
+Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved. Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour (deferred post-release); singleplayer save/load (Core requirement); multi-locomotive master/slave details; custom station implementation; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved. Other integration unknowns include track CanConnectTo and other vehicle combinations/coupling methods.
+
+Using the existing Probe 2b / LogicalPower2B build, an EL Probe Locomotive–vanilla Freight Wagon–EL Probe Locomotive consist, with opposing locomotives, self-drove on unpowered railway, reached/stopped at both stations, reversed route direction and returned normally. Adding the vanilla Freight Wagon did not break timetable operation. Unpowered stations did not operate the vanilla docking/loading procedure. After powering station infrastructure, docking operated normally, the wagon was positioned correctly, cargo loaded correctly, items were transported successfully and timetable operation continued. Runtime evidence separates locomotive/train movement and timetable readiness without powered third rail from vanilla station docking/cargo machinery, which still requires station power. The user confirms the intended custom stations will have their own power connections while railway track will not distribute traction power; this is recorded as user-confirmed direction, not proof of custom station implementation or an independent design/Open Question decision. This verifies vanilla station power behaviour, vanilla Freight Wagon timetable compatibility and vanilla cargo docking/loading compatibility with the current probe only. Custom Early Locomotion stations, servicing, coal/water handling, custom dwell behaviour, custom station power logic and final station architecture remain unimplemented/unresolved.
 
 Do not begin major gameplay implementation until:
 

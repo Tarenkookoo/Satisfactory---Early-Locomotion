@@ -3,10 +3,15 @@
 ## Current Checkpoint
 
 **Date:** 2026-10-03
-**Phase:** Probe 2b logical-power / self-driving milestone completed; production architecture remains unresolved
+**Phase:** Singleplayer-first Core production-readiness assessment; multiplayer deferred post-release
 **Status:** Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved.
-**Current blocker:** The tested SDLE_NoPower gate is cleared. Production readiness/state-setting and broader integration remain unresolved; this is not production approval. Earlier powering-related manual-drive failure remains unverified. Coupling alignment, loose-wagon workflow, camera/UI/exit residuals and deferred Turnkey remain unresolved.
+**Latest verified result:** Using the existing Probe 2b / LogicalPower2B build, an EL Probe Locomotive–vanilla Freight Wagon–EL Probe Locomotive consist, with opposing locomotives, self-drove on unpowered railway, reached/stopped at both stations, reversed route direction and returned normally. Adding the vanilla Freight Wagon did not break timetable operation. Unpowered stations did not operate the vanilla docking/loading procedure. After powering station infrastructure, docking operated normally, the wagon was positioned correctly, cargo loaded correctly, items were transported successfully and timetable operation continued. Runtime evidence separates locomotive/train movement and timetable readiness without powered third rail from vanilla station docking/cargo machinery, which still requires station power. The user confirms the intended custom stations will have their own power connections while railway track will not distribute traction power; this is recorded as user-confirmed direction, not proof of custom station implementation or an independent design/Open Question decision. This verifies vanilla station power behaviour, vanilla Freight Wagon timetable compatibility and vanilla cargo docking/loading compatibility with the current probe only. Custom Early Locomotion stations, servicing, coal/water handling, custom dwell behaviour, custom station power logic and final station architecture remain unimplemented/unresolved.
+**Current blocker:** Production state-setting/side effects, actual steam readiness and final architecture remain unresolved. Singleplayer save/load remains required. Multiplayer/client replication is deferred post-release and is not a Core blocker. Earlier presentation/coupling residuals and deferred Turnkey remain unresolved.
 **Implementation status:** Temporary non-production probe only; successful two-locomotive timetable operation is verified, but production gameplay implementation remains unverified.
+
+Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
+
+`ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work.
 
 Earlier chronological entries remain historical records of what was known at the time. The Claude/Blender asset capability experiment remains paused; its existing outputs are preserved.
 
@@ -39,13 +44,14 @@ Keep the design/project repository separate from the SML development environment
 
 ### Exact Next Action
 
-Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
+Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
 
 ### Remaining Milestones
 
-- Production logical-readiness path and steam fuel/water/operational readiness substitution.
-- Station docking/loading, vanilla-wagon timetable behaviour and broader railway integration before final architecture assessment.
-- Coupling alignment, loose-wagon workflow support, camera/UI/exit residuals, track connectivity, save/load and replication remain unverified/unresolved; Turnkey remains deferred.
+- Singleplayer production locomotive architecture and actual steam readiness/traction.
+- Rolling stock, track, custom stations/servicing, signalling, progression, UI/tutorials and regional presentation as applicable.
+- Singleplayer save/load robustness, balance, packaging and singleplayer Core release QA.
+- Post-release multiplayer implementation/validation: listen server, dedicated server, replication/client prediction, multiplayer UI and save/session concerns.
 
 ### Documentation Reconciliation
 
@@ -385,6 +391,40 @@ No final architecture or gameplay/design decision was made; no Open Question was
 **Remaining production questions:** Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved.
 
 **Next direction:** Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
+
+### 2026-10-03 - Probe 2b Station Docking and Vanilla Freight-wagon Compatibility
+
+**Evidence:** Verified user runtime observations using the existing LogicalPower2B build. This documentation task did not repeat the tests or independently inspect new logs; no new sample counts are claimed.
+
+**Consist:** EL Probe Locomotive / vanilla Freight Wagon / EL Probe Locomotive, with the two locomotives facing opposite directions.
+
+**Test 1 — Unpowered railway / basic timetable:** Using the existing Probe 2b / LogicalPower2B build, an EL Probe Locomotive–vanilla Freight Wagon–EL Probe Locomotive consist, with opposing locomotives, self-drove on unpowered railway, reached/stopped at both stations, reversed route direction and returned normally. Adding the vanilla Freight Wagon did not break timetable operation.
+
+**Test 2 — Station docking without power:** With stations unpowered, vanilla docking/loading did not operate. Train movement and timetable operation remained available through Probe 2b logical locomotive readiness; station machinery remained unavailable.
+
+**Test 3 — Station powered:** Powering station infrastructure allowed normal vanilla docking, correct wagon positioning, correct cargo loading, successful item transport and continuing timetable operation.
+
+**Interpretation:** Runtime evidence separates locomotive/train movement and timetable readiness without powered third rail from vanilla station docking/cargo machinery, which still requires station power. The user confirms the intended custom stations will have their own power connections while railway track will not distribute traction power; this is recorded as user-confirmed direction, not proof of custom station implementation or an independent design/Open Question decision.
+
+**Limit:** This verifies vanilla station power behaviour, vanilla Freight Wagon timetable compatibility and vanilla cargo docking/loading compatibility with the current probe only. Custom Early Locomotion stations, servicing, coal/water handling, custom dwell behaviour, custom station power logic and final station architecture remain unimplemented/unresolved. The reflected logical-power write remains a temporary probe mechanism. Final production locomotive architecture and all design Open Questions remain unresolved.
+
+**Next direction:** Return the completed vanilla-wagon timetable and powered-station docking/loading evidence to The Manager for selection of the next scoped production-readiness or railway-integration test. Final locomotive/station architecture remains unresolved; no further experiment is selected by this documentation task.
+
+### 2026-10-03 - Approved Singleplayer-first Core Release Scope
+
+**Approved scope:** Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
+
+**Reason:** Multiplayer validation requires additional accounts/machines and substantial replication, server and cross-client testing overhead. Singleplayer must work properly before significant multiplayer implementation/validation work.
+
+**Implementation discipline:** Agreed implementation discipline: where reasonably cheap, maintain server-authoritative ownership of mutable gameplay state, use replication-friendly structures and avoid knowingly making future multiplayer unnecessarily difficult. Unverified multiplayer behaviour is labelled deferred; it must not block singleplayer development. This does not verify any networking mechanism. Agreed: singleplayer persistence and save/load correctness remain Core requirements. Multiplayer replication and multiplayer save/session semantics are separate, deferred post-release questions; their technical answers remain Open Question.
+
+**Prepared diagnostic:** `ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work.
+
+**Current evidence retained:** Probe traction, logical readiness, unpowered timetable, opposing EL locomotives, vanilla-wagon timetable and powered-station docking/loading compatibility are verified in their tested scope. Custom station systems and production architecture remain unimplemented/unresolved. Prior docking documentation is preserved in this checkpoint batch.
+
+**Documentation work:** Reconciled canonical release scope/OQ timing, current-state authorities, Claude implementation rules and the existing derived Word references. Historical entries were not rewritten to imply earlier multiplayer deferral; no networking technical question or final architecture was resolved.
+
+**Next action:** Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
 
 ## Rules for Maintaining This Log
 

@@ -24,6 +24,44 @@ Steam must have a distinct operating identity rather than duplicate electric tra
 
 Status convention: Agreed identifies explicit user choices or earlier suggestions covered by the user's statement that unchallenged points were accepted. Proposed identifies subsequent assistant elaborations not expressly confirmed. Playtest target identifies illustrative values, even when their underlying principle is agreed. Superseded identifies an earlier idea replaced by a later correction. No numerical targets in this reference are final unless explicitly stated otherwise.
 
+## Release scope and implementation order
+
+Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
+
+Multiplayer validation requires additional accounts/machines and substantial replication, server and cross-client testing overhead. Singleplayer must work properly before significant multiplayer implementation/validation work.
+
+Agreed implementation discipline: where reasonably cheap, maintain server-authoritative ownership of mutable gameplay state, use replication-friendly structures and avoid knowingly making future multiplayer unnecessarily difficult. Unverified multiplayer behaviour is labelled deferred; it must not block singleplayer development. This does not verify any networking mechanism.
+
+Agreed: singleplayer persistence and save/load correctness remain Core requirements. Multiplayer replication and multiplayer save/session semantics are separate, deferred post-release questions; their technical answers remain Open Question.
+
+Agreed development priority (grouping may adapt to verified technical dependencies; this order does not select final architecture):
+
+1. Singleplayer locomotive architecture assessment and selection after Manager review.
+
+2. Production steam readiness and traction.
+
+3. Rolling stock.
+
+4. Track.
+
+5. Stations and servicing.
+
+6. Signalling.
+
+7. Progression recipes and unlocks.
+
+8. UI presentation and tutorials as applicable.
+
+9. Singleplayer save/load robustness.
+
+10. Balance packaging and singleplayer release QA.
+
+11. Core 1.0 singleplayer release.
+
+12. Post-release multiplayer implementation and validation.
+
+Multiplayer release timing is decided; replication mechanisms, client prediction, dedicated-server behaviour and exact multiplayer save/session semantics remain unresolved. OQ04/OQ06/OQ14/OQ27/OQ28 retain their multiplayer technical questions for post-release work; their singleplayer persistence/performance requirements remain active.
+
 ## Progression
 
 Agreed direction: introduce the railway progressively and preserve electric rail's superior role in a mature factory. A simple first route should work without demanding extensive signalling expertise. More vehicles, junctions and throughput should create the need for more infrastructure.
@@ -387,11 +425,11 @@ Exact pack pricing, early-access pricing, paid distribution/storefront and comme
 
 - OQ03 Signalling: choose block lengths, speed caps, path or interlocking progression, and invalid or uncontrolled block behaviour.
 
-- OQ04 Signal boxes: settle capacity, territory measurement, overlap and reassignment; generated linkage appearance, routing/branching, continuity, equipment coverage including points, regeneration, clutter, LOD/performance and multiplayer presentation.
+- OQ04 Signal boxes: settle capacity, territory measurement, overlap and reassignment; generated linkage appearance, routing/branching, continuity, equipment coverage including points, regeneration, clutter, LOD/performance and multiplayer presentation. Multiplayer-specific validation is deferred post-release; applicable singleplayer requirements remain Core.
 
 - OQ05 Locomotives: confirm whether Medium is the fastest steam class, then define traction, acceleration, mass, capacities and consumption curves.
 
-- OQ06 Regions: select exact supported Core launch regions/references and world/save selection; verify existing/future switching, controlling/parent locomotive determination for multi-locomotive consists, live wagon reskin updates, cargo/resource preservation, regional wagon mass/data migration, dynamic versus construction-fixed performance, already-running trains, total mass display, save/load, replication, performance and transient/exploit safeguards. The controlling-locomotive presentation rule is Agreed; its implementation is not. Identical statistics are Superseded; balance values remain unset.
+- OQ06 Regions: select exact supported Core launch regions/references and world/save selection; verify existing/future switching, controlling/parent locomotive determination for multi-locomotive consists, live wagon reskin updates, cargo/resource preservation, regional wagon mass/data migration, dynamic versus construction-fixed performance, already-running trains, total mass display, save/load, replication, performance and transient/exploit safeguards. The controlling-locomotive presentation rule is Agreed; its implementation is not. Identical statistics are Superseded; balance values remain unset. Multiplayer-specific validation is deferred post-release; applicable singleplayer requirements remain Core.
 
 - OQ07 Wagons: establish item and fluid roster, capacities, dimensions, costs and platform compatibility.
 
@@ -407,7 +445,7 @@ Exact pack pricing, early-access pricing, paid distribution/storefront and comme
 
 - OQ13 Scope: determine Core/post-launch non-expansion scope for interchange buildings and specialist content. Advanced late-game steam infrastructure belongs to expansions; its exact catalogue remains OQ22.
 
-- OQ14 Implementation: choose and verify game, mod loader and editor versions, then establish multiplayer, save and load, performance and build validation requirements.
+- OQ14 Implementation: verify toolchain, singleplayer architecture, singleplayer persistence/save-load correctness, performance and build/release validation. Core 1.0 is singleplayer; multiplayer implementation/validation is post-release. Replication mechanisms, listen/dedicated-server behaviour, client prediction and multiplayer save/session semantics remain unresolved, not Core blockers.
 
 - OQ15–OQ18 Railway assistant and animated tutorials: see the dedicated section above for character/presentation, lore, tutorial content/narration, and technically unverified implementation questions.
 
@@ -427,9 +465,9 @@ Exact pack pricing, early-access pricing, paid distribution/storefront and comme
 
 - OQ26 Commercial programme: exact regional pack price, early-access pricing, paid distribution/storefront, permissions/policies, redistribution, updates/dependencies and licensing. No delivery plan approved.
 
-- OQ27 Multiplayer expansions: client assets/install/mod loading, server dependencies, entitlement, save compatibility, differing pack availability and feasibility of joining without extra purchase; replication/save/performance implications of consist regional updates. No entitlement or runtime mechanism is verified.
+- OQ27 Multiplayer expansions: client assets/install/mod loading, server dependencies, entitlement, save compatibility, differing pack availability and feasibility of joining without extra purchase; replication/save/performance implications of consist regional updates. No entitlement or runtime mechanism is verified. Multiplayer implementation/validation is deferred post-release; no technical answer or entitlement mechanism is selected, and singleplayer save/load remains a Core requirement.
 
-- OQ28 Fleet Identity: verify placement lifecycle hooks, permanent identity persistence/storage, regional mapping save/load, dismantling/deletion lifecycle and replication. No SQL/external database requirement or API is chosen.
+- OQ28 Fleet Identity: verify placement lifecycle hooks, permanent identity persistence/storage, regional mapping save/load, dismantling/deletion lifecycle and replication. No SQL/external database requirement or API is chosen. Multiplayer-specific validation is deferred post-release; applicable singleplayer requirements remain Core.
 
 - OQ29 Numbering rules/data: define collision pool/domain, independently verified per-class/operator/regional algorithms and datasets, construction-order relevance, scheme conversion, controlled/player-controlled portions, manual-value validity and overflow prefix/format. Do not treat playtime as a historical calendar or screenshots as verified data.
 
@@ -446,3 +484,5 @@ Version 0.1 created on 14 September 2026. Consolidates the initial concept, deta
 2 October 2026: applied Manager-approved numbering/Advanced Driving/VIP refinements. Resolved high-level expansion locomotive retention fallback; agreed controlling-locomotive wagon presentation and asymmetric regional rosters. Added Core identity/numbering/search family, refined Advanced scope/Simple relationship, expansion progression and Core/expansion prestige framework. Revised OQ06/OQ20/OQ23–OQ25/OQ27; added OQ28–OQ30. Technical mechanisms, exact values, roster, licensing and Proposed details remain open. No gameplay implementation is claimed.
 
 Future revisions should update the relevant section, change its status where appropriate, record the reason and source in CHANGELOG.md, and resolve the corresponding open question. Preserve superseded decisions in the change history rather than leave conflicting instructions active.
+
+2026-10-03: Manager/user-approved singleplayer-first Core 1.0 scope; multiplayer support and validation deferred post-release. Singleplayer save/load remains required. Multiplayer technical questions stay open; no production architecture selected.

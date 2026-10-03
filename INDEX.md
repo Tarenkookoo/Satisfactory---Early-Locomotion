@@ -2,7 +2,7 @@
 ## Project Index
 
 **Last updated:** 3 October 2026
-**Project phase:** Design finalisation + Probe 2b logical-power/self-driving verified; production architecture unresolved
+**Project phase:** Singleplayer-first Core production-readiness assessment; multiplayer post-release
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
 ---
@@ -439,6 +439,15 @@ A future transfer/interchange building has been suggested but is not confirmed f
 
 ## 14. Development Architecture Direction
 
+Agreed: Core 1.0 / the first public release prioritises a complete, robust singleplayer experience. Multiplayer support is deferred to a post-release update and is not a Core release requirement or blocker. Listen-server, dedicated-server, client replication and multiplayer-specific UI/presentation validation are deferred.
+
+Agreed: singleplayer persistence and save/load correctness remain Core requirements. Multiplayer replication and multiplayer save/session semantics are separate, deferred post-release questions; their technical answers remain Open Question.
+
+Agreed implementation discipline: where reasonably cheap, maintain server-authoritative ownership of mutable gameplay state, use replication-friendly structures and avoid knowingly making future multiplayer unnecessarily difficult. Unverified multiplayer behaviour is labelled deferred; it must not block singleplayer development. This does not verify any networking mechanism.
+
+Implementation priority: locomotive architecture → steam readiness/traction → rolling stock → track → stations/servicing → signalling → progression → UI/presentation/tutorials → singleplayer save/load → balance/packaging/singleplayer QA → Core 1.0 release → post-release multiplayer. Grouping may follow verified dependencies; final architecture remains unresolved.
+
+
 Current proposed architecture:
 
 - shared steam-locomotive gameplay logic;
@@ -690,7 +699,7 @@ SML now uses `C:\SML`. On 2 October 2026, project regeneration, Development Edit
 
 Not yet completed:
 
-- production logical-readiness path, station docking/loading, vanilla-wagon timetable behaviour and broader integration before final architecture selection;
+- production logical-readiness path, custom station systems and broader integration before final architecture selection;
 - production Early Locomotion gameplay implementation and first playable railway;
 - production packaging/runtime verification.
 
@@ -700,7 +709,9 @@ Not yet completed:
 
 ### Current next task
 
-Return Probe 2b evidence to The Manager and scope the next normal railway-integration checks, including station docking/loading and vanilla-wagon timetable behaviour. Resolve the production readiness/state-setting questions through separate verified work before final architecture selection; no new runtime test or production implementation is claimed here.
+Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
+
+`ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work.
 
 Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Construction-time vanilla Freight Wagon formation, forward/reverse movement and clean braking are now verified without derailment/separation in normal operation on unpowered railway. The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. Earlier camera, normal locomotive UI and exit-placement residuals remain unresolved. Production implementation and broader runtime integration remain unverified.
 
@@ -708,7 +719,9 @@ Probe 2a recorded 1,069 samples with both locomotive power flags false. Powered 
 
 Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved.
 
-Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour; save/load; multi-locomotive master/slave details; station docking/loading; vanilla-wagon timetable behaviour; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved.
+Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour (deferred post-release); singleplayer save/load (Core requirement); multi-locomotive master/slave details; custom station servicing/power/dwell implementation; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved.
+
+Using the existing Probe 2b / LogicalPower2B build, an EL Probe Locomotive–vanilla Freight Wagon–EL Probe Locomotive consist, with opposing locomotives, self-drove on unpowered railway, reached/stopped at both stations, reversed route direction and returned normally. Adding the vanilla Freight Wagon did not break timetable operation. Unpowered stations did not operate the vanilla docking/loading procedure. After powering station infrastructure, docking operated normally, the wagon was positioned correctly, cargo loaded correctly, items were transported successfully and timetable operation continued. Runtime evidence separates locomotive/train movement and timetable readiness without powered third rail from vanilla station docking/cargo machinery, which still requires station power. The user confirms the intended custom stations will have their own power connections while railway track will not distribute traction power; this is recorded as user-confirmed direction, not proof of custom station implementation or an independent design/Open Question decision. This verifies vanilla station power behaviour, vanilla Freight Wagon timetable compatibility and vanilla cargo docking/loading compatibility with the current probe only. Custom Early Locomotion stations, servicing, coal/water handling, custom dwell behaviour, custom station power logic and final station architecture remain unimplemented/unresolved.
 
 The Probe 1, Probe 2a and Probe 2b results, limits and other untested areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
 
@@ -789,7 +802,7 @@ Geometry preservation, costs, safeguards, occupied track, partial conversion, re
 Core/later non-expansion scope; advanced late-game steam infrastructure is expansion-only, with catalogue open under OQ22.
 
 ### OQ14 — Implementation
-Final toolchain validation, multiplayer/save architecture, performance, testing and packaging.
+Singleplayer architecture, persistence/save-load, performance and release validation remain Core work. Multiplayer implementation/validation and technical multiplayer save-session concerns are deferred post-release, not Core blockers.
 
 ### OQ15–OQ18 — Railway Assistant and Animated Tutorials
 
