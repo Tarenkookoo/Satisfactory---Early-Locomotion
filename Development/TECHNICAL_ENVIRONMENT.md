@@ -180,6 +180,42 @@ The EL Probe Locomotive built normally through the Build Gun; its vanilla locomo
 
 **Next direction:** Return the completed vanilla-wagon timetable and powered-station docking/loading evidence to The Manager for selection of the next scoped production-readiness or railway-integration test. Final locomotive/station architecture remains unresolved; no further experiment is selected by this documentation task.
 
+## Probe 3a Dynamic Steam Readiness — 2026-10-03
+
+**Evidence:** Verified user runtime observations using `ProbeVariant=SteamReadiness3A`; the same locomotive was tested without rebuilding. This documentation task did not independently inspect new logs/source or repeat the test.
+
+**Ready true — `EL.SteamReady 1`:** Manual forward/reverse movement worked on unpowered rail. Timetable/self-driving worked and the train travelled back and forth normally.
+
+**Ready false — `EL.SteamReady 0`:** Manual traction became unresponsive; timetable/UI reported "No Power". Applying electrical rail power did not restore locomotive operation.
+
+**Ready restored — `EL.SteamReady 1`:** Locomotive operation returned without rebuilding.
+
+**Interpretation:** The tested mod-owned steam-readiness state dynamically controls both traction availability and vanilla logical/timetable readiness. Rail electrical power does not bypass `SteamReady=false`. This is runtime evidence supporting the candidate AFGLocomotive-derived steam architecture, not selection of final production architecture.
+
+**Limits:** The current component contains only a temporary readiness boolean. Reflection is not selected as the production `mHasPower` setter. Coal/water/boiler gameplay is not implemented; save/load and multiplayer are not verified. Production state-setting and its side effects remain unresolved. No design Open Question is resolved by this result.
+
+## Stage C v002 and Vanilla BP_Locomotive Inheritance Probe — Recorded 2026-10-03
+
+**Evidence:** Manager/user-verified runtime results supplied for this reconciliation; no runtime retest or independent source/log inspection was performed here. No sample counts or exact event times are inferred.
+
+**Stage C v002:** Stage C v002 Yellow Pannier imported/deployed successfully and appeared in retail with credible player scale, visual centring on vanilla railway and corrected boiler/firebox/cab geometry. Exit placed the player beside the locomotive. The new v002 locomotive dismantled without crash; the previous dismantle crash stopped after non-null materials were assigned/saved. Vanilla monorail geometry intersects the conventional running gear, accepted for temporary probe use. The custom AEL_ProbeLocomotive camera remained locked.
+
+**Camera diagnostics:** While the custom probe was possessed and the user moved the mouse, ControlRotation did not change; Actor, SpringArm, Camera and final view remained static. This is evidence of missing upstream vanilla look/possession behaviour rather than merely an FOV or spring-arm setting problem; the exact missing path remains unverified.
+
+**Vanilla Blueprint inheritance:** A new mod Blueprint parented directly to vanilla BP_Locomotive cooked/packaged and built successfully in retail. Normal camera look-around, locomotive HUD, horn/sounds and exit worked. On powered rail it behaved as a normal controllable vanilla locomotive. After removing rail power, HUD/sounds remained available but "No Power" appeared and traction/control were unavailable. Dismantling completed without crash.
+
+**Dated correction — recipe exposure:** The recipe required cheats to expose. Correct sequence: `SML.ForceAllowCheats 1`, then `EnableCheats`, then `UnlockSpecificRecipe ...`. The earlier claim that `UnlockSpecificRecipe` alone had been verified is retracted. The ellipsis is a recipe-argument placeholder; no exact recipe identifier was supplied in this evidence.
+
+**Interpretation:** The inheritance experiment is a STRONG PASS for technical feasibility of preserving vanilla presentation/possession behaviour through a mod Blueprint parented to BP_Locomotive. It supports further component-based steam-adapter experimentation, not approval or selection of production architecture.
+
+**Limits:** Final architecture and the production mHasPower setter remain unresolved. SaveGame persistence remains unverified; singleplayer save/load remains mandatory for Core. Multiplayer remains deferred post-release. Inherited electric HUD/VFX presentation still requires assessment. The inheritance test did not verify steam readiness/traction substitution in that Blueprint. No gameplay/design change or Open Question resolution.
+
+**Next direction:** Return the Stage C v002, camera diagnostic and BP_Locomotive inheritance evidence to The Manager for review and scoping of further component-based steam-adapter experimentation. Retain the verified presentation/possession baseline while assessing production readiness/state-setting options. No final architecture or next implementation mechanism is selected by this documentation task.
+
+## End-of-day Technical Supplement — Recorded 2026-10-03
+
+Additional Manager-supplied evidence: Stage A/B/B.1 Yellow Pannier dimensions/reference limitations and export work; Stage C animation/pivot/collision limits; initial dismantle crash in UFGMaterialEffectComponent::InitializeMaterials with None static-mesh material interfaces and successful new/older/v002 dismantling after saved/assigned non-null prototype materials; unsuccessful use_pawn_control_rotation camera fix; and source-confirmed UFGCheatManager Exec/cheat-enabling behaviour. Null materials remain the strong leading cause, not absolute private-source proof. These details were not independently re-inspected here. See [daily report](DAILY_REPORT_2026-10-03.md) for the concise evidence, limitations and restart checkpoint.
+
 ## Important Compatibility Notes
 
 - Do not use stock Unreal Engine from the Epic Games Launcher as a replacement for the Coffee Stain custom engine.
@@ -247,17 +283,22 @@ Agreed: singleplayer persistence and save/load correctness remain Core requireme
 
 `ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work. This records the user-verified preparation report, not independent build/source inspection or runtime evidence.
 
+## Repository Infrastructure — Verified 2026-10-04
+
+The canonical documentation/asset repository has infrastructure checkpoint `e1eb43e2785884a1e8d8f563a3307e70214db25e` on `master`. It contains narrow shared ignore rules, asset workspace/helper guidance and current specialist handoffs. Local Git inspection confirms no remote and no LFS-tracked files; `.gitattributes` and `.lfsconfig` are absent. Installed Git LFS does not mean this repository uses LFS. Publication, final binary-storage policy and historical installer removal from Git history remain separate decisions. No SML/toolchain/dependency versions changed. Asset/reference bulk is local and untracked; Blender milestone reports are documented in PROGRESS_LOG, not promoted here into fresh environment/runtime verification.
+
 ## Current Unknowns
 
 The following still require verification:
 
 - exact installed Visual Studio patch/build and component inventory, if needed for diagnosis
 - production logical-readiness state-setting path and OnHasPowerChanged side effects
-- headlights/animation/HUD effects, actual steam fuel/water/operational readiness, and multi-locomotive master/slave details
+- headlights/animation/HUD effects, actual steam fuel/water/boiler/operational readiness beyond the verified temporary boolean, and multi-locomotive master/slave details
 - earlier powering-related manual-drive failure, not reproduced in Probe 2a
 - railroad movement beyond the tested probe and custom station servicing, coal/water handling, dwell behaviour and power logic
 - coupling-node alignment and whether collision-coupling independently placed loose vehicles is supported vanilla workflow
-- probe camera, normal locomotive UI and exit-placement configuration
+- custom AEL probe upstream look/possession behaviour and normal locomotive UI; inheritance probe camera/HUD/exit passed, and v002 exit placement passed
+- inherited electric HUD/VFX suitability and integration of steam readiness into the vanilla Blueprint-derived candidate
 - save/load behavior needed for custom steam state
 - deferred post-release: multiplayer replication/client prediction, listen/dedicated-server behaviour, multiplayer UI/presentation and multiplayer save/session semantics
 - best inheritance architecture for steam locomotives
@@ -266,7 +307,11 @@ The following still require verification:
 
 ## Current Next Technical Step
 
-Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
+Next session: The Manager first scopes the exact component-based steam-adapter/hook test against documented evidence. Then run an isolated BP_Locomotive-derived test Blueprint experiment with UEL_SteamStateComponent and a native steam adapter candidate, aiming to preserve vanilla camera/HUD/menu/horn/possession while reproducing Probe 3a SteamReady-controlled traction and logical readiness. This is experimental, not selected production architecture. See Development/DAILY_REPORT_2026-10-03.md.
+
+The inheritance experiment is a STRONG PASS for technical feasibility of preserving vanilla presentation/possession behaviour through a mod Blueprint parented to BP_Locomotive. It supports further component-based steam-adapter experimentation, not approval or selection of production architecture. Final architecture and the production mHasPower setter remain unresolved. SaveGame persistence remains unverified; singleplayer save/load remains mandatory for Core. Multiplayer remains deferred post-release. Inherited electric HUD/VFX presentation still requires assessment. The inheritance test did not verify steam readiness/traction substitution in that Blueprint.
+
+Probe 3a (`ProbeVariant=SteamReadiness3A`) completed successfully from verified user runtime observations on the same EL Probe Locomotive without rebuilding. With `EL.SteamReady 1`, manual forward/reverse movement and timetable/self-driving worked on unpowered rail, with normal back-and-forth travel. With `EL.SteamReady 0`, manual traction became unresponsive and timetable/UI reported "No Power"; applying electrical power to the rail did not restore operation. Reissuing `EL.SteamReady 1` restored operation without rebuilding. The tested mod-owned steam-readiness state dynamically controls both traction availability and vanilla logical/timetable readiness. Rail electrical power does not bypass `SteamReady=false`. This is runtime evidence supporting the candidate AFGLocomotive-derived steam architecture, not selection of final production architecture. The current component contains only a temporary readiness boolean. Reflection is not selected as the production `mHasPower` setter. Coal/water/boiler gameplay is not implemented; save/load and multiplayer are not verified.
 
 Probe 2b (`LogicalPower2B`) completed successfully: server-authoritative reflected writes set inherited `mHasPower=true`, while `UpdatePower()` remained a no-op and `SetTractivePowerFactor(1.f)` remained active. All 291 periodic samples showed `HasPower=true` and `PowerInfoHasPower=false`; successful self-driving occurred with `ShoeHasPower=false` and no `SDLE_NoPower` samples. Two opposing probe locomotives repeatedly ran the timetable between End 1 and End 2, with station stops, brief dwell, direction reversal and departure. In the tested probe, logical mHasPower satisfies the vanilla self-driving/timetable readiness gate without powered third rail or PowerInfoHasPower. Together with the earlier traction control, this demonstrates independently substitutable traction availability and automation readiness while retaining tested vanilla train/timetable behaviour. The per-tick reflected write is a temporary probe mechanism, not selected production implementation; final architecture remains unresolved. Correct production logical-readiness state-setting path; `OnHasPowerChanged` side effects; headlights/animation/HUD; replication/client behaviour (deferred post-release); singleplayer save/load (Core requirement); multi-locomotive master/slave details; custom station implementation; and replacing unconditional true with actual fuel/water/operational steam readiness remain unresolved. Other integration unknowns include track CanConnectTo and other vehicle combinations/coupling methods.
 

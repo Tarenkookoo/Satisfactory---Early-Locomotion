@@ -118,3 +118,24 @@ Files updated:
 - Singleplayer persistence/save-load remains mandatory Core work. Retain affordable server-authoritative and replication-friendly architecture without blocking singleplayer progress on networking tests.
 - LogicalPower2B_NetDiag is prepared but not runtime-tested; its multiplayer test is deferred. Return immediate priority to proper singleplayer steam readiness/traction and production architecture assessment, without selecting architecture here.
 - Reconciled canonical OQ timing, current authorities, Claude guidance and derived roadmap/design/catalogue references. Technical multiplayer questions remain open. Preserved and included the preceding user-verified wagon timetable/powered-station cargo documentation; custom station systems remain unimplemented.
+
+## 3 October 2026 — Stage C v002 and vanilla Blueprint inheritance milestone
+
+- Yellow Pannier v002 retail import/deployment, credible scale/centering, corrected geometry, beside-locomotive exit and crash-free dismantling verified by user; prior dismantle crash stopped after non-null materials were assigned/saved. Monorail/running-gear intersection remains acceptable only for the temporary probe.
+- Custom AEL probe camera diagnostics showed unchanged ControlRotation and static view during mouse input, supporting an upstream look/possession gap. Vanilla BP_Locomotive-derived mod Blueprint cooked/packaged, built and dismantled successfully, retaining camera, HUD, horn/sounds and exit. Powered traction worked; rail-power removal produced No Power and disabled traction/control while HUD/sounds remained.
+- Recipe-unlock correction: `SML.ForceAllowCheats 1` → `EnableCheats` → `UnlockSpecificRecipe ...`; retract the earlier unlock-alone verification claim.
+- Strong inheritance feasibility pass supports component-based steam-adapter experimentation. Final architecture, production setter, SaveGame and inherited electric HUD/VFX remain unresolved; multiplayer remains post-release. No design/Open Question decision.
+
+## 3 October 2026 — Asset workspace organisation
+
+- Established persistent asset-workspace discovery/reuse and new-asset rules in SPECIALIST_DELEGATION.md, with a concise CLAUDE.md pointer.
+- Organised Pannie/Jinty sources and safe outputs into dedicated workspaces; prepared Black 5 storage. Preserved milestones, reference packs and known dependency/protected-file exceptions; current mappings are in Blender/ASSET_PATHS.md.
+- Filesystem/workflow change only; no model contents, SML implementation, gameplay/design status or Open Question changed. Changes remain uncommitted.
+
+## 4 October 2026 — Project-progress and asset/research reconciliation
+
+- Consolidated the pending Manager/user-verified Probe 3a dynamic readiness, Stage C v002 integration and vanilla BP_Locomotive inheritance results. Corrected CLAUDE's stale next-direction summary; the next step remains an isolated component-based steam-adapter experiment, not production architecture selection.
+- Recorded Pannie visual milestones through v004 and Black 5 Stage A/Stage B sources, exports and saved QA evidence. Later exports remain unverified in Unreal; all remain non-production. No gameplay class/role or Open Question was selected/resolved.
+- Recorded establishment and QA of the supporting 14-pack locomotive library; targeted Castle/B1 remediation raised both to B for proportion/blockout work. Current saved QA: one A for static exterior work, 13 B with gaps. Earlier Pannie/Jinty/Black 5 packs remain separate.
+- Recorded infrastructure checkpoint `e1eb43e2785884a1e8d8f563a3307e70214db25e`, the current asset helper/workspace map, and the approved legacy-test relocation outcome. GitHub remote/publication, final LFS policy and history cleanup remain pending separate approval. Asset/reference bulk is excluded from this documentation checkpoint.
+- Preserved historical entries, design authority and unresolved architecture; no runtime/asset regeneration, dependency change or SML edit in this reconciliation.

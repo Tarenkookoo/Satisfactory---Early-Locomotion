@@ -1,7 +1,7 @@
 # Satisfactory - Early Locomotion
 ## Project Index
 
-**Last updated:** 3 October 2026
+**Last updated:** 4 October 2026
 **Project phase:** Singleplayer-first Core production-readiness assessment; multiplayer post-release
 **Primary local project path:** `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
@@ -657,11 +657,7 @@ Primary project folder:
 
 `C:\Users\a156b\Documents\Satisfactory - Early Locomotion`
 
-Git has been initialised.
-
-Baseline commit created before Claude development work.
-
-Claude project instructions were added separately.
+Git infrastructure checkpoint: `e1eb43e2785884a1e8d8f563a3307e70214db25e` — Establish shared asset workflow and repository hygiene (4 October 2026). Narrow shared ignore rules and the current subordinate asset helper are committed. No GitHub remote is configured; no LFS tracking is enabled. Asset/reference bulk remains local and untracked pending separate review. Publication, final binary/LFS policy and any historical installer cleanup require separate approval; see [readiness audit and follow-up](Development/SHARED_TOOLING_AND_GITHUB_READINESS.md).
 
 The local Documents folder is the **master project location**.
 
@@ -670,6 +666,10 @@ ChatGPT, Claude, Codex, Unreal, Blender, and other tools should all work from th
 ---
 
 ## 20. Current Development Status
+
+**Asset/research position (4 October reconciliation):** Pannie sources/export derivatives through v004 and Black 5 Stage A v001/Stage B v002 exist as non-production visual prototypes. Only the earlier Pannie Stage C v002 integration has recorded retail verification; later exports and Black 5 are not verified in Unreal. The supporting locomotive library has 14 audited packs: 4F rated A for a static exterior prototype, 13 rated B with targeted gaps, including remediated Castle/B1. Existing Pannie/Jinty/Black 5 packs are separately linked. No class/role or final architecture is selected. Asset work does not change the implementation next action below.
+
+Navigation: [asset helper](Development/ASSET_DEVELOPMENT_GUIDE.md), [workspace map](Blender/ASSET_PATHS.md), [reference library](Asset%20References/LOCOMOTIVE_REFERENCE_LIBRARY.md), [library QA](Asset%20References/LOCOMOTIVE_REFERENCE_LIBRARY_QA.md). Reference reports/assets are available locally but excluded from this documentation checkpoint.
 
 Completed:
 
@@ -709,11 +709,11 @@ Not yet completed:
 
 ### Current next task
 
-Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
+Next session: The Manager first scopes the exact component-based steam-adapter/hook test against documented evidence. Then run an isolated BP_Locomotive-derived test Blueprint experiment with UEL_SteamStateComponent and a native steam adapter candidate, aiming to preserve vanilla camera/HUD/menu/horn/possession while reproducing Probe 3a SteamReady-controlled traction and logical readiness. This is experimental, not selected production architecture. See Development/DAILY_REPORT_2026-10-03.md.
 
 `ProbeVariant=LogicalPower2B_NetDiag` exists as prepared diagnostic capability according to the Manager/user. It has not been runtime-tested. Multiplayer runtime testing is deferred post-release and is not required before continuing singleplayer architecture work.
 
-Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Construction-time vanilla Freight Wagon formation, forward/reverse movement and clean braking are now verified without derailment/separation in normal operation on unpowered railway. The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. Earlier camera, normal locomotive UI and exit-placement residuals remain unresolved. Production implementation and broader runtime integration remain unverified.
+Runtime Probe 1 is completed and analysed. Two separately placed probes moved from rest with HasPower=false and retained train/rail integration, normal input response and working air/dynamic braking. Construction-time vanilla Freight Wagon formation, forward/reverse movement and clean braking are now verified without derailment/separation in normal operation on unpowered railway. The temporary probe coupling node/position is visibly misaligned. Driving the probe into an independently placed loose wagon made the train unresponsive to commands. Whether collision-coupling independently placed rail vehicles is a supported vanilla workflow has not been established; this observation is not classified as an architecture failure. The custom AEL probe camera/normal UI remain unresolved; later v002 exit placement and Blueprint inheritance presentation/possession results are recorded below. Production implementation and broader runtime integration remain unverified.
 
 Probe 2a recorded 1,069 samples with both locomotive power flags false. Powered shoe contact allowed manual traction, but self-driving produced SDLE_NoPower one tick after activation and suppressed traction; disabling it restored manual driving. The timetable/self-driving No Power condition is locomotive-level rather than simply lack of powered third rail. Probe 2a alone could not distinguish the flags; the later Probe 2b result below isolates logical readiness. The earlier powering-related manual-drive failure did not reproduce and remains unverified.
 
@@ -723,7 +723,17 @@ Correct production logical-readiness state-setting path; `OnHasPowerChanged` sid
 
 Using the existing Probe 2b / LogicalPower2B build, an EL Probe Locomotive–vanilla Freight Wagon–EL Probe Locomotive consist, with opposing locomotives, self-drove on unpowered railway, reached/stopped at both stations, reversed route direction and returned normally. Adding the vanilla Freight Wagon did not break timetable operation. Unpowered stations did not operate the vanilla docking/loading procedure. After powering station infrastructure, docking operated normally, the wagon was positioned correctly, cargo loaded correctly, items were transported successfully and timetable operation continued. Runtime evidence separates locomotive/train movement and timetable readiness without powered third rail from vanilla station docking/cargo machinery, which still requires station power. The user confirms the intended custom stations will have their own power connections while railway track will not distribute traction power; this is recorded as user-confirmed direction, not proof of custom station implementation or an independent design/Open Question decision. This verifies vanilla station power behaviour, vanilla Freight Wagon timetable compatibility and vanilla cargo docking/loading compatibility with the current probe only. Custom Early Locomotion stations, servicing, coal/water handling, custom dwell behaviour, custom station power logic and final station architecture remain unimplemented/unresolved.
 
-The Probe 1, Probe 2a and Probe 2b results, limits and other untested areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
+Probe 3a (`ProbeVariant=SteamReadiness3A`) completed successfully from verified user runtime observations on the same EL Probe Locomotive without rebuilding. With `EL.SteamReady 1`, manual forward/reverse movement and timetable/self-driving worked on unpowered rail, with normal back-and-forth travel. With `EL.SteamReady 0`, manual traction became unresponsive and timetable/UI reported "No Power"; applying electrical power to the rail did not restore operation. Reissuing `EL.SteamReady 1` restored operation without rebuilding. The tested mod-owned steam-readiness state dynamically controls both traction availability and vanilla logical/timetable readiness. Rail electrical power does not bypass `SteamReady=false`. This is runtime evidence supporting the candidate AFGLocomotive-derived steam architecture, not selection of final production architecture. The current component contains only a temporary readiness boolean. Reflection is not selected as the production `mHasPower` setter. Coal/water/boiler gameplay is not implemented; save/load and multiplayer are not verified.
+
+Stage C v002 Yellow Pannier imported/deployed successfully and appeared in retail with credible player scale, visual centring on vanilla railway and corrected boiler/firebox/cab geometry. Exit placed the player beside the locomotive. The new v002 locomotive dismantled without crash; the previous dismantle crash stopped after non-null materials were assigned/saved. Vanilla monorail geometry intersects the conventional running gear, accepted for temporary probe use. The custom AEL_ProbeLocomotive camera remained locked.
+
+While the custom probe was possessed and the user moved the mouse, ControlRotation did not change; Actor, SpringArm, Camera and final view remained static. This is evidence of missing upstream vanilla look/possession behaviour rather than merely an FOV or spring-arm setting problem; the exact missing path remains unverified.
+
+A new mod Blueprint parented directly to vanilla BP_Locomotive cooked/packaged and built successfully in retail. Normal camera look-around, locomotive HUD, horn/sounds and exit worked. On powered rail it behaved as a normal controllable vanilla locomotive. After removing rail power, HUD/sounds remained available but "No Power" appeared and traction/control were unavailable. Dismantling completed without crash. The inheritance experiment is a STRONG PASS for technical feasibility of preserving vanilla presentation/possession behaviour through a mod Blueprint parented to BP_Locomotive. It supports further component-based steam-adapter experimentation, not approval or selection of production architecture. Final architecture and the production mHasPower setter remain unresolved. SaveGame persistence remains unverified; singleplayer save/load remains mandatory for Core. Multiplayer remains deferred post-release. Inherited electric HUD/VFX presentation still requires assessment. The inheritance test did not verify steam readiness/traction substitution in that Blueprint.
+
+Recipe exposure required `SML.ForceAllowCheats 1` → `EnableCheats` → `UnlockSpecificRecipe ...`; the claim that recipe unlock alone was verified is retracted. Exact recipe argument was not supplied.
+
+The Probe 1/2/3a, Stage C v002 and BP_Locomotive inheritance results, limits and other untested areas are recorded in Development/TECHNICAL_ENVIRONMENT.md. Turnkey remains unresolved/deferred; no final architecture decision has been made.
 
 Do not begin major gameplay implementation before the runtime evidence and architecture review establish a viable approach.
 
