@@ -377,28 +377,13 @@ Where tooling exists:
 
 ## Completion report format
 
-At the end of a meaningful implementation task, report:
+Use the required header and unchanged body fields in [Development/SPECIALIST_DELEGATION.md](Development/SPECIALIST_DELEGATION.md#required-handoff). End with exactly one handoff in one fenced code block:
 
-### Changed
-A concise explanation of what was implemented.
+`MANAGER HANDOFF - Claude Code - [Role] - [DD/MM/YY] - [HH:MM]`
 
-### Files
-Files created or modified.
+Use the assigned persistent role (EL Implementation, EL Architecture & Research or EL Asset Development) and current local/project time, with DD/MM/YY and 24-hour HH:MM. Do not substitute a task description for the role.
 
-### Verification
-Builds, tests, searches, or checks performed.
-
-### Blueprint / Editor Handoff
-Only when manual Unreal Editor work is required.
-
-### Assumptions
-Anything assumed because information was unavailable.
-
-### Design Questions
-Any decision that still requires user/designer approval.
-
-### Risks / Follow-up
-Relevant technical debt, multiplayer/save concerns, performance concerns, or next steps.
+Map implementation detail into the standard fields: explain changes under Result, list paths under Files changed, and report checks under Verification. Put any required Blueprint/Editor actions under Recommended next action, and unresolved design questions or technical risks under Blockers / unresolved issues or Documentation follow-up. Do not resolve those questions through a handoff.
 
 Never claim a feature is working if it has not actually been compiled/tested where compilation/testing is available.
 
@@ -447,6 +432,8 @@ If no valid build setup exists yet, do not invent one.
 ## Assets and modelling
 
 The project will use authored 3D assets and animations.
+
+Before asset creation, refinement or export, follow the workspace discovery/reuse rules in `Development/SPECIALIST_DELEGATION.md` and the current mappings in `Blender/ASSET_PATHS.md`. Read [the concise asset guide](Development/ASSET_DEVELOPMENT_GUIDE.md), the relevant class reference brief and prior-stage Notes/export notes; do not duplicate that context here.
 
 Code should support variation rather than encode assumptions about one British locomotive model.
 

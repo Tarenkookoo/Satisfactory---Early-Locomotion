@@ -15,6 +15,10 @@ Agreed: Core 1.0 / the first public release prioritises a complete, robust singl
 
 Earlier chronological entries remain historical records of what was known at the time. The Claude/Blender asset capability experiment remains paused; its existing outputs are preserved.
 
+**Asset-workspace operations:** Persistent discovery/reuse rules added on 2026-10-03; Pannie/Jinty files organised and Black 5 workspace prepared. Known dependency paths and protected Blender Test files retained; see `Blender/ASSET_PATHS.md`. This does not change the implementation checkpoint or next technical action.
+
+**Repository/workflow follow-up (2026-10-04):** Approved narrow ignore rules and specialist handoff/workspace corrections applied; the asset guide is the current subordinate helper. Asset files and existing pending work preserved. No staging/commit, LFS, remote, toolkit or implementation change; technical checkpoint and next action below remain unchanged.
+
 ### Current Environment
 
 | Item | Recorded version / selection | Status at checkpoint |
@@ -425,6 +429,26 @@ No final architecture or gameplay/design decision was made; no Open Question was
 **Documentation work:** Reconciled canonical release scope/OQ timing, current-state authorities, Claude implementation rules and the existing derived Word references. Historical entries were not rewritten to imply earlier multiplayer deferral; no networking technical question or final architecture was resolved.
 
 **Next action:** Return to singleplayer production-readiness assessment: evaluate how to replace temporary Probe 2b logical readiness and unconditional traction with proper steam fuel/water/operational readiness, preserving the verified vanilla railway integration. The Manager must review the production state-setting/side-effect options before final locomotive architecture selection. Do not require the prepared NetDiag listen-server test now.
+
+### 2026-10-03 - Persistent Asset Workspaces and Safe Reorganisation
+
+**Completed:** Added asset-workspace discovery/reuse, new-asset naming, internal folder, separate-reference, versioning and delegated-prompt rules to SPECIALIST_DELEGATION.md. Added a concise CLAUDE.md pointer; WORKFLOW.md already points to the detailed delegation policy. Prepared `Blender/Pannie/`, `Blender/Jinty_Prototype/` and `Blender/LMS_Stanier_Black_5/`.
+
+**Filesystem result:** Moved 98 files without changing contents: Pannie Stage A/refined v002–v004, export derivatives, safe FBXs, previews and notes; Jinty V1/V2 sources/backups and V2 previews. Added `Blender/ASSET_PATHS.md` with current mappings. The Black 5 reference pack was verified present; reference folders remained separate and unchanged.
+
+**Verification:** Inspected Blender external paths without saving, scripts/notes/documentation references and Unreal import metadata. Verified all moved-file SHA-256 hashes and preservation of other inventoried files. No model, SML or design edit; no gameplay progress or architecture/Open Question decision.
+
+**Retained / incomplete:** v001/v002 FBXs remain at Unreal reimport paths; Jinty V1 previews retain the saved absolute render-output path. Automatic approval review rejected moving protected Blender Test.blend/.blend1, so those remain untouched. Current mappings identify all exceptions; no compatibility duplicates were created.
+
+**Git / next action:** No staging or commit. Existing pending documentation and untracked assets preserved. Future Asset Development must discover/reuse the matching workspace. Implementation checkpoint and exact next technical action remain unchanged; protected-file relocation and dependency-path migration require separately authorised follow-up.
+
+### 2026-10-04 - Repository Hygiene and Specialist Instruction Corrections
+
+**Completed:** Added narrow shared .gitignore rules; corrected the Claude asset skill's workspace discovery and dated service/role handoff; aligned CLAUDE completion guidance; added concise asset-guide/class-brief/prior-stage pointers. Promoted ASSET_DEVELOPMENT_GUIDE to the current subordinate helper for existing practice. Recorded the historical installer status in the readiness report; it is absent from the current tree but remains in history.
+
+**Preserved / boundaries:** Existing source/export/reference assets and earlier pending edits preserved; automatic .blend1 backups remain on disk but are ignored. No remote, LFS migration, history cleanup, binary move, Blender refactor, SML or design change. Final binary/LFS policy remains pending. No staging or commit.
+
+**Next action:** Manager review of the scoped hygiene/instruction changes; separate approval for checkpoint/publication/storage changes. Current implementation checkpoint and exact next technical action are unchanged.
 
 ## Rules for Maintaining This Log
 

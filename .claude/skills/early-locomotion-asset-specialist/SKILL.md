@@ -36,7 +36,8 @@ Keep work scoped to the assigned asset task. Do not edit unrelated project files
 
 ## Asset workflow
 
-- Place prototypes under `Assets\Prototypes\Claude` relative to the canonical root unless another location is approved.
+- Before asset work, read `Development/ASSET_DEVELOPMENT_GUIDE.md`, follow discovery/reuse rules in `Development/SPECIALIST_DELEGATION.md`, and consult `Blender/ASSET_PATHS.md`. Reuse the existing lineage workspace; create a dedicated workspace only when no match exists. Preserve mapped compatibility paths; do not recreate the old blanket `Assets/Prototypes/Claude` layout.
+- Read the relevant class reference brief/source manifest and prior-stage Notes/export notes. The asset guide is a concise helper, not a new design authority.
 - Use structured, editable Blender modelling so geometry, rigs, animation, and materials remain understandable and revisable.
 - Use meaningful object and data names, collections, origins, pivots, modifiers, constraints, and drivers. Organise these to support the asset's mechanical relationships and intended animation.
 - Prioritise mechanically plausible locomotive geometry and animation. Check relevant proportions, motion, and reference evidence rather than treating a convincing appearance as proof of accuracy.
@@ -52,10 +53,12 @@ Use focused subagents for broad research where useful. Give each a bounded quest
 
 ## Mandatory final response
 
-When a task completes, blocks, or requires Manager/user action, end with exactly one **MANAGER HANDOFF - Claude Code**. Put the entire handoff inside one fenced code block, using the template below. Do not put handoff fields outside the block, duplicate the handoff, or add text after it.
+When a task completes, blocks, or requires Manager/user action, end with exactly one **MANAGER HANDOFF - Claude Code - EL Asset Development - [DD/MM/YY] - [HH:MM]**. Put the entire handoff inside one fenced code block, using the template below. Do not put handoff fields outside the block, duplicate the handoff, or add text after it.
+
+Use current local/project time when producing the handoff: date DD/MM/YY, time 24-hour HH:MM. Follow the detailed handoff rules in `Development/SPECIALIST_DELEGATION.md`.
 
 ```text
-MANAGER HANDOFF - Claude Code
+MANAGER HANDOFF - Claude Code - EL Asset Development - [DD/MM/YY] - [HH:MM]
 
 Task:
 Result:

@@ -1,0 +1,32 @@
+# Local machine permissions; portable equivalent of the existing global ignore.
+**/.claude/settings.local.json
+
+# Automatic Blender backups only; named .blend milestones remain eligible.
+# Existing backups stay on disk; ignoring does not authorise deletion.
+*.blend[0-9]
+*.blend[0-9][0-9]
+
+# Python cache, OS junk and IDE-local state.
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+Desktop.ini
+/.vs/
+*.suo
+*.VC.db
+*.VC.VC.opendb
+
+# Generated Unreal output at this repository root only (C:\SML is separate).
+# Do not ignore Build/ or Plugins/ wholesale: they can contain authored input.
+/Binaries/
+/Intermediate/
+/Saved/
+/DerivedDataCache/
+
+# Explicit disposable scratch locations; keep normal Previews/ and Export/.
+/Blender/**/Previews/_scratch/
+/Blender/**/Previews/_tmp/
+/Blender/**/Export/_scratch/
+/Blender/**/Cache/
+/Releases/_scratch/

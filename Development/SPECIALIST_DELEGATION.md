@@ -1,6 +1,6 @@
 # Early Locomotion — Specialist Delegation
 
-**Approved guidance / last verified:** 2026-10-02
+**Approved guidance / last verified:** 2026-10-04
 
 This is the detailed authoritative guide for specialist selection, model/effort selection, escalation, task construction, handoffs and verification. WORKFLOW.md retains the concise coordination/change workflow; CLAUDE.md retains Claude-specific implementation rules.
 
@@ -97,6 +97,34 @@ For implementation, describe approved behaviour and constraints without inventin
 
 Request the required Manager handoff. Keep model/effort recommendations in the user-facing Manager preamble rather than duplicating them in the task body.
 
+## Asset workspace discovery and creation
+
+For asset tasks, read [ASSET_DEVELOPMENT_GUIDE.md](ASSET_DEVELOPMENT_GUIDE.md) as the concise shared workflow helper, then the relevant class reference brief and prior-stage Notes/export notes. The helper is subordinate to this policy and does not alter the authority order.
+
+Before creating, refining or exporting an asset, **EL Asset Development** and other asset-creation specialists must inspect `Blender/`, `Assets/` and the reference folders for an existing workspace matching the asset, class or instance. Reuse the matching workspace; do not create parallel roots merely because a task uses different wording. One asset/class lineage = one workspace, not one top-level folder per version/task.
+
+- Pannie/pannier-tank work uses `Blender/Pannie/`; Black 5 work uses `Blender/LMS_Stanier_Black_5/`; the earlier Jinty capability tests use `Blender/Jinty_Prototype/`.
+- For a genuinely new asset, inspect first, then create one dedicated workspace with a stable descriptive name, such as `Semaphore`, `Signal_Box`, `Water_Tower`, `Small_Steam_Station` or `Freight_Wagon`. Keep subsequent iterations there.
+- Inspect the contents of an uncertain match. If ambiguity remains, report it to The Manager rather than creating a duplicate. Avoid Pannie/Pannier/Pannier_Tank/Yellow_Pannier/Steam_Visual_Probe_Pannier roots for the same lineage.
+
+Use these internal names where useful; not every asset needs every folder immediately:
+
+| Folder | Contents |
+| --- | --- |
+| `Source/` | Editable working sources and meaningful Blender milestones, including Stage A/refined/high-detail stages |
+| `Export/` | Baked/export-preparation Blender derivatives |
+| `Export/FBX/` | Interchange/export files for Unreal or other tools |
+| `Previews/` | Renders, comparison sheets, crank-position sheets and visual QA |
+| `Notes/` | Export notes, assumptions, measurements and modelling notes |
+
+External research stays in a corresponding `Asset References/` workspace, separate from Blender working files unless it is a genuine source dependency. Check for an existing matching reference pack before creating one. Existing differently named packs can be mapped to the working identity; do not duplicate them merely to align names. See `Blender/ASSET_PATHS.md` for current mappings and retained compatibility paths.
+
+Preserve meaningful approved/tested milestones with clear version/stage names. Do not overwrite earlier stages or create unnecessary `final_final_v2` filenames. Automatic `.blend1` backups are not project milestones; do not delete them without applicable policy/authorisation.
+
+Future Asset Development prompts must identify the asset, require workspace inspection, require reuse when a match exists, and permit a new dedicated workspace only when none exists. The current canonical filesystem overrides stale paths in old prompts: inspect storage rather than recreating the old tree.
+
+Before relocation, check external images/libraries, scripts, export notes, documentation and Unreal import/source references. Prefer verified moves; preserve known dependency paths and report exceptions when fixing them would require out-of-scope asset edits. Document any necessary compatibility copies. Model contents, gameplay/design status and Open Questions are not changed by workspace organisation.
+
 ## Verification expectations
 
 - Inspect current files and repository state before editing; preserve legitimate unrelated work.
@@ -109,14 +137,24 @@ Request the required Manager handoff. Keep model/effort recommendations in the u
 
 ## Required handoff
 
-Every delegated specialist task must request a final handoff using the appropriate label:
+Every delegated specialist task must request a final handoff using this header format:
 
-- `MANAGER HANDOFF - GPT OP`
-- `MANAGER HANDOFF - Claude Code`
-- `MANAGER HANDOFF - Codex`
+`MANAGER HANDOFF - [AI Service] - [Role] - [DD/MM/YY] - [HH:MM]`
+
+Use the persistent project role name, not an improvised task description. Applicable roles include **EL Implementation**, **EL Architecture & Research**, **EL Asset Development**, **Project Operations** and **EL Technical Review**.
+
+Use the specialist's current local/project time at the moment the handoff is produced. Date format: **DD/MM/YY**. Time format: **24-hour HH:MM**.
+
+Examples:
+
+- `MANAGER HANDOFF - Claude Code - EL Asset Development - 03/10/26 - 13:27`
+- `MANAGER HANDOFF - Claude Code - EL Implementation - 03/10/26 - 14:05`
+- `MANAGER HANDOFF - Claude Code - EL Architecture & Research - 03/10/26 - 14:42`
+- `MANAGER HANDOFF - GPT OP - Project Operations - 03/10/26 - 15:10`
+- `MANAGER HANDOFF - Codex - EL Technical Review - 03/10/26 - 15:36`
 
 ```text
-MANAGER HANDOFF - [Specialist]
+MANAGER HANDOFF - [AI Service] - [Role] - [DD/MM/YY] - [HH:MM]
 
 Task:
 Result:
