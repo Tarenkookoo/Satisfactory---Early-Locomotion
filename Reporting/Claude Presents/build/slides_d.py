@@ -210,13 +210,14 @@ def s36(prs, n):
     box(s, MARGIN, 4.0, 7.4, 0.85, fill=C['orange'], radius=0.08, text=base_t, size=22, bold=True,
         color=C['ink'], align='l', margins=(0.25, 0.02, 0.1, 0.02))
     inline_chip(s, 'Agreed', MARGIN + 7.4 - chip_w('Agreed') - 0.2, 4.245)
+    # blocks: chip on the first line, text below it
     blocks = [('Regional packs', 0, 1), ('More locomotives', 1, 1), ('Late-steam infrastructure', 0, 0),
               ('Advanced manual driving (optional)', 1, 0)]
     for t, col, row in blocks:
         x = MARGIN + col * 3.75
-        y = 1.55 + row * 1.2
-        box(s, x, y, 3.65, 1.05, fill=C['panel'], line=C['purple'], lw=2, radius=0.08, dash='dash')
-        label(s, x + 0.2, y + 0.42, 3.3, 0.6, t, size=18, anchor='m')
+        y = 1.48 + row * 1.24
+        box(s, x, y, 3.65, 1.14, fill=C['panel'], line=C['purple'], lw=2, radius=0.08, dash='dash')
+        label(s, x + 0.2, y + 0.5, 3.3, 0.6, t, size=18, anchor='m')
         inline_chip(s, 'Proposed', x + 0.2, y + 0.1)
     photo(sh, 'P19', 8.93, 1.55, 3.8, 2.53)
     label(sh, 8.93, 4.48, 3.8, 0.62, 'Real British locomotives like this could appear.', size=16)

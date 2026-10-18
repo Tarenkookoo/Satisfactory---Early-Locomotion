@@ -162,6 +162,32 @@ def main(path, first=1, last=999):
             print('        ! ' + i)
             problems += 1
     print('chip tally:', dict(tags))
+    # package-level checks
+    cp = prs.core_properties
+    print('core properties: title=%r author=%r language=%r' % (cp.title, cp.author, cp.language))
+    alltext = []
+    for idx, slide in enumerate(prs.slides, 1):
+        ids = [int(e.get('id')) for e in slide._element.iter(qn('p:cNvPr'))]
+        if len(ids) != len(set(ids)):
+            print('        ! slide %d: duplicate shape ids' % idx)
+            problems += 1
+        for s in iter_shapes(slide.shapes):
+            if s.has_text_frame and not text_of(s).strip() and s.shape_type == 17:
+                print('        ! slide %d: empty text box %s' % (idx, s.name))
+                problems += 1
+            if s.has_text_frame:
+                alltext.append((idx, text_of(s)))
+    superseded = [r'\bhalf\b', r'identical', r'\b50 m\b', r'\b100 m\b', r'shared collision',
+                  r'universal (physical )?chassis']
+    for idx, t in alltext:
+        for pat in superseded:
+            if re.search(pat, t, re.I):
+                print('        ! slide %d: possible Superseded idea (%s): %r' % (idx, pat, t[:60]))
+                problems += 1
+    links = sum(1 for n in names if n.startswith('ppt/slides/_rels/')
+                for _ in [0] if b'hyperlink' in z.read(n))
+    nlinks = sum(z.read(n).count(b'relationships/hyperlink') for n in names if n.startswith('ppt/slides/_rels/'))
+    print('hyperlinks:', nlinks, 'on', links, 'slides')
     print('problems:', problems)
 
 

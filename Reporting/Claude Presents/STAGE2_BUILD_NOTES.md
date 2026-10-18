@@ -1,8 +1,8 @@
 # STAGE 2 BUILD NOTES — "Early Locomotion, Explained"
 
-**RESUME POINT:** All four chunks (slides 1–42) are built, checked and committed. Remaining: final whole-deck pass (contact sheet, tag counts, package checks).
+**STATUS: COMPLETE.** All 42 slides are built, rendered, inspected and checked, with the final whole-deck pass done. Nothing is left to resume.
 
-**PUSH BLOCKED:** every `git push` to `claude-presents-build-opus` has been refused by GitHub (HTTP 403: the Claude GitHub App has no access to this repository for the organisation). The commits exist only in the session's local clone until access is fixed (connect or reconnect GitHub at https://claude.ai/connect-github and install the Claude GitHub App on the repository), then `git push -u origin claude-presents-build-opus`.
+**PUSH BLOCKED (owner action needed):** every `git push` to `claude-presents-build-opus` has been refused by GitHub (HTTP 403: the Claude GitHub App has no access to this repository for the organisation). The commits exist only in the session's local clone until access is fixed (connect or reconnect GitHub at https://claude.ai/connect-github and install the Claude GitHub App on the repository), then `git push -u origin claude-presents-build-opus`.
 
 Branch: `claude-presents-build-opus` (created from `claude-presents`; branch name set by the coordinator's override).
 
@@ -17,7 +17,7 @@ python3 build/check_deck.py Early_Locomotion_Explained.pptx   # word counts, sma
 
 Needs Python 3, `python-pptx` 1.0.2, Pillow, LibreOffice and poppler (`pdftoppm`) for renders, and the Liberation Sans fonts (same metrics as Arial) for the text-fit estimate. Renders are not committed.
 
-Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), `build/slides_a.py` … `slides_d.py` (one function per slide, four chunks), `build/check_deck.py` (checks). Image credits and alt text are read straight from `ASSET_MANIFEST.md`, so they cannot drift from it.
+Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), `build/slides_a.py` … `slides_d.py` (one function per slide, four chunks), `build/check_deck.py` (checks), `previews/` (80 dpi renders of slides 1, 28 and 31; these contain no third-party photographs). Image credits and alt text are read straight from `ASSET_MANIFEST.md`, so they cannot drift from it.
 
 ## Word-count method
 
@@ -35,10 +35,10 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 
 ### Chunk 1 (slides 1–10)
 - **Slide 1:** title 54 pt as specified; the caption sits under the title rule at 24 pt (title-slide layout, so no caption bar). Credit line under R01: "Early Locomotion project render. Early test model. Not final art." (the outline's wording with the project attribution in front).
-- **Slide 5:** with every label in the outline the slide would have about 69 words (cap 45). Following the brief ("shorten the labels, not the caption"), the bracketed unlock lists for each tier became small engine pictograms instead of words: small tank engine, medium engine with tender, large engine with tender, electric train. Tier names stay. The Tier 6 label reads "Monorail: the game's electric trains". Footer: "Tiers and prerequisites:" with PROVISIONAL and UNDECIDED (OQ01) chips. 45 words.
+- **Slide 5:** with every label in the outline the slide would have about 69 words (cap 45). Following the brief ("shorten the labels, not the caption"), the bracketed unlock lists for each tier became small engine pictograms instead of words: small tank engine, medium engine with tender, large engine with tender, electric train. Tier names stay. The Tier 6 label reads "Monorail: the game's electric trains". Footer: "Tiers and prerequisites:" with PROVISIONAL and UNDECIDED (OQ01) chips. 43 words.
 - **Slide 6:** the cross-section is drawn end-on, so it shows one sleeper under the two rails (the spec says three sleepers; an end-on section only shows the nearest one). The photo beside it shows the repeated sleepers.
 - **Slide 7:** P03 sits lower right (y 3.35 in) so the "Exhaust" label clears it. Badges 1–4 stay as specified.
-- **Slide 8 (SPEC-A):** headings "Before" and "After" added above the two panels; tanks are 2.3 in tall (spec 2.6) to leave a strip for the chimney, steam puffs and the steam label. The "Empty first" tag sits inside the nearly empty water tank. The "(Agreed)" note uses an inline AGREED chip. 44 words.
+- **Slide 8 (SPEC-A):** headings "Before" and "After" added above the two panels; tanks are 2.3 in tall (spec 2.6) to leave a strip for the chimney, steam puffs and the steam label. The "Empty first" tag sits inside the nearly empty water tank. The "(Agreed)" note uses an inline AGREED chip. 43 words.
 - **Slide 9:** "Side tanks: water. Bunker: coal." is split into two callouts, so each points at its own part of the engine. Leader-line targets were read off the photos on a grid.
 - **Slide 10 (SPEC-B):** the swing arrow is drawn as an arc over the crane arm, ending above the hatch.
 
@@ -87,3 +87,35 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 | 2 (11–20) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 19); smallest text 14 pt outside credits |
 | 3 (21–31) | All 11 slides at 80 dpi, fixed, re-rendered (28–31 twice) | 0 problems; max 45 words (slides 26, 30); smallest text 14 pt outside credits |
 | 4 (32–42) | All 11 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 33); smallest text 14 pt outside credits and credit tables |
+| Final pass (1–42) | Contact sheet of all 42 renders; story order; slide 36 spacing fixed | 0 problems (see below) |
+
+## Final pass results
+
+- **42 slides**, 16:9 (13.333 × 7.5 in). File size 4.9 MB (5.13 MB as the checker reports it in decimal megabytes).
+- **Tags:** Agreed 23, Proposed 2, Provisional 4, Undecided 1, Background 8, no chip 4 (slides 1, 2, 41, 42). This matches OUTLINE.md exactly.
+- **Inline chips:** every Proposed item in the outline's list has a visible PROPOSED chip: slides 17, 19, 20, 21, 24 (one vehicle; water-only and coal-and-water tenders), 26 (step 8), 27, 34 (two timeline nodes and destination routing), 35 (Upgrade and Mixed network panels), 36 and 38. Provisional numbers carry PROVISIONAL chips (slides 5, 22, 23, 26, 32, 39). Undecided topics are written as undecided and never answered (slides 5, 17, 18, 20, 22, 25, 29, 32, 33, 35, 36, 37, 40).
+- **Words:** no slide outside the exempt ones (2, 13, 32, 41, 42) exceeds 45; the highest are slides 19, 26, 30 and 33, at exactly 45. Most slides are above the 25-word aim, because the outline's exact captions are often 15 to 22 words on their own.
+- **Type:** smallest text is 14 pt everywhere except credit lines (10 pt) and the credit tables on slides 41–42 (11 pt). Captions are 20 pt.
+- **Accessibility:** every picture, diagram group and table has alt text (photo alt text is the manifest's "What it shows" wording); shapes outside groups that have no text are marked decorative; every text run is tagged `en-GB`; reading order is title, chip, visual, caption.
+- **Package:** no notes slides, no transitions or animations, no empty placeholders or empty text boxes, no duplicate shape IDs. Document title "Early Locomotion, Explained", author "Early Locomotion project", language en-GB. 19 live hyperlinks: one per photograph, on slides 41–42.
+- **Pictures:** all 24 bundle images are used, none stretched (checked from crop values), each with its credit line directly beneath. R01 always says "Early test model". R03 and R04 also carry "Blender model, not yet in the game." (coordinator addendum).
+- **Superseded check:** a text scan found no half-length track limit, 50 m or 100 m track values, identical regional statistics, shared collision box or universal chassis. Steam on converted monorail appears only as the rule that steam trains cannot use it.
+
+## Checked against the dated brief and GAME_DESIGN.md
+
+- `Reporting/PUBLIC_PRESENTATION_BRIEF_2026-10-18.md` was compared with the current-position wording on slides 1, 3, 17, 29 and 39. No conflict was found: slide 1 says it is a plan, not a finished mod; slide 17 uses Iron Plates and Rods as the material direction and leaves quantities open; slide 29 marks the semaphore as a Blender model, not in the game; slide 39 shows only engine and track as under way, and singleplayer first with multiplayer after release. Nothing in the deck needed changing because of it.
+- `Design/GAME_DESIGN.md` was checked once, for the Open Question numbers. OQ04 covers both "generated linkage appearance" (slide 33, rod or wire look) and "territory measurement" (slide 40, how boxes measure their reach), so the outline is consistent with it. OQ01, OQ02, OQ03, OQ05, OQ06, OQ20 and OQ26 also match their slide labels. No status was changed.
+
+## Not checked (could not be checked here)
+
+- The deck was never opened in Microsoft PowerPoint or Keynote. Renders come from LibreOffice, with Liberation Sans standing in for Arial (same metrics). Line breaks, arrowhead sizes, dash patterns and the hatched fills may look slightly different in PowerPoint.
+- PowerPoint's own Accessibility Checker was not run. The alt text, decorative flags, language tags and reading order were set and verified in the file's XML.
+- The hyperlinks were not clicked. Their addresses are copied from ASSET_MANIFEST.md, and the build asserts that the two manifest tables agree.
+- The text-fit check is an estimate. Every slide was also inspected by eye at 80 dpi, but small differences at other zoom levels are possible.
+
+## Owner decisions still open (not decided here)
+
+- **Publishing.** The deck contains 19 third-party Creative Commons photographs (CC BY and CC BY-SA). Keep it on the build branch until the owner approves wider sharing. The public brief says third-party photography still needs separate review.
+- **Push.** The branch is not on GitHub yet because every push returned 403. After GitHub access is fixed: `git push -u origin claude-presents-build-opus`.
+- **Slides that depart most from the outline** (listed above, each with its reason): 5, 23, 26, 28 (band A shown occupied), 29 (no separate fail-safe strip), 31 and 33. All were trimmed to meet the 45-word cap or to keep a diagram logically correct.
+
