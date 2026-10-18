@@ -77,7 +77,7 @@ def main():
                     if r.font.size is not None:
                         sizes.append(r.font.size.pt)
             n = len(txt.split())
-            if sh.name.startswith("Chip:") and txt.upper() in TAGW:
+            if sh.name.startswith("Chip:") and txt.upper().split()[0] in TAGW:
                 chip_txt.append(txt)
                 continue
             if sh.name.startswith("Chip:"):

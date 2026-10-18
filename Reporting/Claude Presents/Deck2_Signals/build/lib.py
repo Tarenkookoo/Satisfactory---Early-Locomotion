@@ -484,6 +484,8 @@ class Deck:
         tp = master.part.part_related_by(RT.THEME)
         xml = tp.blob.decode("utf-8")
         xml = re.sub(r'(<a:latin typeface=")[^"]*(")', r"\1Arial\2", xml)
+        xml = re.sub(r'(<a:hlink>\s*<a:srgbClr val=")[0-9A-Fa-f]{6}', r'\g<1>6CA0DC', xml)
+        xml = re.sub(r'(<a:folHlink>\s*<a:srgbClr val=")[0-9A-Fa-f]{6}', r'\g<1>A9B0B8', xml)
         tp._blob = xml.encode("utf-8")
         keep = None
         for lay in list(prs.slide_layouts):
