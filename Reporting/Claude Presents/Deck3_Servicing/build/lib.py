@@ -141,13 +141,17 @@ def new_slide(prs, title, chip_kind=None, title_size=36, title_w=10.2, title_box
     return s
 
 
-def finish(slide, caption, n, caption_lines=None):
-    """Caption bar (20 pt) and slide number, added last (reading order)."""
+def finish(slide, caption, n, inline_chip=None):
+    """Caption bar (20 pt) and slide number, added last (reading order).
+    `inline_chip` (a status name) puts a small chip at the right end of the caption bar."""
     sh = slide.shapes
     bar_y, bar_h = 6.3, 0.8
-    bar = rect(sh, 0.6, bar_y, 12.13, bar_h, PANEL, None, radius=0.08, name="CAPTION BAR")
+    rect(sh, 0.6, bar_y, 12.13, bar_h, PANEL, None, radius=0.08, name="CAPTION BAR")
     rect(sh, 0.6, bar_y + 0.06, 0.08, bar_h - 0.12, ORANGE, None, name="CAPTION RULE")
-    tb = label(sh, 0.85, bar_y, 11.75, bar_h, caption, 20, TEXT, align="l", anchor="m", name="CAPTION")
+    cw = 11.75 if not inline_chip else 9.95
+    tb = label(sh, 0.85, bar_y, cw, bar_h, caption, 20, TEXT, align="l", anchor="m", name="CAPTION")
+    if inline_chip:
+        chip(sh, inline_chip, 10.95, bar_y + 0.24, 1.6, 0.32, 14, name="ICHIP")
     if n is not None:
         label(sh, 11.73, 7.14, 1.0, 0.3, str(n), 14, MUTED, align="r", name="NUM")
     return tb
@@ -489,7 +493,7 @@ def arc_poly(cx, cy, r_out, r_in, a0, a1, n=24):
 from pptx.enum.dml import MSO_PATTERN  # noqa: E402
 
 
-def hatch_rect(sh, x, y, w, h, fore=PURPLE, back=PANEL, line=PURPLE, lw=2.0, name="hatched"):
+def hatch_rect(sh, x, y, w, h, fore="#C9CED3", back=PANEL, line="#C9CED3", lw=2.0, name="hatched"):
     shp = rect(sh, x, y, w, h, back, line, lw, name=name)
     shp.fill.patterned()
     shp.fill.pattern = MSO_PATTERN.WIDE_UPWARD_DIAGONAL
@@ -546,7 +550,7 @@ def loco_icon(sh, x, y, w, kind="tender", color=ORANGE):
     return t
 
 
-def wagon_icon(sh, x, y, u, fill=WAGON, hatched=False, hatch_color=PURPLE, length=4.0):
+def wagon_icon(sh, x, y, u, fill=WAGON, hatched=False, hatch_color="#C9CED3", length=4.0):
     """Cargo wagon (or hatched auxiliary tender) on the same unit scale as loco_icon."""
     if hatched:
         hatch_rect(sh, x, y + 1.3 * u, length * u, 1.9 * u, hatch_color, PANEL, hatch_color, 2.0, name="aux tender")
