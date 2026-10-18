@@ -422,7 +422,7 @@ def badge(shapes, cx, cy, n, d=0.42, size=16):
                 color=C['ink'], margins=(0, 0, 0, 0))
 
 
-def state_pill(shapes, x, y, state, w=0.95, h=0.32, size=14):
+def state_pill(shapes, x, y, state, w=0.95, h=0.36, size=14):
     if state == 'stop':
         return pill(shapes, x, y, w, h, 'STOP', C['red_dark'], C['text'], size)
     return pill(shapes, x, y, w, h, 'CLEAR', C['green'], C['ink'], size)
@@ -512,6 +512,9 @@ def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=1, arm_len=
         elif label_pos == 'right':
             lx0 = x + 0.2 * scale
             ly0 = y_base - h * 0.55
+        elif label_pos == 'topright':
+            lx0 = x + 0.22 * scale
+            ly0 = y_base - h - 0.42
         else:   # below
             lx0 = x - pw_ / 2
             ly0 = y_base + 0.08
@@ -520,33 +523,164 @@ def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=1, arm_len=
 
 
 def train(shapes, x, y, n_wagons=2, scale=1.0, alt='A steam train: an engine pulling wagons.',
-          name='Train', loco_color=C['orange'], tender=False):
-    """Steam train facing right. x = left end, y = rail level (wheel bottoms)."""
+          name='Train', loco_color=C['orange'], tender=False, facing='right'):
+    """Steam train. x = left end, y = rail level (wheel bottoms).
+    facing='right': engine at the right-hand end, wagons behind it."""
     g = group(shapes, name, alt)
     s = g.shapes
     k = scale
-    cx = x
+    W = train_width(n_wagons, 1.0, tender)
+
+    def R(u, v, w, h, **kw):
+        if facing == 'left':
+            u = W - u - w
+        return box(s, x + u * k, y + v * k, w * k, h * k, **kw)
+
+    def O(u, v, d, **kw):
+        if facing == 'left':
+            u = W - u
+        return oval(s, x + u * k, y + v * k, d * k, **kw)
+
+    u = 0.0
     for _ in range(n_wagons):
-        box(s, cx, y - 0.57 * k, 0.8 * k, 0.45 * k, fill=C['wagon'], line=C['ink'], lw=0.75)
+        R(u, -0.57, 0.8, 0.45, fill=C['wagon'], line=C['ink'], lw=0.75)
         for wx in (0.2, 0.6):
-            oval(s, cx + wx * k, y - 0.1 * k, 0.2 * k, fill=C['coal'], line=C['steel'], lw=1)
-        box(s, cx + 0.8 * k, y - 0.25 * k, 0.08 * k, 0.05 * k, fill=C['steel'])
-        cx += 0.88 * k
+            O(u + wx, -0.1, 0.2, fill=C['coal'], line=C['steel'], lw=1)
+        R(u + 0.8, -0.25, 0.08, 0.05, fill=C['steel'])
+        u += 0.88
     if tender:
-        box(s, cx, y - 0.6 * k, 0.6 * k, 0.48 * k, fill=loco_color, line=C['ink'], lw=0.75, radius=0.04 * k)
-        box(s, cx + 0.05 * k, y - 0.68 * k, 0.5 * k, 0.12 * k, fill=C['coal'])
+        R(u, -0.6, 0.6, 0.48, fill=loco_color, line=C['ink'], lw=0.75)
+        R(u + 0.05, -0.68, 0.5, 0.12, fill=C['coal'])
         for wx in (0.15, 0.45):
-            oval(s, cx + wx * k, y - 0.1 * k, 0.2 * k, fill=C['coal'], line=C['steel'], lw=1)
-        box(s, cx + 0.6 * k, y - 0.25 * k, 0.08 * k, 0.05 * k, fill=C['steel'])
-        cx += 0.68 * k
-    lx = cx
-    box(s, lx, y - 0.65 * k, 1.0 * k, 0.55 * k, fill=loco_color, line=C['ink'], lw=0.75, radius=0.06 * k)
-    box(s, lx + 0.03 * k, y - 0.62 * k, 0.26 * k, 0.2 * k, fill=C['coal'], name='Bunker')
-    box(s, lx + 0.34 * k, y - 0.58 * k, 0.14 * k, 0.14 * k, fill=C['panel'])
-    box(s, lx + 0.78 * k, y - 0.93 * k, 0.15 * k, 0.3 * k, fill=C['coal'], name='Chimney')
+            O(u + wx, -0.1, 0.2, fill=C['coal'], line=C['steel'], lw=1)
+        R(u + 0.6, -0.25, 0.08, 0.05, fill=C['steel'])
+        u += 0.68
+    R(u, -0.65, 1.0, 0.55, fill=loco_color, line=C['ink'], lw=0.75)
+    R(u + 0.03, -0.62, 0.26, 0.2, fill=C['coal'], name='Bunker')
+    R(u + 0.34, -0.58, 0.14, 0.14, fill=C['panel'])
+    R(u + 0.78, -0.93, 0.15, 0.3, fill=C['coal'], name='Chimney')
     for wx in (0.2, 0.5, 0.8):
-        oval(s, lx + wx * k, y - 0.1 * k, 0.2 * k, fill=C['coal'], line=C['steel'], lw=1)
+        O(u + wx, -0.1, 0.2, fill=C['coal'], line=C['steel'], lw=1)
     return g
+
+
+def engine(shapes, x, y, body_w, n_wheels, tender_w=0.0, k=1.0, color=C['orange'], alt=None,
+           name='Engine'):
+    """Side view of a steam engine facing right, tender (if any) behind it on the left."""
+    g = group(shapes, name, alt)
+    s = g.shapes
+    cx = x
+    if tender_w:
+        box(s, cx, y - 0.62 * k, tender_w * k, 0.5 * k, fill=color, line=C['ink'], lw=0.75)
+        box(s, cx + 0.05 * k, y - 0.7 * k, (tender_w - 0.1) * k, 0.1 * k, fill=C['coal'])
+        for f in (0.25, 0.75):
+            oval(s, cx + tender_w * f * k, y - 0.12 * k, 0.24 * k, fill=C['coal'], line=C['steel'], lw=1)
+        cx += (tender_w + 0.07) * k
+    box(s, cx, y - 0.9 * k, 0.5 * k, 0.78 * k, fill=color, line=C['ink'], lw=0.75)
+    box(s, cx + 0.1 * k, y - 0.8 * k, 0.26 * k, 0.2 * k, fill=C['panel'])
+    box(s, cx - 0.04 * k, y - 0.96 * k, 0.58 * k, 0.08 * k, fill=C['coal'])
+    box(s, cx + 0.5 * k, y - 0.74 * k, (body_w - 0.5) * k, 0.46 * k, fill=color, line=C['ink'],
+        lw=0.75, radius=0.1 * k)
+    box(s, cx + (body_w - 0.3) * k, y - 1.0 * k, 0.15 * k, 0.28 * k, fill=C['coal'])
+    box(s, cx, y - 0.3 * k, body_w * k, 0.07 * k, fill=C['coal'])
+    d = 0.28
+    span = body_w - 0.4
+    for i in range(n_wheels):
+        wx = cx + (0.2 + (span * i / (n_wheels - 1) if n_wheels > 1 else span / 2)) * k
+        oval(s, wx, y - d / 2 * k, d * k, fill=C['coal'], line=C['steel'], lw=1.25)
+    return g
+
+
+# ---------------------------------------------------------------- icons (0.5 in glyphs)
+def icon(shapes, kind, cx, cy, sz=0.5, col=C['orange']):
+    """Small glyphs used beside list rows. cx, cy = centre."""
+    h = sz / 2
+    if kind == 'no_tender':
+        box(shapes, cx - h * 0.8, cy - h * 0.45, sz * 0.8, sz * 0.55, fill=None, line=col, lw=2)
+        line(shapes, cx - h, cy + h * 0.7, cx + h, cy - h * 0.7, C['text'], 2.5)
+    elif kind == 'weight':
+        poly(shapes, [(cx - h * 0.7, cy + h * 0.7), (cx + h * 0.7, cy + h * 0.7),
+                      (cx + h * 0.45, cy - h * 0.35), (cx - h * 0.45, cy - h * 0.35)], fill=col)
+        oval(shapes, cx, cy - h * 0.55, sz * 0.28, fill=None, line=col, lw=2)
+    elif kind == 'weights':
+        for dx in (-0.45, 0.45):
+            poly(shapes, [(cx + dx * h - h * 0.5, cy + h * 0.7), (cx + dx * h + h * 0.5, cy + h * 0.7),
+                          (cx + dx * h + h * 0.32, cy - h * 0.2), (cx + dx * h - h * 0.32, cy - h * 0.2)],
+                 fill=col)
+        poly(shapes, [(cx - h * 0.5, cy + h * 0.05), (cx + h * 0.5, cy + h * 0.05),
+                      (cx + h * 0.32, cy - h * 0.8), (cx - h * 0.32, cy - h * 0.8)], fill=col,
+             line=C['bg'], lw=1)
+    elif kind == 'coin':
+        for dy in (0.35, 0.05, -0.25):
+            oval(shapes, cx, cy + dy * h, sz * 0.75, fill=col, line=C['bg'], lw=1, dh=sz * 0.3)
+    elif kind == 'hill':
+        poly(shapes, [(cx - h, cy + h * 0.7), (cx + h, cy + h * 0.7), (cx + h * 0.1, cy - h * 0.7)], fill=col)
+    elif kind == 'tender':
+        box(shapes, cx - h * 0.85, cy - h * 0.4, sz * 0.85, sz * 0.6, fill=col, line=C['ink'], lw=0.75)
+        box(shapes, cx - h * 0.75, cy - h * 0.55, sz * 0.75, sz * 0.12, fill=C['coal'])
+        for dx in (-0.45, 0.45):
+            oval(shapes, cx + dx * h, cy + h * 0.65, sz * 0.22, fill=C['coal'], line=C['steel'], lw=1)
+    elif kind == 'aux_tender':
+        box(shapes, cx - h * 0.85, cy - h * 0.4, sz * 0.85, sz * 0.6, fill=('hatch', col, C['panel']),
+            line=col, lw=1.5)
+        for dx in (-0.45, 0.45):
+            oval(shapes, cx + dx * h, cy + h * 0.65, sz * 0.22, fill=C['coal'], line=C['steel'], lw=1)
+    elif kind == 'flame':
+        poly(shapes, arc_pts(cx, cy + h * 0.25, h * 0.6, h * 0.55, 180, 360, 12) +
+             [(cx + h * 0.6, cy + h * 0.25), (cx + h * 0.15, cy - h * 0.9), (cx - h * 0.6, cy + h * 0.25)],
+             fill=col)
+        poly(shapes, [(cx - h * 0.25, cy + h * 0.6), (cx + h * 0.25, cy + h * 0.6), (cx, cy - h * 0.15)],
+             fill=C['amber'])
+    elif kind == 'speed':
+        for dx in (-0.55, 0.0, 0.55):
+            box(shapes, cx + dx * h - h * 0.35, cy - h * 0.55, h * 0.7, h * 1.1, fill=col,
+                shape=MSO_SHAPE.CHEVRON)
+    elif kind == 'drop_coal':
+        drop(shapes, cx - h * 0.4, cy, sz * 0.62)
+        poly(shapes, [(cx + h * 0.1, cy + h * 0.6), (cx + h * 0.95, cy + h * 0.6), (cx + h * 0.8, cy),
+                      (cx + h * 0.45, cy - h * 0.2), (cx + h * 0.2, cy + h * 0.1)], fill=C['coal'],
+             line=C['coal_line'], lw=1)
+    elif kind == 'slow':
+        oval(shapes, cx, cy, sz * 0.9, fill=None, line=col, lw=2.5)
+        line(shapes, cx, cy, cx - h * 0.45, cy - h * 0.2, C['text'], 2.5)
+        oval(shapes, cx, cy, sz * 0.12, fill=col)
+
+
+def drop(shapes, cx, cy, sz, col=C['water']):
+    """Water drop: round bottom, pointed top. cy = centre of the round part."""
+    r = sz * 0.36
+    pts = arc_pts(cx, cy + sz * 0.1, r, r, 160, 380, 16) + [(cx, cy - sz * 0.5)]
+    return poly(shapes, pts, fill=col)
+
+
+def coal_heap(shapes, cx, base_y, w, h):
+    pts = [(cx - w / 2, base_y), (cx - w * 0.32, base_y - h * 0.6), (cx - w * 0.12, base_y - h * 0.85),
+           (cx + w * 0.05, base_y - h), (cx + w * 0.25, base_y - h * 0.7), (cx + w * 0.42, base_y - h * 0.4),
+           (cx + w / 2, base_y)]
+    return poly(shapes, pts, fill=C['coal'], line=C['coal_line'], lw=2)
+
+
+def list_row(shapes, x, y, w, h, kind, text, size=20, chips=(), icon_col=C['orange'], below=False):
+    """Panel row: icon on the left, text, optional inline chips at the right-hand end
+    (or on a second line under the text when below=True)."""
+    box(shapes, x, y, w, h, fill=C['panel'], radius=0.08)
+    icon(shapes, kind, x + 0.45, y + h / 2, 0.5, icon_col)
+    if below:
+        label(shapes, x + 0.8, y + 0.08, w - 0.92, 0.42, text, size=size, anchor='m')
+        cx = x + 0.8
+        for c in chips:
+            kind_, txt = c if isinstance(c, tuple) else (c, c)
+            inline_chip(shapes, kind_, cx, y + h - 0.36 - 0.1, text=txt)
+            cx += chip_w(txt) + 0.12
+        return
+    chips_w = sum(chip_w(c[1] if isinstance(c, tuple) else c) for c in chips) + 0.12 * max(0, len(chips) - 1)
+    tw = w - 0.8 - 0.12 - (chips_w + 0.1 if chips else 0)
+    label(shapes, x + 0.8, y, tw, h, text, size=size, anchor='m')
+    cx = x + w - 0.12 - chips_w           # chips sit at the right-hand end of the row
+    for c in chips:
+        kind_, txt = c if isinstance(c, tuple) else (c, c)
+        inline_chip(shapes, kind_, cx, y + (h - 0.36) / 2, text=txt)
+        cx += chip_w(txt) + 0.12
 
 
 def train_width(n_wagons=2, scale=1.0, tender=False):

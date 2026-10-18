@@ -19,6 +19,7 @@ EMU = 914400.0
 SKIP_WORDS = ('Status chip', 'Credit', 'Section label', 'Slide number')
 EXEMPT = {2, 13, 32, 41, 42}
 SMALL_OK = ('Credit', 'Credit table')
+STATUS = {'AGREED', 'PROPOSED', 'PROVISIONAL', 'UNDECIDED', 'BACKGROUND'}
 
 
 def iter_shapes(shapes):
@@ -108,6 +109,8 @@ def main(path, first=1, last=999):
                 n = len(txt.split())
                 if is_title:
                     words_b += n
+                elif name.startswith('Inline chip') and txt.strip().upper() in STATUS:
+                    pass        # a bare status tag, like the corner chip
                 elif not name.startswith(SKIP_WORDS):
                     words_a += n
                     words_b += n

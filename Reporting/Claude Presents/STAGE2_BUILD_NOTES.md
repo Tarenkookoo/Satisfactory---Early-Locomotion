@@ -1,6 +1,8 @@
 # STAGE 2 BUILD NOTES — "Early Locomotion, Explained"
 
-**RESUME POINT:** Chunk 1 (slides 1–10) is built, checked and pushed. Resume at **chunk 2, slide 11**.
+**RESUME POINT:** Chunks 1–2 (slides 1–20) are built, checked and committed. Resume at **chunk 3, slide 21**.
+
+**PUSH BLOCKED:** every `git push` to `claude-presents-build-opus` has been refused by GitHub (HTTP 403: the Claude GitHub App has no access to this repository for the organisation). The commits exist only in the session's local clone until access is fixed (connect or reconnect GitHub at https://claude.ai/connect-github and install the Claude GitHub App on the repository), then `git push -u origin claude-presents-build-opus`.
 
 Branch: `claude-presents-build-opus` (created from `claude-presents`; branch name set by the coordinator's override).
 
@@ -19,7 +21,7 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 
 ## Word-count method
 
-"Words" = caption plus every label and inline chip on the slide. Not counted: title, the corner status chip, section label, slide number and photo credit lines. The checker also prints the count including the title.
+"Words" = caption plus every label on the slide, including chips that carry extra words (for example "UNDECIDED (OQ01)"). Not counted: title, the corner status chip, inline chips that hold only a status word (AGREED, PROPOSED, PROVISIONAL, UNDECIDED; they are tags like the corner chip), section label, slide number and photo credit lines. The checker also prints the count including the title.
 
 ## Choices and small deviations (with reasons)
 
@@ -40,8 +42,21 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 - **Slide 9:** "Side tanks: water. Bunker: coal." is split into two callouts, so each points at its own part of the engine. Leader-line targets were read off the photos on a grid.
 - **Slide 10 (SPEC-B):** the swing arrow is drawn as an arc over the crane arm, ending above the hatch.
 
+### Chunk 2 (slides 11–20)
+- **Slide 11 (SPEC-C):** coal heaps get a light outline so dark coal shows on the dark background. Section headings "Coal stage" and "Coaling tower" label the two stacked diagrams.
+- **Slide 12:** the three block bands are neutral (no red/green state colours); block states are taught on slide 28. Signals carry STOP and CLEAR pills.
+- **Slide 13:** cards are 2.9 × 1.75 in (outline 1.3 in tall) so three-line meanings fit at 18 pt. Exempt slide, 66 words.
+- **Slide 14:** the row names (Track, Power, Stops, Signals, Station) are unquoted in the outline and are not printed; each cell carries a small icon instead. 43 words.
+- **Slide 15:** "Short range" fans out to its three answers with three arrows.
+- **Slide 16 (SPEC-G):** rows are 0.86 in apart (spec 1.0 in) so the last row clears the caption bar.
+- **Slide 17:** R02, R05 and P02 sit in one row. At the specified sizes R05 cannot go under R02 and still leave room for the speed-rule band. To stay at 45 words, "A real railway, for comparison" became "Real railway, for comparison" and the footer became "Longest track piece:" plus an UNDECIDED (OQ02) chip (slide 40 uses the same wording).
+- **Slide 18 (SPEC-F):** each bar's label sits above the bar (a 3.0 in bar and a label cannot share one 3.8 in card row); bars are 3.3 in. The Medium speed bar is hatched with a "FASTEST? UNDECIDED" chip. To stay within 45 words, the footer reads "Shape only. Not measured." (SPEC-G's wording) instead of "Bars show shape only. They are not measured values."
+- **Slide 19:** the note reads "A related Fowler tank engine (a Jinty). The design's reference, the Dock Tank, has no survivor." It drops "to photograph" to stay within 45 words, and still says the photo is a related Jinty and that the Dock Tank has no surviving example.
+- **Slide 20:** "Reference: Merchant Navy class" is a 16 pt label under the credit line so it can be read. The "Fastest class" row puts its PROPOSED and UNDECIDED (OQ05) chips on a second line so the words do not break.
+
 ## Checks run so far
 
 | Chunk | Rendered and inspected | Checker result |
 |---|---|---|
 | 1 (1–10) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 5); smallest text 14 pt outside credits |
+| 2 (11–20) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 19); smallest text 14 pt outside credits |
