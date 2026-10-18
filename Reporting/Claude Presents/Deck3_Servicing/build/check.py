@@ -9,7 +9,7 @@ from pptx.util import Emu  # noqa: E402
 from lib import wrap_count, text_w  # noqa: E402
 
 PATH = os.path.abspath(os.path.join(HERE, "..", "Coal_Water_and_Servicing_Explained.pptx"))
-SKIP_COUNT = ("TITLE", "CHIP", "NUM", "CREDIT", "CHIP LEGEND")
+SKIP_COUNT = ("TITLE", "CHIP", "ICHIP", "NUM", "CREDIT", "CHIP LEGEND")
 
 
 def walk(shapes):
@@ -20,7 +20,8 @@ def walk(shapes):
 
 
 def words(t):
-    return len([w for w in t.replace("–", " ").split() if any(c.isalnum() for c in w)])
+    """Whitespace tokens that contain a letter (bare numbers such as badge digits are not words)."""
+    return len([w for w in t.split() if any(c.isalpha() for c in w)])
 
 
 def main():

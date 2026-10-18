@@ -39,6 +39,7 @@ COAL_LINE = "#6B7078"
 STEEL = "#9AA0A6"
 SLEEPER = "#6B5B4B"
 PURPLE = "#B084F5"
+DARKMETAL = "#3A3F47"
 DARK = "#101418"  # text on bright fills
 WAGON = "#6C7480"
 
@@ -485,42 +486,76 @@ def arc_poly(cx, cy, r_out, r_in, a0, a1, n=24):
     return pts
 
 
-def loco_side(sh, x, y, scale=1.0, tender=False, color=ORANGE, wheels=3, facing="right", name="loco"):
-    """Small side-view steam locomotive drawn from shapes. (x, y) is the top-left of the cab.
-    Natural size about 2.0 x 1.0 in (plus 1.0 for a tender) at scale 1."""
-    s = scale
-    out = []
-    flip = facing == "left"
-    W = 2.0 * s
-    def X(dx, w=0):
-        return x + (W - dx - w) if flip else x + dx
+from pptx.enum.dml import MSO_PATTERN  # noqa: E402
 
-    # boiler (long, rounded)
-    out.append(rect(sh, X(0.55 * s, 1.35 * s), y + 0.22 * s, 1.35 * s, 0.5 * s, color, None, radius=0.2 * s, name="boiler"))
-    # cab
-    out.append(rect(sh, X(0.0, 0.62 * s), y, 0.62 * s, 0.72 * s, color, None, radius=0.04 * s, name="cab"))
-    out.append(rect(sh, X(0.08 * s, 0.4 * s), y + 0.12 * s, 0.4 * s, 0.2 * s, COAL, None, name="cab window"))
-    # chimney
-    out.append(rect(sh, X(1.7 * s, 0.14 * s), y + 0.02 * s, 0.14 * s, 0.26 * s, COAL, COAL_LINE, 1.0, name="chimney"))
-    # dome
-    out.append(oval(sh, X(1.0 * s, 0.2 * s), y + 0.12 * s, 0.2 * s, 0.16 * s, color, None, name="dome"))
-    # footplate / frame
-    out.append(rect(sh, X(0.0, 1.95 * s), y + 0.72 * s, 1.95 * s, 0.08 * s, COAL, COAL_LINE, 1.0, name="frame"))
-    # wheels
-    d = 0.42 * s
-    n = wheels
-    span = 1.2 * s
-    start = 0.45 * s
-    for i in range(n):
-        cx = start + (span * i / max(1, n - 1)) if n > 1 else start
-        wcx = x + (W - cx) if flip else x + cx
-        out.append(oval(sh, wcx - d / 2, y + 0.8 * s - 0.02 * s, d, d, COAL, STEEL, 1.5, name="wheel"))
-    if tender:
-        tx = X(-1.0 * s) if not flip else x + W + 0.08 * s
-        tx = x - 1.0 * s - 0.08 * s if not flip else x + W + 0.08 * s
-        out.append(rect(sh, tx, y + 0.12 * s, 1.0 * s, 0.6 * s, WAGON, None, radius=0.03 * s, name="tender"))
-        out.append(rect(sh, tx + 0.1 * s, y + 0.06 * s, 0.8 * s, 0.1 * s, COAL, COAL_LINE, 1.0, name="coal"))
-        out.append(rect(sh, tx, y + 0.72 * s, 1.0 * s, 0.08 * s, COAL, COAL_LINE, 1.0, name="tender frame"))
-        for k in (0.25, 0.75):
-            out.append(oval(sh, tx + k * s - d / 2, y + 0.8 * s - 0.02 * s, d, d, COAL, STEEL, 1.5, name="wheel"))
-    return out
+
+def hatch_rect(sh, x, y, w, h, fore=PURPLE, back=PANEL, line=PURPLE, lw=2.0, name="hatched"):
+    shp = rect(sh, x, y, w, h, back, line, lw, name=name)
+    shp.fill.patterned()
+    shp.fill.pattern = MSO_PATTERN.WIDE_UPWARD_DIAGONAL
+    shp.fill.fore_color.rgb = rgb(fore)
+    shp.fill.back_color.rgb = rgb(back)
+    return shp
+
+
+def _wheel(sh, cx, cy, d):
+    oval(sh, cx - d / 2, cy - d / 2, d, d, COAL, STEEL, 1.5, name="wheel")
+    oval(sh, cx - d * 0.12, cy - d * 0.12, d * 0.24, d * 0.24, STEEL, None, name="hub")
+
+
+def loco_icon(sh, x, y, w, kind="tender", color=ORANGE):
+    """Side-view steam locomotive from shapes, facing right.
+    kind 'tender': engine plus its normal tender (12 units wide).
+    kind 'tank': tank engine with side tanks and a rear bunker (10 units wide).
+    (x, y) is the top-left corner, w the width; height is 4.4 units.
+    Returns a dict of target points (inches): 'water', 'coal', 'u', 'h'."""
+    W = 12.0 if kind == "tender" else 10.0
+    u = w / W
+    X = lambda a: x + a * u
+    Y = lambda b: y + b * u
+    if kind == "tender":
+        E = 4.0
+        rect(sh, X(0), Y(1.3), 3.8 * u, 1.9 * u, WAGON, None, radius=0.05 * u, name="tender body")
+        rect(sh, X(0.3), Y(0.95), 3.2 * u, 0.45 * u, COAL, STEEL, 1.0, name="tender coal")
+        rect(sh, X(0), Y(3.2), 3.8 * u, 0.3 * u, DARKMETAL, STEEL, 0.75, name="tender frame")
+        rect(sh, X(3.8), Y(2.6), 0.4 * u, 0.2 * u, STEEL, None, name="coupling")
+        for cx in (0.9, 2.9):
+            _wheel(sh, X(cx), Y(3.65), 1.5 * u)
+        t = {"water": (X(1.0), Y(1.3)), "coal": (X(2.4), Y(0.95))}
+    else:
+        E = 1.8
+        rect(sh, X(0), Y(1.3), 1.9 * u, 1.9 * u, color, None, radius=0.05 * u, name="bunker")
+        rect(sh, X(0.2), Y(0.95), 1.5 * u, 0.45 * u, COAL, STEEL, 1.0, name="bunker coal")
+        t = {"coal": (X(0.95), Y(0.95)), "water": (X(E + 3.6), Y(1.7))}
+    # engine (offset E)
+    rect(sh, X(E), Y(0.4), 2.0 * u, 2.8 * u, color, None, radius=0.05 * u, name="cab")
+    rect(sh, X(E - 0.1), Y(0.25), 2.2 * u, 0.22 * u, DARKMETAL, STEEL, 0.75, name="cab roof")
+    rect(sh, X(E + 0.4), Y(0.95), 1.2 * u, 0.9 * u, COAL, None, name="cab window")
+    rect(sh, X(E + 2.0), Y(1.0), 6.0 * u, 2.2 * u, color, None, radius=0.6 * u, name="boiler")
+    if kind == "tank":
+        rect(sh, X(E + 2.1), Y(1.7), 4.6 * u, 1.5 * u, "#C96F1B", None, radius=0.2 * u, name="side tank")
+    rect(sh, X(E + 6.7), Y(0.1), 0.7 * u, 0.95 * u, DARKMETAL, STEEL, 0.75, name="chimney")
+    rect(sh, X(E + 6.55), Y(0.0), 1.0 * u, 0.2 * u, DARKMETAL, STEEL, 0.75, name="chimney lip")
+    rect(sh, X(E + 3.7 if kind == "tender" else E + 6.9), Y(0.55) if kind == "tender" else Y(0.8), 1.0 * u,
+         0.5 * u if kind == "tender" else 0.25 * u, color, None, radius=0.2 * u, name="dome")
+    rect(sh, X(E), Y(3.2), 8.0 * u, 0.3 * u, DARKMETAL, STEEL, 0.75, name="frame")
+    for cx in ((2.2, 4.2, 6.2) if kind == "tender" else (2.0, 4.0, 6.0)):
+        _wheel(sh, X(E + cx), Y(3.65), 1.5 * u)
+    t["u"] = u
+    t["h"] = 4.4 * u
+    return t
+
+
+def wagon_icon(sh, x, y, u, fill=WAGON, hatched=False, hatch_color=PURPLE, length=4.0):
+    """Cargo wagon (or hatched auxiliary tender) on the same unit scale as loco_icon."""
+    if hatched:
+        hatch_rect(sh, x, y + 1.3 * u, length * u, 1.9 * u, hatch_color, PANEL, hatch_color, 2.0, name="aux tender")
+        oval(sh, x + 0.4 * u, y + 1.0 * u, 0.7 * u, 0.7 * u, COAL, TEXT, 1.5, name="tender hatch")
+    else:
+        rect(sh, x, y + 1.0 * u, length * u, 2.2 * u, fill, None, radius=0.05 * u, name="wagon body")
+        for k in range(1, 4):
+            rect(sh, x + k * length * u / 4 - 0.02 * u, y + 1.1 * u, 0.04 * u, 2.0 * u, "#4A515B", None,
+                 name="plank")
+    rect(sh, x, y + 3.2 * u, length * u, 0.3 * u, DARKMETAL, STEEL, 0.75, name="wagon frame")
+    for cx in (0.9, length - 0.9):
+        _wheel(sh, x + cx * u, y + 3.65 * u, 1.5 * u)
