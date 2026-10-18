@@ -5,6 +5,7 @@ Usage: python3 check_deck.py DECK.pptx [first_slide last_slide]
 """
 import collections
 import os
+import re
 import sys
 import zipfile
 
@@ -106,7 +107,8 @@ def main(path, first=1, last=999):
             txt = text_of(s)
             if s.has_text_frame:
                 is_title = s.is_placeholder and s.placeholder_format.type == 1
-                n = len(txt.split())
+                # reference codes such as "(OQ03)" are not counted as words
+                n = len([w for w in txt.split() if not re.fullmatch(r'\(?OQ\d+\)?[.,:]?', w)])
                 if is_title:
                     words_b += n
                 elif name.startswith('Inline chip') and txt.strip().upper() in STATUS:

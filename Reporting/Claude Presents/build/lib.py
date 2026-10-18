@@ -334,6 +334,10 @@ IMAGES = load_manifest()
 
 
 # ---------------------------------------------------------------- pictures
+CURRENT_SLIDE = 0          # set by build_deck.py before each slide function runs
+USAGE = {}                 # slot -> list of slide numbers where it is placed
+
+
 def picture(shapes, slot, x, y, w, h, focus=(0.5, 0.5), radius=0.08, alt=None, name=None):
     """Place a bundle image to cover the box (crop, never stretch)."""
     info = IMAGES[slot]
@@ -362,6 +366,9 @@ def picture(shapes, slot, x, y, w, h, focus=(0.5, 0.5), radius=0.08, alt=None, n
         etree.SubElement(av, qn('a:gd'), name='adj', fmla='val %d' % round(radius / min(w, h) * 100000))
     pic.name = name or ('Picture ' + slot)
     set_alt(pic, alt or info['alt'])
+    used = USAGE.setdefault(slot, [])
+    if CURRENT_SLIDE not in used:
+        used.append(CURRENT_SLIDE)
     return pic
 
 
@@ -470,7 +477,8 @@ def _stripe_pts(hx, hy, L, t, ang, side, u0, u1):
 
 
 def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=-1, arm_len=0.7,
-           arm_t=0.14, label_pos='left', show_label=True, alt=None, name=None, scale=1.0):
+           arm_t=0.14, label_pos='left', show_label=True, alt=None, name=None, scale=1.0,
+           post_col=C['post']):
     """Semaphore on a post. x = post centre, y_base = foot of the post.
     The arm stays red (stop) or amber (distant); state is shown by angle, lamp and a label."""
     h, arm_len, arm_t = h * scale, arm_len * scale, arm_t * scale
@@ -486,8 +494,8 @@ def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=-1, arm_len
     s = g.shapes
     pw = 0.12 * scale
     box(s, x - 0.17 * scale, y_base - 0.07 * scale, 0.34 * scale, 0.07 * scale, fill=C['steel'])
-    box(s, x - pw / 2, y_base - h, pw, h, fill=C['post'])
-    oval(s, x, y_base - h - 0.04 * scale, 0.14 * scale, fill=C['post'])
+    box(s, x - pw / 2, y_base - h, pw, h, fill=post_col)
+    oval(s, x, y_base - h - 0.04 * scale, 0.14 * scale, fill=post_col)
     hx, hy = x + side * pw / 2, y_base - h + 0.1 * scale + arm_t / 2 + 0.06 * scale
     ang = 0 if state == 'stop' else 45
     if kind == 'distant':
@@ -868,16 +876,20 @@ def table(shapes, x, y, col_ws, row_h, rows, size=18, header=True, alt=None, nam
             p = tf.paragraphs[0]
             al = (aligns or ['l'] * nc)[c]
             p.alignment = {'l': PP_ALIGN.LEFT, 'c': PP_ALIGN.CENTER, 'r': PP_ALIGN.RIGHT}[al]
-            run = p.add_run()
-            run.text = rows[r][c]
-            run.font.name = 'Arial'
-            run.font.size = Pt(size)
-            run.font.bold = hdr
-            run.font.color.rgb = rgb(header_color if hdr else C['text'])
-            if links and (r, c) in links:
-                run.hyperlink.address = links[(r, c)]
-                run.font.color.rgb = rgb('7DB8FF')
-                run.font.underline = True
+            val = rows[r][c]
+            parts = val if isinstance(val, list) else [(val, None)]
+            for txt, url in parts:
+                run = p.add_run()
+                run.text = txt
+                run.font.name = 'Arial'
+                run.font.size = Pt(size)
+                run.font.bold = hdr
+                run.font.color.rgb = rgb(header_color if hdr else C['text'])
+                url = url or (links or {}).get((r, c))
+                if url:
+                    run.hyperlink.address = url
+                    run.font.color.rgb = rgb('7DB8FF')
+                    run.font.underline = True
             _cell_border(cell, C['line'])
     if alt:
         set_alt(gf, alt)

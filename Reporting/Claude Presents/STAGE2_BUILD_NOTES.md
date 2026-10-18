@@ -1,6 +1,6 @@
 # STAGE 2 BUILD NOTES — "Early Locomotion, Explained"
 
-**RESUME POINT:** Chunks 1–3 (slides 1–31) are built, checked and committed. Resume at **chunk 4, slide 32**.
+**RESUME POINT:** All four chunks (slides 1–42) are built, checked and committed. Remaining: final whole-deck pass (contact sheet, tag counts, package checks).
 
 **PUSH BLOCKED:** every `git push` to `claude-presents-build-opus` has been refused by GitHub (HTTP 403: the Claude GitHub App has no access to this repository for the organisation). The commits exist only in the session's local clone until access is fixed (connect or reconnect GitHub at https://claude.ai/connect-github and install the Claude GitHub App on the repository), then `git push -u origin claude-presents-build-opus`.
 
@@ -21,7 +21,7 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 
 ## Word-count method
 
-"Words" = caption plus every label on the slide (digits inside numbered badges are not counted), including chips that carry extra words (for example "UNDECIDED (OQ01)"). Not counted: title, the corner status chip, inline chips that hold only a status word (AGREED, PROPOSED, PROVISIONAL, UNDECIDED; they are tags like the corner chip), section label, slide number and photo credit lines. The checker also prints the count including the title.
+"Words" = caption plus every label on the slide (digits inside numbered badges and Open Question reference codes such as "(OQ03)" are not counted), including chips that carry extra words (for example "UNDECIDED (OQ01)"). Not counted: title, the corner status chip, inline chips that hold only a status word (AGREED, PROPOSED, PROVISIONAL, UNDECIDED; they are tags like the corner chip), section label, slide number and photo credit lines. The checker also prints the count including the title.
 
 ## Choices and small deviations (with reasons)
 
@@ -68,6 +68,17 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 - **Slide 30 (SIG-30):** the lever groups are labelled "Stop", "Distant", "Points" and "Lock", with "Example colours only" (spec: "Example colours; not fixed") to stay within 45 words.
 - **Slide 31 (SIG-31):** to stay within 45 words: the steps read "Train in block", "Signal at STOP", "Train leaves" and "Lever pulled: arm lifts"; the link label reads "Bell codes"; the territory label reads "Box territory: limited" (the pointer to slide 32 dropped); the amber footer reads "In the mod: no player wiring." with an AGREED chip. Counterweights are drawn but not labelled; the alt text describes them. Blocks run 0.8–4.6–7.6–10.4 in (spec 5.0 / 8.0 / 11.0) so all three state pills stay inside the territory outline; signal names S1–S3 are not printed. Rods run from the box down to the ground and along the track to each post foot, so they cross neither the train nor the arms.
 
+### Chunk 4 (slides 32–42)
+- **Slide 32:** each tile has its own PROVISIONAL chip; values are 18 pt bold. The ruler shows a signal every 450 m (0 to 2,250 m) with neutral, flat arms; it is an illustration. Footer: "Block lengths and speed caps:" plus UNDECIDED (OQ03). Exempt slide, 70 words.
+- **Slide 33:** to stay within 45 words: "Place a signal on connected track" became "Place signals on connected track"; step 3 drops "and update" (the alt text keeps it); the screen note reads "Box screen: signals, state, capacity, reach." The corner chip ROD OR WIRE LOOK: UNDECIDED (OQ04) sits under the status chip. GAME_DESIGN.md OQ04 covers both linkage appearance and territory measurement, so slides 33 and 40 agree with it.
+- **Slide 34:** a vertical timeline (AGREED, PROPOSED, PROPOSED). The track-diagram mock-up has neutral AUTO / YARD / MAINLINE pills (none shown as selected, since no mode is specified), one orange active route and grey alternatives. "Pick a destination and let the game set points:" sits under the panel with a PROPOSED chip.
+- **Slide 35 (SPEC-H):** panels are 3.75 in wide (spec 3.9) so the arrows fit between them. Station letters A–D are not printed, to stay within 45 words. Steam track is a double orange line and monorail a single thick blue beam. The PROPOSED chip for the hologram and warning sits in the Upgrade panel header. The Mixed network panel has its own PROPOSED chip. The footer rule carries an AGREED chip.
+- **Slide 36:** two rows of two dashed PROPOSED blocks above the solid Core 1.0 base (AGREED chip). "Real British locomotives like this could appear." is a 16 pt label under P19's credit line so it is readable.
+- **Slide 37:** to stay within 45 words: the plate label reads "Visible number" (the caption says the number can be changed); the note reads "Examples only. Launch regions:" plus UNDECIDED (OQ06); the footer reads "Changing region restyles Core stock. Migration:" plus an UNDECIDED chip.
+- **Slide 38:** the semaphore on the white table uses a dark post so it shows. The PROPOSED chip sits above the statement "A playful takeover when you first unlock rail" instead of holding all eight words in one very wide chip.
+- **Slide 39:** state is shown by a filled orange circle ("Under way") or an empty grey circle ("Planned"), explained once in a legend rather than written under every node, to stay within 45 words. The circle style is a non-colour cue. The wording matches the dated public brief (experimental engine and track prototypes; singleplayer first, multiplayer after release) and has no technical test detail.
+- **Slides 41–42:** native tables at 11 pt; "Commons" is a live hyperlink to each source page. The Slide column is filled from the images actually placed in the built deck, not typed by hand. Renders read "Early Locomotion project (test model, not final art)", "No third-party licence", "Project render".
+
 ## Checks run so far
 
 | Chunk | Rendered and inspected | Checker result |
@@ -75,3 +86,4 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 | 1 (1–10) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 5); smallest text 14 pt outside credits |
 | 2 (11–20) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 19); smallest text 14 pt outside credits |
 | 3 (21–31) | All 11 slides at 80 dpi, fixed, re-rendered (28–31 twice) | 0 problems; max 45 words (slides 26, 30); smallest text 14 pt outside credits |
+| 4 (32–42) | All 11 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 33); smallest text 14 pt outside credits and credit tables |

@@ -31,6 +31,7 @@ def build():
     for mod in CHUNKS:
         for fn in mod.SLIDES:
             n += 1
+            lib.CURRENT_SLIDE = n
             fn(prs, n)
     lib.finalize(prs)
     prs.save(OUT)
