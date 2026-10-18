@@ -293,8 +293,9 @@ def s18(prs, n):
             box(s, x + 0.25, y + 0.26, 3.3 * v, 0.16, fill=f, radius=0.04,
                 line=C['orange'] if hatch else None, lw=1)
             if hatch:
-                inline_chip(s, 'Undecided', x + 3.55 - chip_w('Fastest? Undecided'), y - 0.1,
-                            text='Fastest? Undecided')
+                # same row as the "Speed" label (0.26 in), so it clears both bars
+                inline_chip(s, 'Undecided', x + 3.55 - chip_w('Fastest? Undecided'), y - 0.03,
+                            text='Fastest? Undecided', h=0.26)
         label(s, x + 0.25, 5.15, 3.3, 0.42, duty, size=18, bold=True, anchor='m')
     label(sh, MARGIN, 5.82, 6, 0.32, 'Shape only. Not measured.', size=14, color=C['muted'])
     finish(b)

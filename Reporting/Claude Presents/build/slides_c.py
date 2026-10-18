@@ -375,14 +375,18 @@ def s29(prs, n):
     sh = b.shapes
     inline_chip(sh, 'Undecided', RIGHT - chip_w('Arm style: undecided'), 0.98, text='Arm style: undecided')
     extra = 'Blender model, not yet in the game.'
-    for slot, x, txt, tgt in (('R03', MARGIN, 'STOP: arm flat', (0.475, 0.215)),
-                              ('R04', 4.95, 'CLEAR: arm raised', (0.53, 0.16))):
+    # The raised arm sits higher in R04 than the flat arm in R03, so its label is a narrow
+    # two-line box to the left of the post: the leader line then leaves the box edge
+    # instead of crossing the label text.
+    for slot, x, txt, tgt, bw, bh in (('R03', MARGIN, 'STOP: arm flat', (0.475, 0.215), 2.75, 0.45),
+                                      ('R04', 4.95, 'CLEAR:\narm raised', (0.53, 0.16), 1.7, 0.85)):
         photo(sh, slot, x, 1.45, 4.1, 3.075, extra=extra)
-        cg = group(sh, 'Label ' + txt, 'Label: ' + txt)
-        box(cg.shapes, x + 0.15, 1.6, 2.75, 0.45, fill=C['bg'], line=C['orange'], lw=1.5, radius=0.08,
+        flat = txt.replace('\n', ' ')
+        cg = group(sh, 'Label ' + flat, 'Label: ' + flat)
+        box(cg.shapes, x + 0.15, 1.6, bw, bh, fill=C['bg'], line=C['orange'], lw=1.5, radius=0.08,
             text=txt, size=18, bold=True)
         tx, ty_ = x + tgt[0] * 4.1, 1.45 + tgt[1] * 3.075
-        arrow(cg.shapes, x + 2.9, 1.82, tx + 0.15, ty_ - 0.02, C['orange'], 2, hs='lg')
+        arrow(cg.shapes, x + 0.15 + bw, 1.6 + bh / 2, tx + 0.15, ty_ - 0.02, C['orange'], 2, hs='lg')
     # distant signal mini-diagram
     label(sh, 9.35, 1.42, 3.4, 0.42, 'Distant signal', size=20, bold=True, color=C['orange'])
     g = group(sh, 'Distant signal', 'Distant signal with a yellow fishtail arm. Arm flat: be ready to '

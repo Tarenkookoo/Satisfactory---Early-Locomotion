@@ -119,3 +119,14 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 - **Push.** The branch is not on GitHub yet because every push returned 403. After GitHub access is fixed: `git push -u origin claude-presents-build-opus`.
 - **Slides that depart most from the outline** (listed above, each with its reason): 5, 23, 26, 28 (band A shown occupied), 29 (no separate fail-safe strip), 31 and 33. All were trimmed to meet the 45-word cap or to keep a diagram logically correct.
 
+
+## Review fixes (19 October 2026, after checking the deck in real PowerPoint)
+
+Rendered all 42 slides with desktop PowerPoint and checked each one. Two defects fixed:
+
+- **Slide 29:** the orange leader line from "CLEAR: arm raised" ran back through the label text. The label is now a narrow two-line box to the left of the post, and the leader line leaves its edge.
+- **Slide 18:** the "Fastest? Undecided" chip overlapped the Haul and Speed bars on the Medium card. It now sits in the Speed label row (0.26 in high).
+
+`build/lib.py` now falls back to Windows Arial when the Liberation Sans font files are missing (same metrics), so the deck rebuilds on a Windows machine. Inline chip widths on other slides moved by 1 to 3 px as a result; nothing was clipped.
+
+Open question for the owner (not changed): slide 33 states what the box screen shows without its own chip, inside an Agreed slide. Deck 2 slide 21 tags the same idea Proposed. Suggest an inline Proposed chip on slide 33.

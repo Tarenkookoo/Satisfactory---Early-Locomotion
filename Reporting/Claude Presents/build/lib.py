@@ -76,7 +76,12 @@ def font(size, bold=False):
     key = (round(size * 4), bold)
     if key not in _fonts:
         name = 'LiberationSans-Bold.ttf' if bold else 'LiberationSans-Regular.ttf'
-        _fonts[key] = ImageFont.truetype(os.path.join(FONT_DIR, name), max(1, round(size * 4)))
+        path = os.path.join(FONT_DIR, name)
+        if not os.path.exists(path):
+            # Windows build machine: Arial has the same metrics as Liberation Sans
+            path = os.path.join(os.environ.get('WINDIR', 'C:/Windows'), 'Fonts',
+                                'arialbd.ttf' if bold else 'arial.ttf')
+        _fonts[key] = ImageFont.truetype(path, max(1, round(size * 4)))
     return _fonts[key]
 
 
