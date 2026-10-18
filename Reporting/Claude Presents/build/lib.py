@@ -419,7 +419,7 @@ def pill(shapes, x, y, w, h, text, fill, color=C['ink'], size=14, bold=True, lin
 
 def badge(shapes, cx, cy, n, d=0.42, size=16):
     return oval(shapes, cx, cy, d, fill=C['orange'], text=str(n), size=size, bold=True,
-                color=C['ink'], margins=(0, 0, 0, 0))
+                color=C['ink'], margins=(0, 0, 0, 0), name='Badge %d' % n)
 
 
 def state_pill(shapes, x, y, state, w=0.95, h=0.36, size=14):
@@ -469,7 +469,7 @@ def _stripe_pts(hx, hy, L, t, ang, side, u0, u1):
     return out
 
 
-def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=1, arm_len=0.7,
+def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=-1, arm_len=0.7,
            arm_t=0.14, label_pos='left', show_label=True, alt=None, name=None, scale=1.0):
     """Semaphore on a post. x = post centre, y_base = foot of the post.
     The arm stays red (stop) or amber (distant); state is shown by angle, lamp and a label."""
@@ -514,6 +514,9 @@ def signal(shapes, x, y_base, state='stop', kind='stop', h=1.1, side=1, arm_len=
             ly0 = y_base - h * 0.55
         elif label_pos == 'topright':
             lx0 = x + 0.22 * scale
+            ly0 = y_base - h - 0.42
+        elif label_pos == 'topleft':
+            lx0 = x - pw_ - 0.22 * scale
             ly0 = y_base - h - 0.42
         else:   # below
             lx0 = x - pw_ / 2
@@ -773,11 +776,12 @@ def new_deck():
     return prs
 
 
-def caption_lines(caption):
-    return len(wrap_lines(caption, 20, 12.13 - 0.3 - 0.2))
+def caption_lines(caption, reserve=0.0):
+    # 0.2 in safety margin: renderers break lines slightly earlier than the estimate
+    return len(wrap_lines(caption, 20, 12.13 - 0.3 - 0.2 - 0.2 - reserve))
 
 
-def add_base(prs, n, section, title, chip_kind, caption, title_size=36):
+def add_base(prs, n, section, title, chip_kind, caption, title_size=36, caption_chip=None):
     layout = prs.slide_layouts[0]
     slide = prs.slides.add_slide(layout)
     b = Base()
@@ -791,23 +795,93 @@ def add_base(prs, n, section, title, chip_kind, caption, title_size=36):
     if chip_kind:
         b.chip = chip(slide.shapes, chip_kind, RIGHT - 1.7, 0.5, name='Status chip')
     # caption bar (moved to the end of the reading order in finish())
-    nl = caption_lines(caption)
+    reserve = chip_w(caption_chip) + 0.2 if caption_chip else 0.0
+    nl = caption_lines(caption, reserve)
     bh = 0.6 if nl == 1 else 0.88
     by = 7.0 - bh
     b.bar_y = by
     b.bottom = by - 0.12
     b._tail = []
     panel = box(slide.shapes, MARGIN, by, 12.13, bh, fill=C['panel'], radius=0.08, text=caption,
-                size=20, color=C['text'], align='l', anchor='m', margins=(0.3, 0.03, 0.2, 0.03),
-                name='Caption')
+                size=20, color=C['text'], align='l', anchor='m',
+                margins=(0.3, 0.03, 0.2 + reserve, 0.03), name='Caption')
     rule = box(slide.shapes, MARGIN, by, 0.08, bh, fill=C['orange'], name='Caption rule', deco=True)
     sec = label(slide.shapes, MARGIN, 0.13, 8, 0.3, section.upper(), size=14, color=C['muted'],
                 name='Section label')
     num = label(slide.shapes, RIGHT - 1.0, 7.06, 1.0, 0.3, str(n), size=14, color=C['muted'],
                 align='r', name='Slide number')
     _slide_number_field(num, n)
-    b._tail = [panel, rule, sec, num]
+    b._tail = [panel, rule]
+    if caption_chip:
+        b._tail.append(inline_chip(slide.shapes, caption_chip, MARGIN + 12.13 - 0.2 - chip_w(caption_chip),
+                                   by + (bh - 0.36) / 2))
+    b._tail += [sec, num]
     return b
+
+
+TABLE_NO_STYLE = '{2D5ABB26-0587-4C30-8999-92F81FD0307C}'
+
+
+def _cell_border(cell, color, w_pt=1.0):
+    tcPr = cell._tc.get_or_add_tcPr()
+    for tag in ('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB'):
+        old = tcPr.find(qn(tag))
+        if old is not None:
+            tcPr.remove(old)
+    # borders must come before the cell fill in tcPr
+    for k, tag in enumerate(('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB')):
+        ln = etree.Element(qn(tag), w=str(int(w_pt * 12700)), cap='flat', cmpd='sng', algn='ctr')
+        sf = etree.SubElement(ln, qn('a:solidFill'))
+        etree.SubElement(sf, qn('a:srgbClr'), val=color)
+        etree.SubElement(ln, qn('a:prstDash'), val='solid')
+        tcPr.insert(k, ln)
+
+
+def table(shapes, x, y, col_ws, row_h, rows, size=18, header=True, alt=None, name='Table',
+          header_color=C['orange'], links=None, aligns=None, fills=None):
+    """Native table. rows: list of lists of str. links: {(r, c): url} makes that cell a hyperlink."""
+    nr, nc = len(rows), len(col_ws)
+    gf = shapes.add_table(nr, nc, I(x), I(y), I(sum(col_ws)), I(row_h * nr))
+    gf.name = name
+    tbl = gf.table
+    tblPr = tbl._tbl.tblPr
+    sid = tblPr.find(qn('a:tableStyleId'))
+    if sid is None:
+        sid = etree.SubElement(tblPr, qn('a:tableStyleId'))
+    sid.text = TABLE_NO_STYLE
+    tbl.first_row = header
+    tbl.horz_banding = False
+    for c, w in enumerate(col_ws):
+        tbl.columns[c].width = I(w)
+    for r in range(nr):
+        tbl.rows[r].height = I(row_h)
+        for c in range(nc):
+            cell = tbl.cell(r, c)
+            hdr = header and r == 0
+            cell.fill.solid()
+            cell.fill.fore_color.rgb = rgb((fills or {}).get((r, c), C['panel_alt'] if hdr else C['panel']))
+            cell.margin_left = cell.margin_right = I(0.1)
+            cell.margin_top = cell.margin_bottom = I(0.03)
+            cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+            tf = cell.text_frame
+            tf.word_wrap = True
+            p = tf.paragraphs[0]
+            al = (aligns or ['l'] * nc)[c]
+            p.alignment = {'l': PP_ALIGN.LEFT, 'c': PP_ALIGN.CENTER, 'r': PP_ALIGN.RIGHT}[al]
+            run = p.add_run()
+            run.text = rows[r][c]
+            run.font.name = 'Arial'
+            run.font.size = Pt(size)
+            run.font.bold = hdr
+            run.font.color.rgb = rgb(header_color if hdr else C['text'])
+            if links and (r, c) in links:
+                run.hyperlink.address = links[(r, c)]
+                run.font.color.rgb = rgb('7DB8FF')
+                run.font.underline = True
+            _cell_border(cell, C['line'])
+    if alt:
+        set_alt(gf, alt)
+    return gf
 
 
 def _slide_number_field(shape, n):

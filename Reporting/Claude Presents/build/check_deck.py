@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import wrap_lines  # noqa: E402
 
 EMU = 914400.0
-SKIP_WORDS = ('Status chip', 'Credit', 'Section label', 'Slide number')
+SKIP_WORDS = ('Status chip', 'Credit', 'Section label', 'Slide number', 'Badge')
 EXEMPT = {2, 13, 32, 41, 42}
 SMALL_OK = ('Credit', 'Credit table')
 STATUS = {'AGREED', 'PROPOSED', 'PROVISIONAL', 'UNDECIDED', 'BACKGROUND'}

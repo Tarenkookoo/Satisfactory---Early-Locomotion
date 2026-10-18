@@ -1,6 +1,6 @@
 # STAGE 2 BUILD NOTES — "Early Locomotion, Explained"
 
-**RESUME POINT:** Chunks 1–2 (slides 1–20) are built, checked and committed. Resume at **chunk 3, slide 21**.
+**RESUME POINT:** Chunks 1–3 (slides 1–31) are built, checked and committed. Resume at **chunk 4, slide 32**.
 
 **PUSH BLOCKED:** every `git push` to `claude-presents-build-opus` has been refused by GitHub (HTTP 403: the Claude GitHub App has no access to this repository for the organisation). The commits exist only in the session's local clone until access is fixed (connect or reconnect GitHub at https://claude.ai/connect-github and install the Claude GitHub App on the repository), then `git push -u origin claude-presents-build-opus`.
 
@@ -21,7 +21,7 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 
 ## Word-count method
 
-"Words" = caption plus every label on the slide, including chips that carry extra words (for example "UNDECIDED (OQ01)"). Not counted: title, the corner status chip, inline chips that hold only a status word (AGREED, PROPOSED, PROVISIONAL, UNDECIDED; they are tags like the corner chip), section label, slide number and photo credit lines. The checker also prints the count including the title.
+"Words" = caption plus every label on the slide (digits inside numbered badges are not counted), including chips that carry extra words (for example "UNDECIDED (OQ01)"). Not counted: title, the corner status chip, inline chips that hold only a status word (AGREED, PROPOSED, PROVISIONAL, UNDECIDED; they are tags like the corner chip), section label, slide number and photo credit lines. The checker also prints the count including the title.
 
 ## Choices and small deviations (with reasons)
 
@@ -54,9 +54,24 @@ Files: `build_deck.py` (driver), `build/lib.py` (shape library and slide base), 
 - **Slide 19:** the note reads "A related Fowler tank engine (a Jinty). The design's reference, the Dock Tank, has no survivor." It drops "to photograph" to stay within 45 words, and still says the photo is a related Jinty and that the Dock Tank has no surviving example.
 - **Slide 20:** "Reference: Merchant Navy class" is a 16 pt label under the credit line so it can be read. The "Fastest class" row puts its PROPOSED and UNDECIDED (OQ05) chips on a second line so the words do not break.
 
+### Chunk 3 (slides 21–31)
+- **All native signals** draw the arm on the left of the post, as in the R03/R04 renders. This keeps arms clear of the trains.
+- **Slide 21:** same layout as slides 19–20; the "Slower to speed up" row carries a PROPOSED chip.
+- **Slide 22:** wagons are 4.6 × 1.6 in (outline 3.4 × 1.4) so the 32 squares stay readable.
+- **Slide 23:** to stay within 45 words, the gauges are labelled with icons (coal heap, water drop) instead of words, the chip by the "Range left" card reads AGREED DIRECTION, "km" moved into the column headers ("Water (km)", "Coal (km)"), and ranges are written "2–3", "about 7" and so on. All values are exactly those in the outline. The table is a native PowerPoint table with alt text.
+- **Slide 24:** the train faces left (engine, normal tender, gap, hatched auxiliary tender, three wagons, matching the outline's left-to-right order). Labels sit under the train. P18 sits bottom right at the specified 3.4 × 2.27 in; there is no room for it bottom left. "A real tender, for illustration" is a 14 pt label above it.
+- **Slide 25 (SPEC-D):** P17 sits top right, so the water pipe enters the tower from above; a pipe from (12.3, 1.7) would have run under the photo. "Coal bunker" and "Water hatch" label the two circles on the docked engine.
+- **Slide 26 (SPEC-E):** to stay within 45 words, five step labels are shorter: "Settle into dock", "Long steam hiss", "Water arm swings", "Finds the hatches" and "Folds away". The caption already says the machinery finds the hatches and folds away. Steps snake: row 2 runs right to left, with 6 under 5. The time strip has a clock icon, "Empty tanks" (long bar), "Small top-up" (short bar), and "Rates and times:" with PROPOSED and PROVISIONAL chips.
+- **Slide 27 (SPEC-I):** the AGREED chip for the headline sentence sits inside the caption bar, at its right-hand end.
+- **Slide 28 (SIG-28):** band A reads "Block A: occupied" (the spec says green) because the waiting train stands in it; a free band under a train would contradict "one train per block". The legend reads "Arm flat: stop / Arm raised: go" instead of "red arm = stop; raised arm = go", because the arm is red in both states (RESEARCH_NOTES object rule).
+- **Slide 29 (SIG-29):** the separate fail-safe strip is left out because the caption already carries the exact sentence beginning "On real railways…". Repeating it would push the slide past 45 words. The labels "STOP: arm flat" and "CLEAR: arm raised" sit on the renders with arrows to the arms. Each render credit carries the addendum line "Blender model, not yet in the game." The corner chip ARM STYLE: UNDECIDED sits under the status chip.
+- **Slide 30 (SIG-30):** the lever groups are labelled "Stop", "Distant", "Points" and "Lock", with "Example colours only" (spec: "Example colours; not fixed") to stay within 45 words.
+- **Slide 31 (SIG-31):** to stay within 45 words: the steps read "Train in block", "Signal at STOP", "Train leaves" and "Lever pulled: arm lifts"; the link label reads "Bell codes"; the territory label reads "Box territory: limited" (the pointer to slide 32 dropped); the amber footer reads "In the mod: no player wiring." with an AGREED chip. Counterweights are drawn but not labelled; the alt text describes them. Blocks run 0.8–4.6–7.6–10.4 in (spec 5.0 / 8.0 / 11.0) so all three state pills stay inside the territory outline; signal names S1–S3 are not printed. Rods run from the box down to the ground and along the track to each post foot, so they cross neither the train nor the arms.
+
 ## Checks run so far
 
 | Chunk | Rendered and inspected | Checker result |
 |---|---|---|
 | 1 (1–10) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 5); smallest text 14 pt outside credits |
 | 2 (11–20) | All 10 slides at 80 dpi, fixed, re-rendered | 0 problems; max 45 words (slide 19); smallest text 14 pt outside credits |
+| 3 (21–31) | All 11 slides at 80 dpi, fixed, re-rendered (28–31 twice) | 0 problems; max 45 words (slides 26, 30); smallest text 14 pt outside credits |
