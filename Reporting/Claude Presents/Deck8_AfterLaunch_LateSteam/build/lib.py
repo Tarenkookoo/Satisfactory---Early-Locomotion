@@ -25,7 +25,7 @@ C = dict(
     muted='A9B0B8', orange='F28C28', red='E5484D', green='3FB950', amber='F2C14E',
     water='4DA3FF', electric='6CA0DC', coal='1B1D21', steel='9AA0A6',
     sleeper='6B5B4B', dark='101418', purple='B084F5', white='E8E8E8',
-    wagon='6C7480', ballast='5A5F66',
+    wagon='6C7480', ballast='5A5F66', iron='3D434C',
 )
 CHIPS = {
     'Agreed': dict(fill='green', text='dark', line=None),
@@ -456,18 +456,18 @@ def loco(S, x, y, w, body='orange', tender=False, face='left', accent=None, band
 
     dark = 'coal'
     # frame and boiler
-    R(4, 29, 94, 6, 'panel_alt', 'steel', 1.0)
+    R(4, 29, 94, 6, 'iron', 'steel', 1.0)
     R(12, 11, 58, 19, body, dark, 1.0, rad=6)
-    R(5, 11, 9, 19, dark, None)                       # smokebox
-    R(7, 3, 6, 8, dark, None)                          # chimney
-    R(5, 1.5, 10, 3, dark, None)
+    R(5, 11, 9, 19, 'iron', 'steel', 1.0)             # smokebox
+    R(7, 3, 6, 8, 'iron', 'steel', 1.0)                # chimney
+    R(5, 1.5, 10, 3, 'iron', 'steel', 1.0)
     R(38, 6, 11, 6, body, dark, 1.0, rad=3)           # dome
     if band:
         R(14, 20, 54, 4, band, None)
     R(66, 2, 31, 28, accent or body, dark, 1.0)       # cab
-    R(63, 0, 37, 3, dark, None)                        # roof
+    R(63, 0, 37, 3, 'iron', 'steel', 1.0)              # roof
     R(73, 8, 13, 11, dark, 'steel', 1.0)               # cab window
-    R(14, 29, 14, 6, dark, 'steel', 1.0)               # cylinder
+    R(14, 29, 14, 6, 'iron', 'steel', 1.0)             # cylinder
     if plate:
         R(46, 14, 15, 7, plate, dark, 1.0)
     for cxu in (30, 46, 62):
@@ -475,7 +475,7 @@ def loco(S, x, y, w, body='orange', tender=False, face='left', accent=None, band
     line(S, X(30), y + 38 * s, X(62), y + 38 * s, 'steel', 2)
     wheel(S, X(14), y + 41 * s, 9 * s, rim='steel', fill=dark, spokes=False)
     if tender:
-        R(98, 29, 49, 6, 'panel_alt', 'steel', 1.0)
+        R(98, 29, 49, 6, 'iron', 'steel', 1.0)
         R(100, 14, 46, 16, 'wagon', dark, 1.0, rad=2)
         R(102, 8, 42, 7, dark, 'steel', 1.0)           # coal
         for cxu in (110, 135):
