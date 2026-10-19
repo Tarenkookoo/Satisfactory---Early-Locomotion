@@ -251,8 +251,8 @@ def s16(prs):
     for x0, first, a_lab, b_lab, changed in ((1.2, "47", "Set by the scheme", "Your digits", False),
                                             (7.65, "31", "Changes", "Stays", True)):
         wa, wb = 1.6, 2.8
-        rect(gs, x0, 2.85, wa, 1.3, ORANGE_DK if changed else PANEL_ALT, ORANGE, 3.0, radius=0.1,
-             name="plate part: scheme", text=first, size=54, color=TEXT, bold=True)
+        rect(gs, x0, 2.85, wa, 1.3, ORANGE if changed else PANEL_ALT, ORANGE, 3.0, radius=0.1,
+             name="plate part: scheme", text=first, size=54, color=DARK if changed else TEXT, bold=True)
         rect(gs, x0 + wa, 2.85, wb, 1.3, COAL, ORANGE, 3.0, radius=0.1, name="plate part: digits", text="298",
              size=54, color=TEXT, bold=True)
         for a, b, lab in ((x0, x0 + wa, a_lab), (x0 + wa, x0 + wa + wb, b_lab)):
