@@ -336,7 +336,7 @@ CAP_Y, CAP_H = 6.28, 0.76
 
 def status_chip(S, status, name='Status chip'):
     spec = CHIPS[status]
-    sh = shape(S, MSO_SHAPE.ROUNDED_RECTANGLE, 11.2, 0.5, 1.5, 0.4, spec['fill'], spec['line'],
+    sh = shape(S, MSO_SHAPE.ROUNDED_RECTANGLE, 11.08, 0.5, 1.62, 0.4, spec['fill'], spec['line'],
                lw=2, radius=0.12, name=name)
     put_text(sh, status.upper(), size=14, bold=True, color=spec['text'], align='c', anchor='m',
              margin=(0.04, 0.02, 0.04, 0.02), wrap=False)
@@ -605,3 +605,29 @@ def checkmark(S, cx, cy, d=0.34, fill='green'):
 
 def save(prs, path):
     prs.save(path)
+
+
+def trophy(S, cx, y, h, fill='amber'):
+    """Simple golden cup icon. cx = centre x, y = top, h = total height."""
+    w = h * 0.7
+    cup_h = h * 0.5
+    poly(S, [(cx - w / 2, y), (cx + w / 2, y), (cx + w * 0.34, y + cup_h), (cx - w * 0.34, y + cup_h)],
+         fill=fill, line_c='dark', lw=1.5)
+    circle(S, cx - w / 2 - 0.02, y + cup_h * 0.35, h * 0.26, None, fill, lw=3)
+    circle(S, cx + w / 2 + 0.02, y + cup_h * 0.35, h * 0.26, None, fill, lw=3)
+    rect(S, cx - h * 0.05, y + cup_h, h * 0.1, h * 0.28, fill, 'dark', lw=1.0)
+    rrect(S, cx - w * 0.38, y + cup_h + h * 0.28, w * 0.76, h * 0.22, fill, 'dark', lw=1.5, radius=0.05)
+
+
+def globe(S, cx, cy, d, fill='water'):
+    circle(S, cx, cy, d, fill, 'white', lw=2)
+    oval(S, cx - d * 0.2, cy - d / 2, d * 0.4, d, None, 'white', lw=1.5)
+    line(S, cx - d / 2, cy, cx + d / 2, cy, 'white', 1.5)
+    line(S, cx - d * 0.43, cy - d * 0.25, cx + d * 0.43, cy - d * 0.25, 'white', 1.25)
+    line(S, cx - d * 0.43, cy + d * 0.25, cx + d * 0.43, cy + d * 0.25, 'white', 1.25)
+
+
+def bulb(S, cx, cy, d, fill='amber'):
+    circle(S, cx, cy, d, fill, None)
+    rrect(S, cx - d * 0.22, cy + d * 0.42, d * 0.44, d * 0.3, 'steel', None, radius=0.03)
+    rrect(S, cx - d * 0.16, cy + d * 0.7, d * 0.32, d * 0.12, 'steel', None, radius=0.03)

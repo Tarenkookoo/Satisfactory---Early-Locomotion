@@ -17,16 +17,16 @@ def s01(prs):
     put_text(t, 'After Launch:\vLate Steam, Driving\vand Prestige', size=54, bold=True,
              anchor='t', margin=(0, 0, 0, 0))
     t.name = 'Title'
-    rect(s.shapes, 0.6, 4.3, 1.8, 0.07, 'orange', None, name='Orange rule')
-    tbox(s.shapes, 0.6, 4.6, 6.7, 1.1,
-         'Ideas for after the first release, for people who love steam. All of it comes later.',
-         size=20, anchor='t', margin=(0, 0, 0, 0), name='Caption')
     picture(s.shapes, 'P12_9f_92203.jpg', 8.1, 0.45, 4.63, 6.35,
             'A large black British steam locomotive seen from the front three-quarter, '
             'standing on a heritage railway.', focus=(0.82, 0.5))
     credit(s.shapes, 8.1, 6.88, 4.63,
            'A real steam locomotive, shown for illustration.\vPhoto: Tony Hisgett, CC BY 2.0.',
            h=0.4)
+    rect(s.shapes, 0.6, 4.3, 1.8, 0.07, 'orange', None, name='Orange rule')
+    tbox(s.shapes, 0.6, 4.6, 6.7, 1.1,
+         'Ideas for after the first release, for people who love steam. All of it comes later.',
+         size=20, anchor='t', margin=(0, 0, 0, 0), name='Caption')
 
 
 # ------------------------------------------------------------------ 2 legend

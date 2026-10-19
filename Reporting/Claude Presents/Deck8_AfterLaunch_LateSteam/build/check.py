@@ -73,7 +73,9 @@ def main(path):
                         # line breaks are separate elements; approximate with element text
                         ptxt = p.text
                         if tf.word_wrap is False:
-                            if text_w(ptxt.replace('\v', ' '), sz, bold) > wi + 0.02:
+                            rw = sum(text_w(r.text.replace('\v', ' '), r.font.size.pt if r.font.size else sz,
+                                            bool(r.font.bold)) for r in p.runs)
+                            if rw > wi + 0.02:
                                 problems.append('slide %d: "%s" wider than its chip/box (%s)' % (n, ptxt[:30], sh.name))
                             need += sz * 1.2 / 72
                         else:
