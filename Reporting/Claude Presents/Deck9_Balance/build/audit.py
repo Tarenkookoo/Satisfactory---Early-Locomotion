@@ -164,6 +164,16 @@ def audit(path):
                     c = contrast(col, f)
                     if c < 4.5:
                         problems.append((n, "low contrast %.1f for %r on %s" % (c, r.text[:25], f)))
+        # tables (credits): font size and fit
+        for sh in leaves:
+            if getattr(sh, "has_table", False) and sh.has_table:
+                for row in sh.table.rows:
+                    for cell in row.cells:
+                        for p in cell.text_frame.paragraphs:
+                            for r in p.runs:
+                                if r.font.size is None or r.font.size.pt < 11:
+                                    problems.append((n, "table text below 11 pt"))
+                allw += sum(len(c.text_frame.text.split()) for row in sh.table.rows for c in row.cells)
         # bounds
         for sh in leaves:
             if sh.shape_type == MSO_SHAPE_TYPE.GROUP:
