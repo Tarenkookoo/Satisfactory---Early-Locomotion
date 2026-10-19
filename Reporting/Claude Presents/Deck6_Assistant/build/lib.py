@@ -508,6 +508,12 @@ def speech_bubble(sh, x, y, w, h, text, fill, tcolor, size=20, bold=True, tail="
         tx = x + (0.55 if tail == "bl" else w - 0.55 - tail_w)
         pts = [(tx, y + h - 0.02), (tx + tail_w, y + h - 0.02),
                (tx + (tail_w * 0.15 if tail == "bl" else tail_w * 0.85), y + h + tail_len)]
+    elif tail in ("l", "r"):  # tail on the left or right side, low down
+        ty = y + h - 0.3 - tail_w
+        if tail == "l":
+            pts = [(x + 0.02, ty), (x + 0.02, ty + tail_w), (x - tail_len, ty + tail_w * 0.7)]
+        else:
+            pts = [(x + w - 0.02, ty), (x + w - 0.02, ty + tail_w), (x + w + tail_len, ty + tail_w * 0.7)]
     else:  # tl / tr
         tx = x + (0.55 if tail == "tl" else w - 0.55 - tail_w)
         pts = [(tx, y + 0.02), (tx + tail_w, y + 0.02),

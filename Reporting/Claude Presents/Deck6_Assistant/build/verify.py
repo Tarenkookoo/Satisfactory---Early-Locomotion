@@ -22,7 +22,7 @@ EXPECTED_TAGS = {"AGREED": [3, 4, 5, 6, 7, 8, 9, 10, 12], "PROPOSED": [11, 14, 1
                  "UNDECIDED": [13, 19, 22], "PROVISIONAL": [21], "NONE": [1, 2, 23]}
 SW, SH = 13.333, 7.5
 BG = (0x1E, 0x21, 0x26)
-NOT_COUNTED = ("CHIP", "CHIP LEGEND", "NUM", "TITLE")
+NOT_COUNTED = ("CHIP", "CHIP LEGEND", "CHIP CARD", "NUM", "TITLE")
 
 
 def lum(c):
@@ -56,6 +56,26 @@ def fill_of(sp):
     return None
 
 
+def bbox(sp):
+    return (Emu(sp.left).inches, Emu(sp.top).inches, Emu(sp.left + sp.width).inches, Emu(sp.top + sp.height).inches)
+
+
+def under_fill(flat, sp):
+    l, t, r, b = bbox(sp)
+    cx, cy = (l + r) / 2, (t + b) / 2
+    idx = [i for i, o in enumerate(flat) if o is sp or o._element is sp._element]
+    for o in reversed(flat[:idx[0]] if idx else flat):
+        if o.shape_type == 6:
+            continue
+        f = fill_of(o)
+        if f is None:
+            continue
+        ol, ot, orr, ob = bbox(o)
+        if ol <= cx <= orr and ot <= cy <= ob:
+            return f
+    return None
+
+
 def runs_of(sp):
     if not sp.has_text_frame:
         return
@@ -79,7 +99,8 @@ def main():
         warn = []
         title = s.shapes.title.text_frame.text if s.shapes.title is not None else "(no title)"
         chip = None
-        for sp in walk(s.shapes):
+        flat = list(walk(s.shapes))
+        for sp in flat:
             # bounds
             if sp.width is not None and sp.left is not None:
                 l, t, r, b = (Emu(sp.left).inches, Emu(sp.top).inches, Emu(sp.left + sp.width).inches,
@@ -121,8 +142,8 @@ def main():
                         warn.append(f"overflow? '{txt[:28]}' needs {need:.2f} in, has {h:.2f} (lines {n})")
                     if len(tf.paragraphs) == 1 and text_w(max(txt.split(), key=len), sz, bold) > w + 0.02:
                         warn.append(f"long word wider than box: '{txt[:28]}'")
-                # contrast against own fill, else background
-                f = fill_of(sp) or BG
+                # contrast against own fill, else the nearest filled shape underneath, else background
+                f = fill_of(sp) or under_fill(flat, sp) or BG
                 for r in runs_of(sp):
                     try:
                         c = r.font.color.rgb
