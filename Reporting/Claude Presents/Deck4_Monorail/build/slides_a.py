@@ -31,13 +31,14 @@ def slide1(prs):
     r.text = "The Monorail Transition"
     _font(r, 54, TEXT, True)
     sh = s.shapes
+    # reading order: title, visual (picture and credit), then rule and caption
+    picture(sh, "R02_track_hero_hd_v004.jpg", 7.75, 0.45, 4.98, 6.2, R02_ALT, focus=(0.43, 0.5), radius=0.08,
+            name="PICTURE R02")
+    credit(sh, 7.75, 6.74, 4.98, R02_CREDIT)
     rect(sh, MARGIN, 3.9, 2.4, 0.08, ORANGE, None, name="TITLE RULE")
     label(sh, MARGIN, 4.2, 6.4, 1.6,
           "What happens when the game's electric trains arrive, and how the mod plans to handle it.",
           20, TEXT, align="l", anchor="t", name="CAPTION", margins=(0, 0, 0, 0))
-    picture(sh, "R02_track_hero_hd_v004.jpg", 7.75, 0.45, 4.98, 6.2, R02_ALT, focus=(0.43, 0.5), radius=0.08,
-            name="PICTURE R02")
-    credit(sh, 7.75, 6.74, 4.98, R02_CREDIT)
 
 
 # ------------------------------------------------------------------ slide 2
@@ -116,7 +117,7 @@ def slide4(prs):
         rect(gs, sx, cy + r + 0.14, 0.4, 0.3, SLEEPER, None)
     rect(gs, 0.9, cy + r + 0.44, 4.2, 0.1, ground, None)
     tick(gs, 4.95, 1.95, 0.55)
-    label(gs, 0.8, 5.0, 4.4, 0.8, "Steam wheel on a rail", 20, TEXT, True, anchor="m")
+    label(gs, 0.8, 5.0, 4.4, 0.8, "Steam wheel", 20, TEXT, True, anchor="m")
     # clamp wheel on a beam
     g = group(sh, "DIAGRAM clamp wheel", "Clamp wheels gripping a beam from above and both sides, with a green tick: it works on its own track.")
     gm = g.shapes
@@ -130,7 +131,7 @@ def slide4(prs):
     rect(gm, cx - 1.0, 2.62, 0.34, 1.1, ELEC, None, radius=0.1)
     rect(gm, cx + 0.66, 2.62, 0.34, 1.1, ELEC, None, radius=0.1)
     tick(gm, 12.25, 1.95, 0.55)
-    label(gm, 8.13, 5.0, 4.4, 0.8, "Clamp wheel on a beam", 20, TEXT, True, anchor="m")
+    label(gm, 8.13, 5.0, 4.4, 0.8, "Clamp wheel", 20, TEXT, True, anchor="m")
     # crossed double arrow
     g = group(sh, "DIAGRAM cannot swap", "A double arrow between the two wheels, crossed out in red: they cannot swap.")
     gx = g.shapes

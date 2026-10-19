@@ -158,22 +158,24 @@ def slide12(prs):
 def slide13(prs):
     s = new_slide(prs, "Mixed networks", "Proposed")
     sh = s.shapes
-    ty = 3.65
+    d = 0.3  # vertical centring offset
+    ty = 3.65 + d
+    up, down = 2.3 + d, 4.95 + d
     g = group(sh, "DIAGRAM mixed network",
               "A blue electric main line with orange steam branches joining it at three squares labelled Interchange.")
     gs = g.shapes
     rect(gs, 0.9, ty - 0.1, 11.5, 0.2, ELEC, None, radius=0.05)
     # branches: up, down, up
-    poly(gs, [(3.4, ty), (3.4, 2.3), (1.7, 2.3)], None, ORANGE, 6, closed=False)
-    poly(gs, [(6.8, ty), (6.8, 4.95), (8.5, 4.95)], None, ORANGE, 6, closed=False)
-    poly(gs, [(10.2, ty), (10.2, 2.3), (11.9, 2.3)], None, ORANGE, 6, closed=False)
-    for (tx, tyy) in ((1.55, 2.3), (8.65, 4.95), (12.05, 2.3)):
+    poly(gs, [(3.4, ty), (3.4, up), (1.7, up)], None, ORANGE, 6, closed=False)
+    poly(gs, [(6.8, ty), (6.8, down), (8.5, down)], None, ORANGE, 6, closed=False)
+    poly(gs, [(10.2, ty), (10.2, up), (11.9, up)], None, ORANGE, 6, closed=False)
+    for (tx, tyy) in ((1.55, up), (8.65, down), (12.05, up)):
         oval(gs, tx - 0.2, tyy - 0.2, 0.4, 0.4, ORANGE, LIGHT, 2.5)
-    for nx, up in ((3.4, True), (6.8, False), (10.2, True)):
+    for nx, is_up in ((3.4, True), (6.8, False), (10.2, True)):
         rect(gs, nx - 0.2, ty - 0.2, 0.4, 0.4, LIGHT, DARK, 2.5)
-        label(gs, nx - 0.9, ty + 0.3 if up else ty - 0.68, 1.8, 0.38, "Interchange", 16, TEXT, True)
+        label(gs, nx - 0.9, ty + 0.3 if is_up else ty - 0.68, 1.8, 0.38, "Interchange", 16, TEXT, True)
     label(gs, 0.9, ty - 0.7, 2.4, 0.4, "Electric main line", 18, ELEC, True, align="l")
-    label(gs, 1.7, 1.75, 2.8, 0.4, "Steam branches", 18, ORANGE, True, align="l")
+    label(gs, 1.7, up - 0.55, 2.8, 0.4, "Steam branches", 18, ORANGE, True, align="l")
     finish(s, "Steam branches could live beside an electric main line.", 13)
 
 

@@ -150,7 +150,8 @@ def finish(slide, caption, n):
     bar_y, bar_h = 6.3, 0.8
     rect(sh, MARGIN, bar_y, 12.13, bar_h, PANEL, None, radius=0.08, name="CAPTION BAR")
     rect(sh, MARGIN, bar_y + 0.06, 0.08, bar_h - 0.12, ORANGE, None, name="CAPTION RULE")
-    tb = label(sh, 0.85, bar_y, 11.75, bar_h, caption, 20, TEXT, align="l", anchor="m", name="CAPTION")
+    tb = label(sh, 0.85, bar_y, 11.75, bar_h, caption, 20, TEXT, align="l", anchor="m", name="CAPTION",
+               spacing=0.95)
     if n is not None:
         label(sh, RIGHT - 1.0, 7.14, 1.0, 0.3, str(n), 14, MUTED, align="r", name="NUM")
     return tb
@@ -600,3 +601,26 @@ def offset_pts(pts, d):
         n = math.hypot(dx, dy)
         out.append((x - dy / n * d, y + dx / n * d))
     return out
+
+
+def arc(sh, cx, cy, r, a0, a1, color=ORANGE, w=3.5, head=True, n=36, name=None):
+    """Circular arc from angle a0 to a1 (degrees, counter-clockwise on screen), optional arrow head at the end."""
+    pts = []
+    for i in range(n + 1):
+        a = math.radians(a0 + (a1 - a0) * i / n)
+        pts.append((cx + r * math.cos(a), cy - r * math.sin(a)))
+    shp = poly(sh, pts, None, color, w, closed=False, name=name)
+    if head:
+        _ends(shp, False, True)
+    return shp
+
+
+def note_strip_at(sh, kind, text, x, y, w, h=0.65, size=20, name="NOTE"):
+    """Like note_strip, but with an explicit x and width."""
+    g = sh.add_group_shape()
+    g.name = name
+    set_alt(g, "Note: %s (%s)." % (text, kind), name)
+    rect(g.shapes, x, y, w, h, PANEL, None, radius=0.08)
+    chip(g.shapes, kind, x + 0.25, y + (h - 0.34) / 2, None, 0.34, 14, name="ICHIP")
+    label(g.shapes, x + 0.25 + chip_w(kind) + 0.25, y, w - chip_w(kind) - 0.8, h, text, size, TEXT, align="l")
+    return g
