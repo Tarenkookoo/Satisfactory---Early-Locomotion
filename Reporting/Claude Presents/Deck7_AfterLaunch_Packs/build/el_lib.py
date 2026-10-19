@@ -74,6 +74,11 @@ def new_deck():
     cp.author = AUTHOR
     cp.last_modified_by = AUTHOR
     cp.language = LANG
+    import datetime
+    now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None, microsecond=0)
+    cp.created = now
+    cp.modified = now
+    cp.revision = 1
     cp.subject = 'Explainer deck for the Early Locomotion project (Satisfactory mod)'
     cp.keywords = ''
     cp.comments = ''
@@ -154,7 +159,8 @@ def inline_chip(S, x, y, status, label, size=14, h=0.34, name=None):
 
 def caption(slide, text):
     lines = wrap_lines(text, 20, False, 11.45)
-    two = len(lines) > 1
+    # a caption that is within 0.7 in of wrapping gets the taller bar, so a different renderer cannot overflow it
+    two = len(lines) > 1 or text_w(text, 20) > 10.9
     y, h = (6.2, 0.8) if two else (6.4, 0.6)
     S = slide.shapes
     bar = rect(S, 0.6, y, 12.13, h, fill=PANEL, radius=0.08)
@@ -427,9 +433,9 @@ def wagon(S, x, y, w=1.1, h=0.5, fill=WAGON, line_c=None, dashed=False):
 
 
 def pack_box_icon(S, x, y, w=0.55, h=0.45, color=ORANGE):
-    rect(S, x, y, w, h, fill=None, line=color, lw=1.75, dash=DASH, radius=0.05)
-    rect(S, x + w * 0.42, y, w * 0.16, h, fill=color)
-    rect(S, x, y + h * 0.4, w, h * 0.16, fill=color)
+    """A small dashed box with a solid lid: a pack."""
+    rect(S, x, y + 0.12, w, h - 0.12, fill=None, line=color, lw=1.75, dash=DASH, radius=0.04)
+    rect(S, x - 0.05, y, w + 0.1, 0.16, fill=color, radius=0.03)
 
 
 def question_mark(S, cx, cy, d, color=MUTED, size=28, fill=None, outline=True):
@@ -445,3 +451,53 @@ def engine_geom(x, h, boiler=1.15, tender=0.0):
     bx0 = ox + 0.60 * u
     bx1 = bx0 + boiler * u
     return dict(ox=ox, boil_x0=bx0, boil_x1=bx1, width=(bx1 - x) + 0.05 * u, dome_x=bx0 + 0.4 * u)
+
+
+def ground(S, x, y, length, color=STEEL):
+    """Side-view track: a rail with sleeper ends below. y is the top of the rail."""
+    rect(S, x, y, length, 0.07, fill=color)
+    n = int(length / 0.5)
+    for i in range(n + 1):
+        sx = x + 0.1 + i * 0.5
+        if sx + 0.2 <= x + length:
+            rect(S, sx, y + 0.07, 0.2, 0.1, fill=SLEEPER)
+
+
+def coach(S, x, base, w=3.0, h=0.85, body=WAGON, windows=5, line_c=None, dashed=False):
+    """Side-view passenger coach: body with a row of windows and two bogies. base = y of the rail top."""
+    y = base - h - 0.1
+    rect(S, x, y, w, h, fill=body, line=line_c, lw=1.25, radius=0.1, dash=DASH if dashed else None)
+    ww = (w - 0.5) / windows
+    for i in range(windows):
+        rect(S, x + 0.25 + i * ww + 0.05, y + 0.15, ww - 0.12, 0.3, fill=AMBER, alpha=85, radius=0.03)
+    for cx in (x + 0.55, x + w - 0.55):
+        oval(S, cx - 0.1, y + h - 0.02, 0.2, 0.2, fill=PANEL_ALT, line=STEEL, lw=1)
+        oval(S, cx + 0.2, y + h - 0.02, 0.2, 0.2, fill=PANEL_ALT, line=STEEL, lw=1)
+    return y
+
+
+def freight_wagon(S, x, base, w=1.3, h=0.7, body=WAGON, crates=2):
+    y = base - h - 0.1
+    rect(S, x, y, w, h, fill=body, radius=0.04)
+    cw = (w - 0.2 - 0.1 * (crates - 1)) / crates
+    for i in range(crates):
+        rect(S, x + 0.1 + i * (cw + 0.1), y + 0.12, cw, h - 0.24, fill=PANEL_ALT, line=STEEL, lw=1)
+    for cx in (x + 0.25, x + w - 0.25):
+        oval(S, cx - 0.1, y + h - 0.02, 0.2, 0.2, fill=PANEL_ALT, line=STEEL, lw=1)
+    return y
+
+
+def table_borders(cell, color=LINE, w_pt=1.0):
+    tcPr = cell._tc.get_or_add_tcPr()
+    for tag in ('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB'):
+        old = tcPr.find(qn(tag))
+        if old is not None:
+            tcPr.remove(old)
+    for i, tag in enumerate(('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB')):
+        ln = etree.Element(qn(tag))
+        ln.set('w', str(int(w_pt * 12700)))
+        ln.set('cap', 'flat'); ln.set('cmpd', 'sng'); ln.set('algn', 'ctr')
+        sf = etree.SubElement(ln, qn('a:solidFill'))
+        c = etree.SubElement(sf, qn('a:srgbClr')); c.set('val', color)
+        etree.SubElement(ln, qn('a:prstDash')).set('val', 'solid')
+        tcPr.insert(i, ln)
