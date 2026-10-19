@@ -594,7 +594,8 @@ def pool_box(sh, x, y, w, h, cols, rows, filled, name="pool", empty_hl=None, acc
     for r in range(rows):
         for c in range(cols):
             sx, sy = x + pad + c * gw + 0.05, y + pad + r * gh + 0.05
-            if k < filled:
+            full = (k in filled) if isinstance(filled, (set, list, tuple)) else k < filled
+            if full:
                 rect(sh, sx, sy, gw - 0.1, gh - 0.1, ORANGE_DK, None, radius=0.04, name="slot full")
             elif empty_hl is not None and k == empty_hl:
                 rect(sh, sx, sy, gw - 0.1, gh - 0.1, None, AMBER, 2.0, radius=0.04, dash=MSO_LINE.DASH,
@@ -842,3 +843,46 @@ def rails_strip(sh, x, y, length, sleepers=True):
         while k * 0.4 < length:
             rect(sh, x + k * 0.4, y + 0.07, 0.14, 0.09, SLEEPER, None, name="sleeper")
             k += 1
+
+
+def ghost(g, color=None, alpha=0.3, outline=WATER, lw=1.25):
+    """Turn the solid shapes of a group into a translucent 'hologram' with a dashed outline."""
+    for shp in g.shapes:
+        if shp.shape_type == 9:  # straight connector
+            continue
+        try:
+            solid = shp.fill.type == 1
+        except Exception:
+            solid = False
+        if solid:
+            if color:
+                shp.fill.fore_color.rgb = rgb(color)
+            _set_alpha(shp._element.spPr.find(qn("a:solidFill")), alpha)
+            shp.line.color.rgb = rgb(outline)
+            shp.line.width = Pt(lw)
+            shp.line.dash_style = MSO_LINE.DASH
+
+
+def diamond(sh, x, y, w, h, fill=PANEL_ALT, line=ORANGE, lw=2.5, text=None, size=20, color=TEXT, bold=True,
+            name="decision"):
+    shp = sh.add_shape(MSO_SHAPE.DIAMOND, I(x), I(y), I(w), I(h))
+    style(shp, fill, line, lw)
+    shp.name = name
+    if text is not None:
+        _fill_tf(shp.text_frame, text, size, color, bold, "c", "m", (0, 0, 0, 0))
+    return shp
+
+
+def digit_plate(sh, x, y, w, h, n, border=ORANGE, band=None, name="number plate (digits)"):
+    """Plate with n digit blocks instead of real numbers (so no number is invented)."""
+    rect(sh, x, y, w, h, COAL, border, 2.25, radius=min(0.08, h / 3), name=name)
+    left = x + 0.12
+    if band:
+        rect(sh, x + 0.1, y + 0.1, w * 0.16, h - 0.2, band, None, radius=0.03, name="operator mark")
+        left = x + 0.1 + w * 0.16 + 0.1
+    avail = x + w - 0.12 - left
+    d = min(h * 0.46, avail / n * 0.62)
+    step = avail / n
+    for k in range(n):
+        rect(sh, left + k * step + (step - d) / 2, y + (h - d) / 2, d, d, TEXT, None, radius=d * 0.2,
+             name="digit block")
