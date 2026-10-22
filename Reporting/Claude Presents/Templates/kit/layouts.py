@@ -149,11 +149,11 @@ class Layout:
                        prompt=[(0, prompt)]))
 
     def chip(self):
-        x, y, w, h = k.CHIP_BOX
+        # No geometry or fill here on purpose: a layout placeholder that carries its own shape geometry gets its
+        # prompt text drawn onto slides by LibreOffice. set_status() writes the rounded shape on the slide chip.
         lst = lv(1, 14, bold=True, color="tx2", algn="ctr")
         self.add(ph_sp(self._next_id(), "Status chip", "body", 13, box=k.CHIP_BOX, anchor="ctr",
-                       ins=(0.06, 0, 0.06, 0), lst=lst, prompt=[(0, "STATUS")],
-                       geom=_geom_round(0.12, w, h), fill="<a:noFill/>"))
+                       ins=(0.06, 0, 0.06, 0), lst=lst, prompt=[(0, "STATUS")]))
 
     def caption(self):
         lst = lv(1, 20, color="tx1")

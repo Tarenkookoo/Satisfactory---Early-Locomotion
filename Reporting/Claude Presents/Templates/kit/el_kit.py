@@ -318,8 +318,8 @@ def rect(sh, x, y, w, h, fill=None, line=None, lw=1.5, radius=None, dash=None, a
 def box(sh, x, y, w, h, text, size=14, fill=PANEL, line=LINE, lw=1.5, color=TEXT, bold=False, radius=0.08,
         dash=None, align="c", anchor="m", name=None):
     """Labelled box: the basic diagram node."""
-    return rect(sh, x, y, w, h, fill, line, lw, radius, dash, name=name, text=text, size=size, color=color,
-                bold=bold, align=align, anchor=anchor, margins=(0.1, 0.05, 0.1, 0.05))
+    return rect(sh, x, y, w, h, fill, line, lw, radius, dash, name=name, text=(text or None), size=size,
+                color=color, bold=bold, align=align, anchor=anchor, margins=(0.1, 0.05, 0.1, 0.05))
 
 
 def oval(sh, x, y, w, h, fill=None, line=None, lw=1.5, alpha=None, name=None, text=None, size=14, color=TEXT,
@@ -924,6 +924,7 @@ def set_status(slide, kind, text=None):
     shp.text_frame.clear()
     fill_text(shp.text_frame, [[(text or kind.upper(), {"color": tcol, "bold": True})]])
     _strip_style(shp)
+    _round_geom(shp, 0.12)
     if fill is None:
         shp.fill.background()
     else:
@@ -937,6 +938,21 @@ def set_status(slide, kind, text=None):
         shp.line.dash_style = MSO_LINE.SOLID
     set_alt(shp, "Status: " + kind)
     return shp
+
+
+def _round_geom(shp, radius):
+    """Explicit position (all four values together) and rounded-rectangle geometry on a placeholder."""
+    x, y, w, h = shp.left, shp.top, shp.width, shp.height
+    shp.left, shp.top, shp.width, shp.height = x, y, w, h
+    spPr = shp._element.spPr
+    for g in spPr.findall(qn("a:prstGeom")):
+        spPr.remove(g)
+    geom = etree.Element(qn("a:prstGeom"))
+    geom.set("prst", "roundRect")
+    gd = etree.SubElement(etree.SubElement(geom, qn("a:avLst")), qn("a:gd"))
+    gd.set("name", "adj")
+    gd.set("fmla", "val %d" % int(min(0.5, radius / min(Emu(w).inches, Emu(h).inches)) * 100000))
+    spPr.find(qn("a:xfrm")).addnext(geom)
 
 
 def set_caption(slide, text):
@@ -1065,6 +1081,13 @@ def order_reading(slide):
     for _, shp in keyed:
         cur.addnext(shp._element)
         cur = shp._element
+
+
+def move_before(shape, other):
+    """Put `shape` immediately before `other` in the z-order and reading order of the same slide."""
+    el = shape._element
+    el.getparent().remove(el)
+    other._element.addprevious(el)
 
 
 def clone_shape(shape, slide):

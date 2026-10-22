@@ -1,11 +1,14 @@
 """check_template: structural and house-style checks for the template, the patterns deck and decks built from them.
 
-usage: python3 check_template.py FILE.pptx [FILE2.pptx ...] [--polished] [--words] [--quiet]
+usage: python3 check_template.py FILE.pptx [FILE2.pptx ...] [--polished] [--words] [--quiet] [--xsd DIR]
 
   --polished  the file went through tools/polish.py: transitions and animations are expected on slides
               (layouts and master must still be clean)
   --words     print the per-slide word table even when nothing is wrong
   --quiet     print only problems and the final verdict
+  --xsd DIR   also validate presentation, master, layouts, slides and theme against the ISO/IEC 29500-4 Transitional
+              schemas in DIR (pml.xsd, dml-main.xsd and the files they import). Optional: the schemas are not
+              shipped with the kit; see TEMPLATE_GUIDE.md for where the Templates build got them.
 
 Exit status 0 when every file passes, 1 when any error is found. Warnings never fail a file.
 
@@ -21,7 +24,7 @@ Checks (E = error, W = warning)
              E text overflow estimate; W word budget (25 aim, 45 cap; Status legend and Credits exempt);
              W loose diagram shapes outside groups
   xml        E child order of the common containers (what PowerPoint enforces and LibreOffice does not);
-             E unique shape ids per part
+             E unique shape ids per part; E schema validity (only with --xsd)
 """
 import os
 import re
@@ -622,8 +625,44 @@ def check_layouts(prs, rep):
                         rep.err("layouts", "font %s pt below the 14 pt floor (in '%s')" % (int(sz) / 100, nm))
 
 
+# ---------------------------------------------------------------- optional XSD validation
+def check_xsd(z, xsd_dir, rep):
+    """Validate the PresentationML parts and the theme against the Transitional schemas in xsd_dir."""
+    pml_path = os.path.join(xsd_dir, "pml.xsd")
+    dml_path = os.path.join(xsd_dir, "dml-main.xsd")
+    if not (os.path.exists(pml_path) and os.path.exists(dml_path)):
+        rep.err("xsd", "pml.xsd / dml-main.xsd not found in %s" % xsd_dir)
+        return
+    pml = etree.XMLSchema(etree.parse(pml_path))
+    dml = etree.XMLSchema(etree.parse(dml_path))
+    mc_alt = "{%s}AlternateContent" % MC
+    for n in sorted(z.namelist()):
+        if not n.endswith(".xml") or not n.startswith("ppt/"):
+            continue
+        root = etree.fromstring(z.read(n))
+        schema = None
+        if n.startswith(("ppt/slides/slide", "ppt/slideLayouts/slideLayout", "ppt/slideMasters/slideMaster")) \
+                or n == "ppt/presentation.xml":
+            schema = pml
+        elif n.startswith("ppt/theme/theme"):
+            schema = dml
+        if schema is None:
+            continue
+        for alt in list(root.iter(mc_alt)):        # polish.py writes a transition inside mc:AlternateContent
+            fb = alt.find("{%s}Fallback" % MC)
+            parent = alt.getparent()
+            pos = parent.index(alt)
+            parent.remove(alt)
+            if fb is not None:
+                for i, ch in enumerate(list(fb)):
+                    parent.insert(pos + i, ch)
+        if not schema.validate(root):
+            for e in list(schema.error_log)[:4]:
+                rep.err(n, "schema: line %d: %s" % (e.line, e.message[:160]))
+
+
 # ---------------------------------------------------------------- driver
-def check_file(path, polished=False, show_words=False, quiet=False):
+def check_file(path, polished=False, show_words=False, quiet=False, xsd_dir=None):
     rep = Report(path, quiet)
     with zipfile.ZipFile(path) as z:
         roots = check_package(z, rep)
@@ -631,6 +670,8 @@ def check_file(path, polished=False, show_words=False, quiet=False):
         check_transitions(roots, rep, polished)
         check_language(roots, z, rep)
         check_theme(z, roots, rep)
+        if xsd_dir:
+            check_xsd(z, xsd_dir, rep)
         names = z.namelist()
     ext = os.path.splitext(path)[1].lower()
     rows = []
@@ -664,12 +705,18 @@ def check_file(path, polished=False, show_words=False, quiet=False):
 
 
 if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    flags = {a for a in sys.argv[1:] if a.startswith("--")}
+    argv = sys.argv[1:]
+    xsd = None
+    if "--xsd" in argv:
+        i = argv.index("--xsd")
+        xsd = argv[i + 1]
+        del argv[i:i + 2]
+    args = [a for a in argv if not a.startswith("--")]
+    flags = {a for a in argv if a.startswith("--")}
     if not args:
         print(__doc__)
         sys.exit(2)
     ok = True
     for f in args:
-        ok = check_file(f, "--polished" in flags, "--words" in flags, "--quiet" in flags) and ok
+        ok = check_file(f, "--polished" in flags, "--words" in flags, "--quiet" in flags, xsd) and ok
     sys.exit(0 if ok else 1)
