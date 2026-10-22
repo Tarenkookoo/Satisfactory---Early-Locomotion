@@ -24,10 +24,7 @@ works on a slide, inside a group, or on a layout.
 Type floor: nothing below 14 pt, except credit lines (10 pt) and credits tables (11 pt).
 """
 import copy
-import math
 import os
-import re
-import uuid
 import zipfile
 
 from lxml import etree
@@ -38,7 +35,6 @@ from pptx.enum.dml import MSO_LINE
 from pptx.enum.lang import MSO_LANGUAGE_ID
 from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
-from pptx.oxml import parse_xml
 from pptx.oxml.ns import qn
 from pptx.shapes.shapetree import SlideShapes
 from pptx.util import Emu, Inches, Pt
@@ -553,7 +549,7 @@ def set_cell(cell, text, size, color=TEXT, bold=False, fill=None, align="l", bor
 
 
 def _format_table(tbl, data, col_w, size, header, header_fill, aligns, row_fill, border, total_h):
-    rows, cols = len(data), len(data[0])
+    rows = len(data)
     tblPr = tbl._tbl.tblPr
     tblPr.set("firstRow", "1" if header else "0")
     tblPr.set("bandRow", "0")
@@ -1032,7 +1028,6 @@ def _add_slide_number(slide):
 def finish(slide, prune=True, number=True):
     """Final tidy for one slide: drop unfilled placeholders, add the slide number, put shapes in reading order
     (title, status chip, visuals, caption, slide number)."""
-    tree = slide.shapes._spTree
     if prune:
         for shp in list(slide.placeholders):
             if shp.has_text_frame and not shp.text_frame.text.strip():

@@ -27,7 +27,6 @@ Checks (E = error, W = warning)
              E unique shape ids per part; E schema validity (only with --xsd)
 """
 import os
-import re
 import sys
 import zipfile
 
@@ -672,7 +671,6 @@ def check_file(path, polished=False, show_words=False, quiet=False, xsd_dir=None
         check_theme(z, roots, rep)
         if xsd_dir:
             check_xsd(z, xsd_dir, rep)
-        names = z.namelist()
     ext = os.path.splitext(path)[1].lower()
     rows = []
     n_slides = 0
